@@ -1,26 +1,30 @@
 {
   "name": "birch-artifact-list-item",
-  "version": "1.0.7",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Matthew Liechty <matthew@liechty.org>"
   ],
-  "description": "An element providing a solution to no problem in particular.",
+  "description": "An element that renders any artifact in the gallery list format",
   "keywords": [
-    "web-component",
-    "polymer",
-    "seed"
+    "button",
+    "styleguide"
   ],
   "main": "birch-artifact-list-item.html",
-  "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "license": "MIT",
+  "homepage": "",
   "ignore": [
-    "/.*",
-    "/test/"
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "/demo"
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
     "iron-list": "^1.3.1",
-    "iron-image": "^1.2.3"
+    "iron-image": "^1.2.3",
+    "wc-i18n": "jshcrowthe/wc-i18n#^1.1.0",
+    "oak-i18n-behavior": "FamilySearchElements/oak-i18n-behavior"    
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
