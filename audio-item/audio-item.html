@@ -1,0 +1,80 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../layout/layout.html">
+
+<dom-module id='audio-item'>
+  <link rel="import" type="css" href="styles.css">
+  <template>
+    <audio src$="[[audioUrl]]" id="audio" preload="auto" on-ended="_audioReset" on-canplay="_audioReady"></audio>
+    <div class="layout vertical">
+      <!-- AUDIO CONTROLS -->
+      <div class="layout horizontal center-justified center relative full">
+        <!-- PLAY BUTTON -->
+        <span id="actionplay" class="audio-control layout horizontal">
+          <i class="audio-icon play-icon"  hidden$="{{_audioObj.playing}}" on-tap="toggleAudio"></i>
+          <i class="audio-icon pause-icon" hidden$="{{!_audioObj.playing}}" on-tap="toggleAudio"></i>
+        </span>
+      </div>
+    </div>
+  </template>
+</dom-module>
+<script>
+(function() {
+  var playingAudioNode = null;
+
+  function pad(n) {
+    return (n < 10) ? ("0" + n) : n;
+  }
+  Polymer({
+    is: 'audio-item',
+    properties: {
+      audioUrl: {
+        type: String,
+        value: null
+      },
+      _audioObj: {
+        type: Object,
+        value: function() { return {}; }
+      }
+    },
+    ready: function() {
+      this._setupAudioObj();
+    },
+    _setupAudioObj: function() {
+      this._audioObj = {
+        elapsed: '0:00',
+        duration: '0:00',
+        ready: false,
+        playing: false,
+        initialized: false
+      };
+    },
+    _audioReset: function() {
+      this.set('_audioObj.playing', false);
+    },
+    _audioReady: function() {
+      this.set('_audioObj.ready', true);
+    },
+    toggleAudio: function(e) {
+      var self = this;
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (!this._audioObj.initialized) this.set('_audioObj.initialized', true);
+      if (this.$.audio.paused) {
+        if (playingAudioNode) playingAudioNode.toggleAudio();
+        this.$.audio.play();
+        playingAudioNode = this;
+        this.addEventListener('ended', function(){
+          playingAudioNode = null;
+          self.removeEventListener('ended');
+        });
+      } else {
+        this.$.audio.pause();
+        playingAudioNode = null;
+      }
+      this.set('_audioObj.playing', !this.$.audio.paused);
+    }
+  });
+})();
+</script>
