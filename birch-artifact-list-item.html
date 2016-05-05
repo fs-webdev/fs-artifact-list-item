@@ -90,8 +90,8 @@ Example:
       height: 100%;
       overflow: hidden;
     }
-    .title a, .place a, .date a {
-      text-decoration: none;
+    .col .title-text, .col .date-text, .col .place-text {
+      color: #555;
     }
     .comment-note, .tag-note {
       display: inline-block;
@@ -227,7 +227,9 @@ Example:
       <div class='col col-1'>
         <div class='list-preview'>
           <template is='dom-if' if="[[data.thumbUrl]]">
-            <iron-image sizing="cover" position="center 15%" class="thumbnail" src="[[data.thumbUrl]]"></iron-image>
+            <a href$='[[_href]]'>
+              <iron-image sizing="cover" position="center 15%" class="thumbnail" src="[[data.thumbUrl]]"></iron-image>
+            </a>
           </template>
           <template is='dom-if' if='{{_isAudio(data.category)}}'>
               <audio-item audio-url='[[data.url]]'></audio-item>
@@ -237,7 +239,7 @@ Example:
           </template>
         </div>
         <div class="title" title='[[data.title]]' on-tap="_stopProp">
-          <span class='title-text' href$='[[_href]]' hidden='[[!data.title]]'><strong>[[data.title]]</strong></span>
+          <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]'><strong>[[data.title]]</strong></a>
           <a href$='[[_href]]?focus=title' hidden='[[data.title]]'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
           </a>
@@ -245,13 +247,17 @@ Example:
       </div>
       <div class='col col-2'>
         <div class='date' title='[[data.datesPlaces.0.dateNormalizedText]]'>
-          <span hidden='[[!data.datesPlaces.0.dateNormalizedText]]'>[[data.datesPlaces.0.dateNormalizedText]]</span>
+          <a href$='[[_href]]?focus=date' class='date-text'>
+            <span hidden='[[!data.datesPlaces.0.dateNormalizedText]]'>[[data.datesPlaces.0.dateNormalizedText]]</span>
+          </a>
           <a href$='[[_href]]?focus=date' hidden='[[data.datesPlaces.0.dateNormalizedText]]'>
-            <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_date'></wc-i18n>
+            <i class='add-icon' ></i><wc-i18n key='birch-artifact-list-item.add_date'></wc-i18n>
           </a>
         </div>
         <div class='place' title='[[data.datesPlaces.0.placeNormalizedText]]'>
-          <span hidden='[[!data.datesPlaces.0.placeNormalizedText]]'><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
+          <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!data.datesPlaces.0.placeNormalizedText]]'>
+            <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
+          </a>
           <a href$='[[_href]]?focus=place' hidden='[[data.datesPlaces.0.placeNormalizedText]]'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
           </a>
@@ -259,7 +265,9 @@ Example:
       </div>
       <div class='col col-3'>
         <div class='place' title='[[data.datesPlaces.0.placeNormalizedText]]'>
-          <span hidden='[[!data.datesPlaces.0.placeNormalizedText]]'><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
+          <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!data.datesPlaces.0.placeNormalizedText]]'>
+            <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
+          </a>
           <a href$='[[_href]]?focus=place' hidden='[[data.datesPlaces.0.placeNormalizedText]]'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
           </a>
