@@ -70,7 +70,7 @@ Example:
       margin: 0;
     }
     .col-1 {
-      width: 31%;
+      width: 34%;
     }
     .col-2 {
       width: 20%;
@@ -82,7 +82,8 @@ Example:
       width: 28%;
     }
     .col-4 {
-      width: 13%;
+      width: 16%;
+      text-align: center;
     } 
     .col .title {
       display: block;
@@ -190,6 +191,7 @@ Example:
       }
       .col-4 {
         width: 9%;
+        text-align: start;
         position: relative;
       }
       .list-preview {
@@ -256,7 +258,7 @@ Example:
         </div>
         <div class='place' title='[[data.datesPlaces.0.placeNormalizedText]]'>
           <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!data.datesPlaces.0.placeNormalizedText]]'>
-            <span>[[data.datesPlaces.0.placeNormalizedText]]</span>
+            <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
           </a>
           <a href$='[[_href]]?focus=place' hidden='[[data.datesPlaces.0.placeNormalizedText]]'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
@@ -304,6 +306,10 @@ Example:
           type: String,
           computed: '_computeHref(data.id)'
         },
+        mobile: {
+          type: Boolean,
+          value: false
+        },
         selectMode: {
           type: Boolean,
           value: false
@@ -313,6 +319,9 @@ Example:
           value: false
         }
       },
+      observers: [
+        '_displayFourthColumn(mobile, selectMode)'
+      ],
       _computeHref: function(id) {
         var origin = window.location.origin;
         var path = (origin === 'http://localhost:5000') ? '' : '/photos';
@@ -328,6 +337,18 @@ Example:
       _isStory: function(category){
         console.log(category)
         return category && category == "TEXT";
+      },
+      _displayFourthColumn: function(mobile, selectMode) {
+        if (!mobile && !selectMode) return;
+        var commentEl = this.$$('.comment-note');
+        var personTagEl = this.$$('.tag-note');
+        if (mobile && selectMode && Boolean(commentEl) && Boolean(personTagEl)) {
+          commentEl.hidden = true;
+          personTagEl.hidden = true;
+        } else if ((commentEl.hidden || personTagEl.hidden) && Boolean(commentEl) && Boolean(personTagEl) ) {
+          commentEl.hidden = false;
+          personTagEl.hidden = false;
+        }
       },
       _stopProp: function(e) {
         if (!this.selectMode) e.stopPropagation();
