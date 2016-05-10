@@ -227,7 +227,7 @@ Example:
   <template>
     <wc-i18n-src locale='[[lang]]' locale-dir='[[localeDir()]]' domain='birch-artifact-list-item'></wc-i18n-src>
     <style include='fs-styles'></style>
-    <div id='container'>
+    <div id='container' on-tap='_goToArtifact'>
       <div class='col col-1'>
         <div class='list-preview'>
           <template is='dom-if' if="[[data.thumbUrl]]">
@@ -242,7 +242,7 @@ Example:
             <i class='story-icon'></i>
           </template>
         </div>
-        <div class="title" title='[[data.title]]' on-tap="_stopProp">
+        <div class="title" title='[[data.title]]'>
           <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]'><strong>[[data.title]]</strong></a>
           <a href$='[[_href]]?focus=title' hidden='[[data.title]]'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
@@ -328,6 +328,10 @@ Example:
         var origin = window.location.origin;
         var path = (origin === 'http://localhost:5000') ? '' : '/photos';
         return origin + path + '/artifacts/' + id;
+      },
+      _goToArtifact: function() {
+        if (this.selectMode) return;
+        window.location.href = this._href;
       },
       _hideTagging: function(photoTagCount, readOnly) {
         if (photoTagCount !== 0 || readOnly) return true
