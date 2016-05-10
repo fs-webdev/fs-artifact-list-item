@@ -15,6 +15,7 @@
   border-top: 1px #cccccc solid;
   padding: 4px 13px 0px 48px;;
   box-sizing: border-box;  
+  @apply(--list-item-card-styles);
 }
 .thumbnail {
   width: 40px;
