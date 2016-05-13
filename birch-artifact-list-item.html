@@ -329,9 +329,10 @@ Example:
         var path = (origin === 'http://localhost:5000') ? '' : '/photos';
         return origin + path + '/artifacts/' + id;
       },
-      _goToArtifact: function() {
+      _goToArtifact: function(e) {
         if (this.selectMode) return;
         window.location.href = this._href;
+        e.stopPropagation();
       },
       _hideTagging: function(photoTagCount, readOnly) {
         if (photoTagCount !== 0 || readOnly) return true
