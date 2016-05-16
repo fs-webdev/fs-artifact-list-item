@@ -1,0 +1,155 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../wc-i18n/wc-i18n.html">
+<link rel="import" href="../oak-i18n-behavior/oak-i18n-behavior.html">
+<link rel="import" href="./birch-artifact-list-item.html">
+
+<dom-module id='birch-artifact-list-item-preview'>
+  <link rel="import" type="css" href="birch-artifact-list-item.css">
+  <template>
+   <style include='fs-styles'></style>
+    <div id='container' on-tap='_goToArtifact'>
+      <div class='col col-1'>
+        <div class='list-preview'>
+          <template is='dom-if' if="[[data.thumbUrl]]">
+            <a href$='[[_href]]'>
+              <iron-image sizing="cover" position="center 15%" class="thumbnail processing" src="[[data.thumbUrl]]"></iron-image>
+            </a>
+          </template>
+        </div>
+        <div class="title">
+          <div id="memory-title" hidden="[[!data.uploadError]]"></div>
+        </div>
+      </div>
+      <div class='col col-2'>
+        <div hidden="[[!loading]]">
+          <span>Uploading</span> <i class="spinner"></i>
+        </div>
+      </div>
+    </div>
+  </template>
+</dom-module>
+<script>
+(function() {
+
+  var getScaledImage = function(dataUrl) {
+    return new Promise(function(resolve, reject) {
+      var size = 170;
+      var canvas = document.createElement("canvas");
+      var c = canvas.getContext("2d");
+      var img = new Image();
+      img.onload = function(e) {
+        var scale = size / (this.width > this.height ? this.width : this.height);
+        canvas.width = this.width * scale;
+        canvas.height = this.height * scale;
+        c.drawImage(this, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL("image/jpeg", 1));
+      }
+      img.src = dataUrl;
+    });
+  }
+
+  Polymer({
+    is: 'birch-artifact-list-item-preview',
+    behaviors: [
+      WCI18nBehavior,
+      OakI18nBehavior
+    ],
+    properties: {
+      /**
+       * A file upload object containing two properties 
+       * ```
+       * {
+       *   file: FileObject,
+       *   promise: PromiseObject
+       * }
+       * ```
+       *
+       * If the promise resolves with an object with an `err`
+       * property **or** rejects then error handling will occur
+       * based on the err type
+       *
+       * Otherwise the promise should resolve with an object 
+       * containing an `artifact` property. This property will be
+       * used to bootstrap the underlying `birch-artifact-list-item`
+       * @type {Object}
+       */
+      data: {
+        type: Object,
+        value: function(){ return {}; },
+        observer: '_attachPromiseHandler',
+        notify: true
+      },
+      loading: {
+        type: Boolean,
+        value: true
+      },
+    },
+    listeners: {
+      tap: '_stopPropagation',
+      contextmenu: '_stopPropagation'
+    },
+    /**
+     * Handles the updating of data we need this
+     * because iron-list listens for changes to items.*
+     * and an actual item changing breaks it. Therefore
+     * we set all of the properties individually and it fixes
+     * the issue
+     */
+    _stopPropagation: function(e) {
+      e.stopPropagation();
+    },
+    _updateData: function(artifact) {
+      var keys = Object.keys(artifact);
+      keys.forEach(function(key) {
+        var path = 'data.' + key;
+        this.set(path, artifact[key]);
+      }.bind(this));
+    },
+    _attachPromiseHandler: function() {
+      if (!this.data || !this.data.promise || typeof this.data.promise.then !== 'function') return;
+      this.data.promise.then(function (result){
+        if(result.err){
+          this._handleUploadError(result.err);
+          return;
+        }
+        var artifact = (Array.isArray(result)) ? result[0] : result.artifact;
+        artifact.thumbUrl = this.data.thumbUrl || result.artifact.thumbSquareUrl;
+        if(!this.data.thumbUrl){
+          setTimeout(function(){
+            this._updateData(artifact);
+          }.bind(this), 5000);
+        } else {
+          this._updateData(artifact);
+        }
+        return result;
+      }.bind(this), this._handleUploadError.bind(this));
+      this._getDataUrl(this.data.file);
+    },
+    _handleUploadError: function(err){
+      if(err.includes('already exists')) err = 'duplicate';
+      switch(err){
+        case 'size':      this.set('data.tooBig', true);      break;
+        case 'fileType':  this.set('data.unsupported', true); break;
+        case 'duplicate': this.set('data.duplicate', true);   break;
+        default:          this.set('data.failure', true);     break;
+      }
+      this.loading = false;
+      this.set('data.uploadError', true);
+      if (this.data.file.name) this.$['memory-title'].innerText = this.data.file.name;
+    },
+    _getDataUrl: function(file){
+      var _this = this;
+      var reader = new FileReader();
+      reader.onload = (function() {
+        return function(e) {
+          getScaledImage(e.target.result).then(function(image) {
+            _this.set('data.thumbUrl', image);
+          });
+        };
+      })();
+      reader.readAsDataURL(file);
+    }
+  });
+})();
+</script>
