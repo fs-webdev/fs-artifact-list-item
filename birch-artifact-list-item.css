@@ -18,6 +18,9 @@
       box-sizing: border-box;  
       @apply(--list-item-container-styles);
     }
+    a:visited {
+      color: #0060d7;
+    }
     .thumbnail {
       width: 40px;
       height: 40px;
