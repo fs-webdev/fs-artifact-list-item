@@ -5,9 +5,10 @@
 <link rel="import" href="./birch-artifact-list-item.html">
 
 <dom-module id='birch-artifact-list-item-preview'>
-  <link rel="import" type="css" href="birch-artifact-list-item.css">
+  <link rel="import" type="css" href="birch-artifact-list-item-preview.css">
   <template>
    <style include='fs-styles'></style>
+   <wc-i18n-src locale='[[lang]]' locale-dir='[[localeDir()]]' domain='birch-artifact-list-item-preview'></wc-i18n-src>
     <div id='container' on-tap='_goToArtifact'>
       <div class='col col-1'>
         <div class='list-preview'>
@@ -25,6 +26,22 @@
         <div hidden="[[!loading]]">
           <span>Uploading</span> <i class="spinner"></i>
         </div>
+        <div class="error-text" hidden="[[!data.duplicate]]">
+          <span>
+            <wc-i18n key='birch-artifact-list-item-preview.duplicate'></wc-i18n>
+          </span>
+        </div>
+        <div class="error-text" hidden="[[!data.tooBig]]">
+          <span>
+            <wc-i18n key='birch-artifact-list-item-preview.size'></wc-i18n>
+          </span>
+        </div>
+        <div class="error-text" hidden="[[!data.unsupported]]">
+          <span>
+            <wc-i18n key='birch-artifact-list-item-preview.unsupported'></wc-i18n>
+          </span>
+        </div>
+      </div>
       </div>
     </div>
   </template>
