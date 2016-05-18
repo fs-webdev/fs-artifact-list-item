@@ -14,7 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../oak-i18n-behavior/oak-i18n-behavior.html">
 <link rel="import" href="audio-item/audio-item.html">
 <link rel="import" href="../fs-styles/fs-styles.html">
-<script src='../Clamp.js/clamp.min.js'></script>
+<script src='../clampjs/clamp.min.js'></script>
 
 <!--
 An element that renders any artifact in the gallery list format
@@ -136,11 +136,13 @@ Example:
         this._clamp();
       },
       _clamp: function() {
-        if (window.innerWidth < 767) {
-          $clamp(this.$$('.title'), {clamp: 3});
-        } else {
-          $clamp(this.$$('.title'), {clamp: 2});
-        }
+        this.debounce('update-ellipsis', function() {
+          if (window.innerWidth < 767) {
+            $clamp(this.$$('.title'), {clamp: 3});
+          } else {
+            $clamp(this.$$('.title'), {clamp: 2});
+          }
+        }.bind(this), 100) 
       },
       _computeHref: function(id) {
         var origin = window.location.origin;
