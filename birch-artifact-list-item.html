@@ -34,8 +34,8 @@ Example:
   <template>
     <wc-i18n-src locale='[[lang]]' locale-dir='[[localeDir()]]' domain='birch-artifact-list-item'></wc-i18n-src>
     <style include='fs-styles'></style>
-    <div id='container' on-tap='_goToArtifact'>
-      <div class='col col-1'>
+    <div id='container'>
+      <div class='col col-1' on-tap='_goToArtifact'>
         <div class='list-preview'>
           <template is='dom-if' if="[[data.thumbUrl]]">
             <a href$='[[_href]]'>
@@ -56,7 +56,7 @@ Example:
           </a>
         </div>
       </div>
-      <div class='col col-2'>
+      <div class='col col-2' on-tap='_goToArtifact'>
         <div class='date' title='[[data.datesPlaces.0.dateNormalizedText]]'>
           <a href$='[[_href]]?focus=date' class='date-text'>
             <span hidden='[[!data.datesPlaces.0.dateNormalizedText]]'>[[data.datesPlaces.0.dateNormalizedText]]</span>
@@ -74,7 +74,7 @@ Example:
           </a>
         </div>
       </div>
-      <div class='col col-3'>
+      <div class='col col-3' on-tap='_goToArtifact'>
         <div class='place' title='[[data.datesPlaces.0.placeNormalizedText]]'>
           <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!data.datesPlaces.0.placeNormalizedText]]'>
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
@@ -84,7 +84,7 @@ Example:
           </a>
         </div>
       </div>
-      <div class='col col-4'>
+      <div class='col col-4' on-tap='_goToArtifact'>
         <div class='comment-note'>
           <a href$='[[_href]]'>
             <i class='comment-icon' hidden='[[!data.commentCount]]' href$='[[_href]]'>[[data.commentCount]]</i>
@@ -150,9 +150,10 @@ Example:
         var path = (origin === 'http://localhost:5000') ? '' : '/photos';
         return origin + path + '/artifacts/' + id;
       },
-      _goToArtifact: function() {
+      _goToArtifact: function(e) {
         if (this.selectMode) return;
         window.location.href = this._href;
+        this._stopProp(e);
       },
       _hideTagging: function(photoTagCount, readOnly) {
         if (photoTagCount !== 0 || readOnly) return true
