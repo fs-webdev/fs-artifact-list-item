@@ -136,11 +136,13 @@ Example:
         this._clamp();
       },
       _clamp: function() {
-        if (window.innerWidth < 767) {
-          $clamp(this.$$('.title'), {clamp: 3});
-        } else {
-          $clamp(this.$$('.title'), {clamp: 2});
-        }
+        this.debounce('update-ellipsis', function() {
+          if (window.innerWidth < 767) {
+            $clamp(this.$$('.title'), {clamp: 3});
+          } else {
+            $clamp(this.$$('.title'), {clamp: 2});
+          }
+        }.bind(this), 100) 
       },
       _computeHref: function(id) {
         var origin = window.location.origin;
