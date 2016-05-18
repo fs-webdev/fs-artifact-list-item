@@ -141,18 +141,24 @@
         padding-left: 10px;
         height: 58px;
       }
-
       .col-1 {
         width: 38%;
       }
       .col-3 {
         width: 24%;
       } 
-
       .thumbnail {
         width: 47px;
         height: 47px;
-      } 
+      }
+      .tag-note {
+        position: relative;
+        top: 7px;
+      }
+      .comment-note {
+        position: relative;
+        top: 6px;
+      }
     }
     @media all and (max-width: 767px) {
       #container {
@@ -191,12 +197,12 @@
         background-size: 14px;
       }
       .tag-note {
-        position: relative;
         top: -23px;
         right: -10px;
       }
       .comment-note {
         top: 20px;
+        height: 18px;
         position: relative;
       }
     }
