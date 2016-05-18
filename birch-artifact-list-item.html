@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../oak-i18n-behavior/oak-i18n-behavior.html">
 <link rel="import" href="audio-item/audio-item.html">
 <link rel="import" href="../fs-styles/fs-styles.html">
+<script src='../Clamp.js/clamp.min.js'></script>
 
 <!--
 An element that renders any artifact in the gallery list format
@@ -130,6 +131,17 @@ Example:
       observers: [
         '_displayFourthColumn(mobile, selectMode)'
       ],
+      ready: function() {
+        this.listen(window,'resize', '_clamp');
+        this._clamp();
+      },
+      _clamp: function() {
+        if (window.innerWidth < 767) {
+          $clamp(this.$$('.title'), {clamp: 3});
+        } else {
+          $clamp(this.$$('.title'), {clamp: 2});
+        }
+      },
       _computeHref: function(id) {
         var origin = window.location.origin;
         var path = (origin === 'http://localhost:5000') ? '' : '/photos';
