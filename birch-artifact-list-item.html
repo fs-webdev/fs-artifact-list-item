@@ -49,37 +49,37 @@ Example:
             <i class='story-icon'></i>
           </template>
         </div>
-        <div class="title" title='[[data.title]]'>
-          <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]'><strong>[[data.title]]</strong></a>
-          <a href$='[[_href]]?focus=title' hidden='[[data.title]]'>
+        <div class="title">
+          <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
+          <a href$='[[_href]]?focus=title' class='add-styles' hidden='[[data.title]]'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
           </a>
         </div>
       </div>
       <div class='col col-2' on-tap='_goToArtifact'>
-        <div class='date' title='[[data.datesPlaces.0.dateNormalizedText]]'>
-          <a href$='[[_href]]?focus=date' class='date-text'>
+        <div class='date'>
+          <a href$='[[_href]]?focus=date' class='date-text' title='[[data.datesPlaces.0.dateNormalizedText]]'>
             <span hidden='[[!data.datesPlaces.0.dateNormalizedText]]'>[[data.datesPlaces.0.dateNormalizedText]]</span>
           </a>
-          <a href$='[[_href]]?focus=date' hidden='[[data.datesPlaces.0.dateNormalizedText]]'>
+          <a href$='[[_href]]?focus=date' class='add-styles' hidden='[[data.datesPlaces.0.dateNormalizedText]]'>
             <i class='add-icon' ></i><wc-i18n key='birch-artifact-list-item.add_date'></wc-i18n>
           </a>
         </div>
-        <div class='place' title='[[data.datesPlaces.0.placeNormalizedText]]'>
-          <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!data.datesPlaces.0.placeNormalizedText]]'>
+        <div class='place'>
+          <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!data.datesPlaces.0.placeNormalizedText]]' title='[[data.datesPlaces.0.placeNormalizedText]]'>
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
           </a>
-          <a href$='[[_href]]?focus=place' hidden='[[data.datesPlaces.0.placeNormalizedText]]'>
+          <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[data.datesPlaces.0.placeNormalizedText]]'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
           </a>
         </div>
       </div>
       <div class='col col-3' on-tap='_goToArtifact'>
-        <div class='place' title='[[data.datesPlaces.0.placeNormalizedText]]'>
-          <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!data.datesPlaces.0.placeNormalizedText]]'>
+        <div class='place'>
+          <a href$='[[_href]]?focus=place' class='place-text' title='[[data.datesPlaces.0.placeNormalizedText]]' hidden='[[!data.datesPlaces.0.placeNormalizedText]]'>
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
           </a>
-          <a href$='[[_href]]?focus=place' hidden='[[data.datesPlaces.0.placeNormalizedText]]'>
+          <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[data.datesPlaces.0.placeNormalizedText]]'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
           </a>
         </div>
