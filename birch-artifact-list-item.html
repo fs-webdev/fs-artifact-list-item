@@ -33,8 +33,8 @@ Example:
   <link rel="import" type="css" href="birch-artifact-list-item.css">
   <template>
     <wc-i18n-src locale='[[lang]]' locale-dir='[[localeDir()]]' domain='birch-artifact-list-item'></wc-i18n-src>
-    <div id='container' on-tap='_goToArtifact'>
-      <div class='col col-1'>
+    <div id='container'>
+      <div class='col col-1' on-tap='_goToArtifact'>
         <div class='list-preview'>
           <template is='dom-if' if="[[data.thumbUrl]]">
             <a href$='[[_href]]'>
