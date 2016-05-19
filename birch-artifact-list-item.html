@@ -36,7 +36,7 @@ Example:
     <div id='container'>
       <div class='col col-1' on-tap='_goToArtifact'>
         <div class='list-preview'>
-          <template is='dom-if' if="[[data.thumbUrl]]">
+          <template is='dom-if' if="[[_displayThumbnail(data.thumbUrl, data.category)]]">
             <a href$='[[_href]]'>
               <iron-image sizing="cover" position="center 15%" class="thumbnail" src="[[data.thumbUrl]]"></iron-image>
             </a>
@@ -92,7 +92,7 @@ Example:
         <div class='tag-note'>
           <a href$='[[_href]]'>
             <wc-i18n key='birch-artifact-list-item.not_tagged' provider value='{{_notTaggedText}}'></wc-i18n>
-            <i class='not-tagged-icon' hidden='[[_hideTagging(data.photoTagCount, readOnly)]]' title='[[_notTaggedText]]'></i>
+            <i class='not-tagged-icon' hidden='[[!_is(data.photoTagCount, 0)]]' title='[[_notTaggedText]]'></i>
           </a>
         </div>
       </div>
@@ -115,6 +115,14 @@ Example:
           type: String,
           computed: '_computeHref(data.id)'
         },
+        view: {
+          type: String,
+          value: null
+        },
+        owner: {
+          type: String,
+          value: ''
+        },        
         mobile: {
           type: Boolean,
           value: false
@@ -138,18 +146,36 @@ Example:
       },
       _goToArtifact: function(e) {
         if (this.selectMode) return;
-        window.location.href = this._href;
+        e.preventDefault();
         this._stopProp(e);
+        var url = this._href;
+
+        var newTab = false;
+        if (e && e.detail && e.detail.sourceEvent) {
+          newTab = e.detail.sourceEvent.ctrlKey || e.detail.sourceEvent.metaKey
+        } 
+        if (this.view === 'my-memories' || this.view === 'my-archive' || this.view === 'my-favorites') {
+          url = url + "?c="+this.view;
+        } else if(parseInt(this.view)) {
+          url = url + "?a="+this.view;
+        }
+        if (newTab){
+          window.open(url, '_blank').focus();
+        } else {
+          location = url;
+        }
       },
-      _hideTagging: function(photoTagCount, readOnly) {
-        if (photoTagCount !== 0 || readOnly) return true
-        return false;
+      _is: function(a, b) {
+        return a == b;
       },
       _isAudio: function(category) {
         return category && category == "AUDIO";
       },
       _isStory: function(category){
         return category && category == "TEXT";
+      },
+      _displayThumbnail: function(thumbUrl, category) {
+        return thumbUrl && category !== 'TEXT';
       },
       _displayFourthColumn: function(mobile, selectMode) {
         if (!mobile && !selectMode) return;
@@ -159,6 +185,7 @@ Example:
           commentEl.hidden = true;
           personTagEl.hidden = true;
         } else if ((commentEl.hidden || personTagEl.hidden) && Boolean(commentEl) && Boolean(personTagEl) ) {
+          debugger;
           commentEl.hidden = false;
           personTagEl.hidden = false;
         }
