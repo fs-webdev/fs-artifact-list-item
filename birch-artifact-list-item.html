@@ -14,7 +14,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../oak-i18n-behavior/oak-i18n-behavior.html">
 <link rel="import" href="audio-item/audio-item.html">
 <link rel="import" href="../fs-styles/fs-styles.html">
-<script src='../clampjs/clamp.min.js'></script>
 
 <!--
 An element that renders any artifact in the gallery list format
@@ -30,12 +29,12 @@ Example:
 -->
 
 <dom-module id="birch-artifact-list-item">
+  <style include='fs-styles'></style>
   <link rel="import" type="css" href="birch-artifact-list-item.css">
   <template>
     <wc-i18n-src locale='[[lang]]' locale-dir='[[localeDir()]]' domain='birch-artifact-list-item'></wc-i18n-src>
-    <style include='fs-styles'></style>
-    <div id='container'>
-      <div class='col col-1' on-tap='_goToArtifact'>
+    <div id='container' on-tap='_goToArtifact'>
+      <div class='col col-1'>
         <div class='list-preview'>
           <template is='dom-if' if="[[data.thumbUrl]]">
             <a href$='[[_href]]'>
@@ -132,19 +131,6 @@ Example:
       observers: [
         '_displayFourthColumn(mobile, selectMode)'
       ],
-      ready: function() {
-        this.listen(window,'resize', '_clamp');
-        this._clamp();
-      },
-      _clamp: function() {
-        this.debounce('update-ellipsis', function() {
-          if (window.innerWidth < 767) {
-            $clamp(this.$$('.title'), {clamp: 3});
-          } else {
-            $clamp(this.$$('.title'), {clamp: 2});
-          }
-        }.bind(this), 100) 
-      },
       _computeHref: function(id) {
         var origin = window.location.origin;
         var path = (origin === 'http://localhost:5000') ? '' : '/photos';
