@@ -34,12 +34,10 @@ Example:
   <template>
     <wc-i18n-src locale='[[lang]]' locale-dir='[[localeDir()]]' domain='birch-artifact-list-item'></wc-i18n-src>
     <div id='container'>
-      <div class='col col-1' on-tap='_goToArtifact'>
+      <div class='col col-1'>
         <div class='list-preview'>
           <template is='dom-if' if="[[_displayThumbnail(data.thumbUrl, data.category)]]">
-            <a href$='[[_href]]'>
-              <iron-image sizing="cover" position="center 15%" class="thumbnail" src="[[data.thumbUrl]]"></iron-image>
-            </a>
+          <iron-image sizing="cover" position="center 15%" class="thumbnail" src="[[data.thumbUrl]]"></iron-image>
           </template>
           <template is='dom-if' if='{{_isAudio(data.category)}}'>
               <audio-item audio-url='[[data.url]]'></audio-item>
@@ -50,50 +48,50 @@ Example:
         </div>
         <div class="title">
           <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
-          <a href$='[[_href]]?focus=title' class='add-styles' hidden='[[data.title]]'>
+          <a href$='[[_href]]?focus=title' class='add-styles' hidden='[[data.title]]' on-tap='_stopProp'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
           </a>
         </div>
       </div>
-      <div class='col col-2' on-tap='_goToArtifact'>
+      <div class='col col-2'>
         <div class='date'>
-          <a href$='[[_href]]?focus=date' class='date-text' title='[[data.datesPlaces.0.dateNormalizedText]]'>
+          <a href$='[[_href]]?focus=date' class='date-text' title='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopProp'>
             <span hidden='[[!data.datesPlaces.0.dateNormalizedText]]'>[[data.datesPlaces.0.dateNormalizedText]]</span>
           </a>
-          <a href$='[[_href]]?focus=date' class='add-styles' hidden='[[data.datesPlaces.0.dateNormalizedText]]'>
+          <a href$='[[_href]]?focus=date' class='add-styles' hidden='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopProp'>
             <i class='add-icon' ></i><wc-i18n key='birch-artifact-list-item.add_date'></wc-i18n>
           </a>
         </div>
         <div class='place'>
-          <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!data.datesPlaces.0.placeNormalizedText]]' title='[[data.datesPlaces.0.placeNormalizedText]]'>
+          <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!data.datesPlaces.0.placeNormalizedText]]' title='[[data.datesPlaces.0.placeNormalizedText]]' on-tap='_stopProp'>
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
           </a>
-          <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[data.datesPlaces.0.placeNormalizedText]]'>
+          <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[data.datesPlaces.0.placeNormalizedText]]' on-tap='_stopProp'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
           </a>
         </div>
       </div>
-      <div class='col col-3' on-tap='_goToArtifact'>
+      <div class='col col-3'>
         <div class='place'>
-          <a href$='[[_href]]?focus=place' class='place-text' title='[[data.datesPlaces.0.placeNormalizedText]]' hidden='[[!data.datesPlaces.0.placeNormalizedText]]'>
+          <a href$='[[_href]]?focus=place' class='place-text' title='[[data.datesPlaces.0.placeNormalizedText]]' hidden='[[!data.datesPlaces.0.placeNormalizedText]]' on-tap='_stopProp'>
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
           </a>
-          <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[data.datesPlaces.0.placeNormalizedText]]'>
+          <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[data.datesPlaces.0.placeNormalizedText]]' on-tap='_stopProp'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
           </a>
         </div>
       </div>
-      <div class='col col-4' on-tap='_goToArtifact'>
+      <div class='col col-4'>
         <div class='comment-note'>
-          <a href$='[[_href]]'>
-            <i class='comment-icon' hidden='[[!data.commentCount]]' href$='[[_href]]'>[[data.commentCount]]</i>
-          </a>
+        <a href$='[[_href]]' on-tap='_stopProp'>
+          <i class='comment-icon' hidden='[[!data.commentCount]]' href$='[[_href]]'>[[data.commentCount]]</i>
+        </a>
         </div>
         <div class='tag-note'>
-          <a href$='[[_href]]'>
-            <wc-i18n key='birch-artifact-list-item.not_tagged' provider value='{{_notTaggedText}}'></wc-i18n>
-            <i class='not-tagged-icon' hidden='[[!_is(data.photoTagCount, 0)]]' title='[[_notTaggedText]]'></i>
-          </a>
+        <a href$='[[_href]]' on-tap='_stopProp'>  
+          <wc-i18n key='birch-artifact-list-item.not_tagged' provider value='{{_notTaggedText}}'></wc-i18n>
+          <i class='not-tagged-icon' hidden='[[!_is(data.photoTagCount, 0)]]' title='[[_notTaggedText]]'></i>
+        </a>
         </div>
       </div>
     </div>
@@ -139,6 +137,9 @@ Example:
       observers: [
         '_displayFourthColumn(mobile, selectMode)'
       ],
+      listeners: {
+        'container.tap': '_goToArtifact'
+      },
       _computeHref: function(id) {
         var origin = window.location.origin;
         var path = (origin === 'http://localhost:5000') ? '' : '/photos';
