@@ -63,20 +63,20 @@ Example:
           </a>
         </div>
         <div class='place'>
-          <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!data.datesPlaces.0.placeNormalizedText]]' title='[[data.datesPlaces.0.placeNormalizedText]]' on-tap='_stopProp'>
-            <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
+          <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' title='[[_getPlace(data.datesPlaces.0)]]' on-tap='_stopProp'>
+            <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
           </a>
-          <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[data.datesPlaces.0.placeNormalizedText]]' on-tap='_stopProp'>
+          <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
           </a>
         </div>
       </div>
       <div class='col col-3'>
         <div class='place'>
-          <a href$='[[_href]]?focus=place' class='place-text' title='[[data.datesPlaces.0.placeNormalizedText]]' hidden='[[!data.datesPlaces.0.placeNormalizedText]]' on-tap='_stopProp'>
-            <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[data.datesPlaces.0.placeNormalizedText]]</span>
+          <a href$='[[_href]]?focus=place' class='place-text' title='[[_getPlace(data.datesPlaces.0)]]' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
+            <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
           </a>
-          <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[data.datesPlaces.0.placeNormalizedText]]' on-tap='_stopProp'>
+          <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
           </a>
         </div>
@@ -144,6 +144,14 @@ Example:
         var origin = window.location.origin;
         var path = (origin === 'http://localhost:5000') ? '' : '/photos';
         return origin + path + '/artifacts/' + id;
+      },
+      _getPlace: function(datesPlaces) {
+        if (!datesPlaces) return;
+        return datesPlaces.placeNormalizedText ? datesPlaces.placeNormalizedText : datesPlaces.placeOriginalText;
+      },
+      _hidePlaceElements: function(datesPlaces) {
+        if (datesPlaces) return datesPlaces.placeNormalizedText || datesPlaces.placeOriginalText;
+        return false;
       },
       _goToArtifact: function(e) {
         if (this.selectMode) return;
