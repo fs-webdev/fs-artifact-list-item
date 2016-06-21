@@ -46,7 +46,7 @@ Example:
             <i class='story-icon'></i>
           </template>
         </div>
-        <div class="title">
+        <div class='title' hidden="[[!data.editableByCaller]]">
           <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
           <a href$='[[_href]]?focus=title' class='add-styles' hidden='[[data.title]]' on-tap='_stopProp'>
             <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
@@ -54,7 +54,7 @@ Example:
         </div>
       </div>
       <div class='col col-2'>
-        <div class='date'>
+        <div class='date' hidden="[[!data.editableByCaller]]">
           <a href$='[[_href]]?focus=date' class='date-text' title='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopProp'>
             <span hidden='[[!data.datesPlaces.0.dateNormalizedText]]'>[[data.datesPlaces.0.dateNormalizedText]]</span>
           </a>
@@ -62,7 +62,7 @@ Example:
             <i class='add-icon' ></i><wc-i18n key='birch-artifact-list-item.add_date'></wc-i18n>
           </a>
         </div>
-        <div class='place'>
+        <div class='place' hidden="[[!data.editableByCaller]]">
           <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' title='[[_getPlace(data.datesPlaces.0)]]' on-tap='_stopProp'>
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
           </a>
@@ -72,7 +72,7 @@ Example:
         </div>
       </div>
       <div class='col col-3'>
-        <div class='place'>
+        <div class='place' hidden="[[!data.editableByCaller]]">
           <a href$='[[_href]]?focus=place' class='place-text' title='[[_getPlace(data.datesPlaces.0)]]' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
           </a>
