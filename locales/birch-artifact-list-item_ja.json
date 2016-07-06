@@ -1,8 +1,9 @@
 {
-  "_LRM_PKTAG159": "birch-artifact-list-item_1_152 - CHANGES-ONLY",
+  "_LRM_PKTAG477": "birch-artifact-list-item_2_152 - FULL-FILE",
   "add_date": "出来事の日付を追加する",
   "add_place": "出来事の場所を追加する",
   "add_title": "タイトルを追加する",
+  "contributed_by": "提供者：{0}",
   "not_tagged": "この思い出はタグ付けされていません。",
   "restricted": "制限付き"
 }
