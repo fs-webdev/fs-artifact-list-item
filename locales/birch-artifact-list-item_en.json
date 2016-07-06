@@ -3,5 +3,6 @@
   "add_title":"Add Title",
   "add_date": "Add Event Date",
   "add_place": "Add Event Place",
-  "restricted": "Restricted"
+  "restricted": "Restricted",
+  "contributed_by": "By: {0}"
 }
