@@ -1,8 +1,9 @@
 {
-  "_LRM_PKTAG668": "birch-artifact-list-item_1_154 - CHANGES-ONLY",
+  "_LRM_PKTAG457": "birch-artifact-list-item_2_154 - FULL-FILE",
   "add_date": "Acrescentar a Data do Evento",
   "add_place": "Acrescentar o Local do Evento",
   "add_title": "Acrescentar um Título",
+  "contributed_by": "Por: {0}",
   "not_tagged": "Esta recordação não está marcada.",
   "restricted": "Material Restrito"
 }
