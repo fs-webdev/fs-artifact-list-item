@@ -1,8 +1,9 @@
 {
-  "_LRM_PKTAG135": "birch-artifact-list-item_1_157 - CHANGES-ONLY",
+  "_LRM_PKTAG307": "birch-artifact-list-item_2_157 - FULL-FILE",
   "add_date": "Datum des Ereignisses hinzufügen",
   "add_place": "Ort des Ereignisses hinzufügen",
   "add_title": "Titel hinzufügen",
+  "contributed_by": "Von: {0}",
   "not_tagged": "Diese Erinnerung enthält keine Markierungen.",
   "restricted": "Nicht freigegeben"
 }

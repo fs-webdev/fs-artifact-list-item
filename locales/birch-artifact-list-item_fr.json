@@ -1,8 +1,9 @@
 {
-  "_LRM_PKTAG262": "birch-artifact-list-item_1_150 - CHANGES-ONLY",
+  "_LRM_PKTAG734": "birch-artifact-list-item_2_150 - FULL-FILE",
   "add_date": "Ajouter la date de l’événement",
   "add_place": "Ajouter le lieu de l’événement",
   "add_title": "Ajouter le titre",
+  "contributed_by": "Par : {0}",
   "not_tagged": "Ce souvenir n’a pas de signet.",
   "restricted": "Accès restreint"
 }
