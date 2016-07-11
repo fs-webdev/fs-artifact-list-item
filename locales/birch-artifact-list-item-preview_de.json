@@ -3,6 +3,6 @@
   "duplicate": "Zuvor hochgeladene Datei",
   "failure": "Hochladen fehlgeschlagen",
   "restricted": "Nicht freigegeben",
-  "size": "Datei überschreitet 15MB",
+  "size": "Datei überschreitet 15 MB",
   "unsupported": "Nicht unterstützter Dateityp"
 }
