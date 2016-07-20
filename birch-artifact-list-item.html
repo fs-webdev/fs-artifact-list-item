@@ -47,9 +47,9 @@ Example:
           </template>
         </div>
         <div class='title'>
-          <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
+          <a class='title-text' href$='[[_href]][[_calcParams(view)]]' hidden='[[!data.title]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
-            <a href$='[[_href]]?focus=title' class='add-styles' hidden='[[data.title]]' on-tap='_stopProp'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=title' class='add-styles' hidden='[[data.title]]' on-tap='_stopProp'>
               <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
             </a>
           </template>
@@ -57,21 +57,21 @@ Example:
       </div>
       <div class='col col-2'>
         <div class='date'>
-          <a href$='[[_href]]?focus=date' class='date-text' title='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopProp' hidden='[[!data.datesPlaces.0.dateNormalizedText]]'>
+          <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='date-text' title='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopProp' hidden='[[!data.datesPlaces.0.dateNormalizedText]]'>
             <span>[[data.datesPlaces.0.dateNormalizedText]]</span>
           </a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
-            <a href$='[[_href]]?focus=date' class='add-styles' hidden='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopProp'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='add-styles' hidden='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopProp'>
               <i class='add-icon' ></i><wc-i18n key='birch-artifact-list-item.add_date'></wc-i18n>
             </a>
           </template>
         </div>
         <div class='place'>
-          <a href$='[[_href]]?focus=place' class='place-text' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' title='[[_getPlace(data.datesPlaces.0)]]' on-tap='_stopProp'>
+          <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' title='[[_getPlace(data.datesPlaces.0)]]' on-tap='_stopProp'>
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
           </a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
-            <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
               <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
             </a>
           </template>
@@ -79,11 +79,11 @@ Example:
       </div>
       <div class='col col-3'>
         <div class='place'>
-          <a href$='[[_href]]?focus=place' class='place-text' title='[[_getPlace(data.datesPlaces.0)]]' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
+          <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' title='[[_getPlace(data.datesPlaces.0)]]' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
           </a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
-            <a href$='[[_href]]?focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
               <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
             </a>
           </template>
@@ -91,12 +91,12 @@ Example:
       </div>
       <div class='col col-4'>
         <div class='comment-note'>
-        <a href$='[[_href]]' on-tap='_stopProp'>
-          <i class='comment-icon' hidden='[[!data.commentCount]]' href$='[[_href]]'>[[data.commentCount]]</i>
+        <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
+          <i class='comment-icon' hidden='[[!data.commentCount]]' href$='[[_href]][[_calcParams(view)]]'>[[data.commentCount]]</i>
         </a>
         </div>
         <div class='tag-note'>
-        <a href$='[[_href]]' on-tap='_stopProp'>  
+        <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>  
           <wc-i18n key='birch-artifact-list-item.not_tagged' provider value='{{_notTaggedText}}'></wc-i18n>
           <i class='not-tagged-icon' hidden='[[!_is(data.photoTagCount, 0)]]' title='[[_notTaggedText]]'></i>
         </a>
@@ -147,6 +147,15 @@ Example:
       ],
       listeners: {
         'container.tap': '_goToArtifact'
+      },
+      _calcParams: function(view) {
+        if (this.view === 'my-memories' || this.view === 'my-archive' || this.view === 'my-favorites') {
+          return "?c="+this.view;
+        } else if(parseInt(this.view)) {
+          return "?a="+this.view;
+        } else {
+          return "?a=none";
+        }
       },
       _computeHref: function(id) {
         var origin = window.location.origin;
