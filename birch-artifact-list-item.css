@@ -65,6 +65,29 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;  
     }
+
+    .contributor {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: .88rem;
+
+    }
+
+    .contributor .contributor-name {
+      color: blue;
+    }
+
+    .contributor-name:hover {
+      text-decoration: underline;
+    }
+
+    .col .contributed-title-text {
+      height: 21px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .col .title-text, .col .date-text, .col .place-text {
       color: #555;
     }
@@ -179,6 +202,12 @@
       .col .title {
         height: 44px;
         -webkit-line-clamp: 3;
+      }
+
+      .col .contributed-title-text {
+        height: 30px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .col-1 {
         width: 45%;
