@@ -249,9 +249,7 @@ Example:
         if (!this.selectMode) e.stopPropagation();
       },
       _translateContributor: function(val) {
-         var string;
-        if (val) string = val.replace('{0}', '');
-        return string;
+        return (val) ? val.replace('{0}', '') : '';
       }
     });
   </script>
