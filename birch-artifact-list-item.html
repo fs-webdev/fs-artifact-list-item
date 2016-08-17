@@ -46,14 +46,36 @@ Example:
             <i class='story-icon'></i>
           </template>
         </div>
-        <div class='title'>
-          <a class='title-text' href$='[[_href]][[_calcParams(view)]]' hidden='[[!data.title]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
-          <template is='dom-if' if='[[data.editableByCaller]]'>
-            <a href$='[[_href]][[_calcParams(view)]]&focus=title' class='add-styles' hidden='[[data.title]]' on-tap='_stopProp'>
-              <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
-            </a>
-          </template>
+
+        <template is='dom-if' if='[[_hideContributorName(view, showContributed)]]'>
+          <div class='title'>
+            <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
+            <template is='dom-if' if='[[data.editableByCaller]]'>
+              <a href$='[[_href]]?focus=title' class='add-styles' hidden='[[data.title]]' on-tap='_stopProp'>
+                <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
+              </a>
+            </template>
+          </div>
+        </template>
+
+        <!--Contributed By-->
+        <wc-i18n key='birch-artifact-list-item.contributed_by' provider value='{{_contributedBy}}'></wc-i18n>
+        <template is='dom-if' if='[[!_hideContributorName(view, showContributed)]]'>
+          <div class='title'>
+          <div class='contributed-title-text'>
+            <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>  
+            <template is='dom-if' if='[[data.editableByCaller]]'>
+              <a href$='[[_href]]?focus=title' class='add-styles' hidden='[[data.title]]' on-tap='_stopProp'>
+                <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
+              </a>
+            </template>
+          </div>
+          <div class="contributor" title='[[data.ftUserInfo.contactName]]'>
+            <span></span>[[_translateContributor(_contributedBy)]] <span class='contributor-name'>[[data.ftUserInfo.contactName]]</span>
+          </div>
         </div>
+        </template>
+
       </div>
       <div class='col col-2'>
         <div class='date'>
@@ -137,6 +159,10 @@ Example:
           type: Boolean,
           value: false
         },
+        showContributed: {
+          type: Boolean,
+          value: false
+        },
         readOnly: {
           type: Boolean,
           value: false
@@ -169,6 +195,10 @@ Example:
       _hidePlaceElements: function(datesPlaces) {
         if (datesPlaces) return datesPlaces.placeNormalizedText || datesPlaces.placeOriginalText;
         return false;
+      },
+      _hideContributorName: function() {
+        if (!this.showContributed) return true;
+        return (this.view != 'my-favorites' && !Number(this.view))
       },
       _goToArtifact: function(e) {
         if (this.selectMode) return;
@@ -217,6 +247,9 @@ Example:
       },
       _stopProp: function(e) {
         if (!this.selectMode) e.stopPropagation();
+      },
+      _translateContributor: function(val) {
+        return (val) ? val.replace('{0}', '') : '';
       }
     });
   </script>
