@@ -87,6 +87,13 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    
+    .contributed-title-text a {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      white-space: nowrap;
+    }
 
     .col .title-text, .col .date-text, .col .place-text {
       color: #555;
