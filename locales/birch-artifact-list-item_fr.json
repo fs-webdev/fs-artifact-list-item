@@ -1,9 +1,12 @@
 {
-  "_LRM_PKTAG734": "birch-artifact-list-item_2_150 - FULL-FILE",
+  "_LRM_PKTAG221": "birch-artifact-list-item_3_150 - CHANGES-ONLY",
   "add_date": "Ajouter la date de l’événement",
   "add_place": "Ajouter le lieu de l’événement",
   "add_title": "Ajouter le titre",
   "contributed_by": "Par : {0}",
   "not_tagged": "Ce souvenir n’a pas de signet.",
-  "restricted": "Accès restreint"
+  "processing": "Traitement en cours",
+  "processing_fail": "Échec du traitement. Supprimez et téléversez de nouveau le fichier, ou prenez contact avec l’assistance",
+  "restricted": "Accès restreint",
+  "screening": "Vérification"
 }
