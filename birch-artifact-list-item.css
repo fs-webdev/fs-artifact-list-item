@@ -72,6 +72,12 @@
       font-size: .88rem;
     }
 
+    .screening {
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+    }
+
     .restricted {
       position: absolute;
       padding: 0px 20px;
@@ -119,6 +125,8 @@
       color: #A51F1F;
       padding: 5px 5px 5px 25px;
       border-radius: 4px;
+      position: absolute;
+      min-width: 150px;
     }
     .tag-note {
       height: 39px;

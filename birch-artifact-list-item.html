@@ -126,33 +126,27 @@ Example:
         <!--Messages-->
         <!--Restricted-->
         <template is='dom-if' if='[[showMessages]]'>
-          <div class="restricted layout vertical center-justified" hidden="[[!_isProcessing('RESTRICTED', data.screeningState)]]">
-              <span>
-                <wc-i18n key='birch-artifact-list-item.restricted'></wc-i18n>
-              </span>
+          <div class="restricted layout vertical center-justified" hidden="[[!_isProcessing('RESTRICTED', _screeningState)]]">
+                <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
           </div>
 
           <!--Processing-->
-          <div class="" hidden="[[!_isProcessing('PROCESSING', data.screeningState)]]">
+          <div class="screening layout vertical center-justified" hidden="[[!_isProcessing('PROCESSING', _screeningState)]]">
             <div class='processing'>
                 <wc-i18n key='birch-artifact-list-item.processing'></wc-i18n>
             </div>
           </div>
 
           <!--Error Processing-->
-          <div class="" hidden="[[!_isProcessing('FAILED', data.screeningState)]]">
+          <div class="" hidden="[[!_isProcessing('FAILED', _screeningState)]]">
             <div class="error-text">
-              <span>
                 <wc-i18n key='birch-artifact-list-item.processing_fail'></wc-i18n>
-              </span>
             </div>
           </div>
 
           <!--Screening-->
-          <div class="" hidden="[[!_isProcessing('APPROVED', data.screeningState)]]">
-            <div class='processing '>
-                <wc-i18n key='birch-artifact-list-item.screening'></wc-i18n>
-            </div>
+          <div class="screening layout vertical center-justified" hidden="[[!_isProcessing('APPROVED', _screeningState)]]">
+              <wc-i18n key='birch-artifact-list-item.screening'></wc-i18n>
           </div>
         </template>
       </div>
@@ -170,6 +164,10 @@ Example:
         data: {
           type: Object,
           value: function() { return {}; },
+        },
+        _screeningState: {
+          type: String,
+          value: ''
         },
         _href: {
           type: String,
@@ -220,7 +218,8 @@ Example:
         }
       },
       observers: [
-        '_displayFourthColumn(mobile, selectMode)'
+        '_displayFourthColumn(mobile, selectMode)',
+        '_setScreeningState(data.*)'
       ],
       listeners: {
         'container.tap': '_goToArtifact'
@@ -275,14 +274,20 @@ Example:
       _is: function(a, b) {
         return a == b;
       },
-      _isProcessing: function(message, screeningState) {
-        // Anytime the screeningState changes we need to 
-        // reset the displayMessage to false
+      _setScreeningState: function(data) {
+        // Reset these states
+        this._screeningState = '';
         this._displayMessage = false;
+
+        this._screeningState = data.base.screeningState;
+      },
+      _isProcessing: function(message, screeningState) {
         if (message !== 'APPROVED') {
-          return screeningState === message;
-        }
-        if (screeningState !== 'APPROVED' && screeningState !== 'FAILED' && screeningState !== 'PROCESSING' && screeningState !== 'RESTRICTED') {
+          if (screeningState === message) {
+            this._displayMessage = true;
+            return true;
+          }
+        } else if (screeningState !== 'APPROVED' && screeningState !== 'FAILED' && screeningState !== 'PROCESSING' && screeningState !== 'RESTRICTED') {
           this._displayMessage = true;
           return true;
         } else {
@@ -290,7 +295,9 @@ Example:
         }
       },
       _showMobileMessage: function(display, mobile) {
-        if (this.data.screeningState == 'FAILED') return true;
+        // Hide the date/place parts to make room for error message
+        if (this._screeningState == 'FAILED') return true;
+
         return (display && mobile);
       },
       _isAudio: function(category) {
@@ -309,7 +316,7 @@ Example:
         if (mobile && selectMode && Boolean(commentEl) && Boolean(personTagEl)) {
           commentEl.hidden = true;
           personTagEl.hidden = true;
-        } else if (this._displayMessage) {
+        } else if (this._screeningState !== 'APPROVED') {
           commentEl.hidden = true;
           personTagEl.hidden = true;
         } else if ((commentEl.hidden || personTagEl.hidden) && Boolean(commentEl) && Boolean(personTagEl) ) {
