@@ -1,9 +1,12 @@
 {
-  "_LRM_PKTAG457": "birch-artifact-list-item_2_154 - FULL-FILE",
+  "_LRM_PKTAG640": "birch-artifact-list-item_3_154 - CHANGES-ONLY",
   "add_date": "Acrescentar a Data do Evento",
   "add_place": "Acrescentar o Local do Evento",
   "add_title": "Acrescentar um Título",
   "contributed_by": "Por: {0}",
   "not_tagged": "Esta recordação não está marcada.",
-  "restricted": "Material Restrito"
+  "processing": "Processando",
+  "processing_fail": "Falha no Processamento Remova e reenvie o artefato ou entre em contato com o suporte.",
+  "restricted": "Material Restrito",
+  "screening": "Avaliando"
 }
