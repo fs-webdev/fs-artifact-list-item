@@ -77,7 +77,7 @@ Example:
         </template>
 
       </div>
-      <div class='col col-2'>
+      <div class='col col-2' hidden='[[_showMobileMessage(_displayMessage, mobile)]]'>
         <div class='date'>
           <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='date-text' title='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopProp' hidden='[[!data.datesPlaces.0.dateNormalizedText]]'>
             <span>[[data.datesPlaces.0.dateNormalizedText]]</span>
@@ -99,7 +99,7 @@ Example:
           </template>
         </div>
       </div>
-      <div class='col col-3'>
+      <div class='col col-3' hidden='[[_showMobileMessage(_displayMessage, mobile)]]'>
         <div class='place'>
           <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' title='[[_getPlace(data.datesPlaces.0)]]' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
@@ -112,17 +112,43 @@ Example:
         </div>
       </div>
       <div class='col col-4'>
-        <div class='comment-note'>
-        <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
-          <i class='comment-icon' hidden='[[!data.commentCount]]' href$='[[_href]][[_calcParams(view)]]'>[[data.commentCount]]</i>
-        </a>
+        <div class='comment-note' hidden='[[_displayMessage]]'>
+          <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
+            <i class='comment-icon' hidden='[[!data.commentCount]]' href$='[[_href]][[_calcParams(view)]]'>[[data.commentCount]]</i>
+          </a>
         </div>
-        <div class='tag-note'>
-        <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>  
-          <wc-i18n key='birch-artifact-list-item.not_tagged' provider value='{{_notTaggedText}}'></wc-i18n>
-          <i class='not-tagged-icon' hidden='[[!_is(data.photoTagCount, 0)]]' title='[[_notTaggedText]]'></i>
-        </a>
+        <div class='tag-note' hidden='[[_displayMessage]]'>
+          <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>  
+            <wc-i18n key='birch-artifact-list-item.not_tagged' provider value='{{_notTaggedText}}'></wc-i18n>
+            <i class='not-tagged-icon' hidden='[[!_is(data.photoTagCount, 0)]]' title='[[_notTaggedText]]'></i>
+          </a>
         </div>
+        <!--Messages-->
+        <!--Restricted-->
+        <template is='dom-if' if='[[showMessages]]'>
+          <div class="restricted layout vertical center-justified" hidden="[[!_isProcessing('RESTRICTED', _screeningState)]]">
+                <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
+          </div>
+
+          <!--Processing-->
+          <div class="screening layout vertical center-justified" hidden="[[!_isProcessing('PROCESSING', _screeningState)]]">
+            <div class='processing'>
+                <wc-i18n class='fs-h5' key='birch-artifact-list-item.processing'></wc-i18n>
+            </div>
+          </div>
+
+          <!--Error Processing-->
+          <div class="" hidden="[[!_isProcessing('FAILED', _screeningState)]]">
+            <div class="error-text">
+                <wc-i18n key='birch-artifact-list-item.processing_fail'></wc-i18n>
+            </div>
+          </div>
+
+          <!--Screening-->
+          <div class="screening layout vertical center-justified" hidden="[[!_isProcessing('APPROVED', _screeningState)]]">
+              <wc-i18n class='fs-h5' key='birch-artifact-list-item.screening'></wc-i18n>
+          </div>
+        </template>
       </div>
     </div>
   </template>
@@ -138,6 +164,10 @@ Example:
         data: {
           type: Object,
           value: function() { return {}; },
+        },
+        _screeningState: {
+          type: String,
+          value: ''
         },
         _href: {
           type: String,
@@ -159,7 +189,26 @@ Example:
           type: Boolean,
           value: false
         },
+        /**
+         * A flag to allow the contributor
+         * name to be shown
+         */
         showContributed: {
+          type: Boolean,
+          value: false
+        },
+        /**
+         * A flag to allow messages to
+         * be shown
+         */
+        showMessages: {
+          type: Boolean,
+          value: false
+        },
+        /**
+         * A state for displaying messages
+         */
+        _displayMessage: {
           type: Boolean,
           value: false
         },
@@ -169,7 +218,8 @@ Example:
         }
       },
       observers: [
-        '_displayFourthColumn(mobile, selectMode)'
+        '_displayFourthColumn(mobile, selectMode)',
+        '_setScreeningState(data.*)'
       ],
       listeners: {
         'container.tap': '_goToArtifact'
@@ -224,6 +274,32 @@ Example:
       _is: function(a, b) {
         return a == b;
       },
+      _setScreeningState: function(data) {
+        // Reset these states
+        this._screeningState = '';
+        this._displayMessage = false;
+
+        this._screeningState = data.base.screeningState;
+      },
+      _isProcessing: function(message, screeningState) {
+        if (message !== 'APPROVED') {
+          if (screeningState === message) {
+            this._displayMessage = true;
+            return true;
+          }
+        } else if (screeningState !== 'APPROVED' && screeningState !== 'FAILED' && screeningState !== 'PROCESSING' && screeningState !== 'RESTRICTED') {
+          this._displayMessage = true;
+          return true;
+        } else {
+          return false;
+        }
+      },
+      _showMobileMessage: function(display, mobile) {
+        // Hide the date/place parts to make room for error message
+        if (this._screeningState == 'FAILED') return true;
+
+        return (display && mobile);
+      },
       _isAudio: function(category) {
         return category && category == "AUDIO";
       },
@@ -238,6 +314,9 @@ Example:
         var commentEl = this.$$('.comment-note');
         var personTagEl = this.$$('.tag-note');
         if (mobile && selectMode && Boolean(commentEl) && Boolean(personTagEl)) {
+          commentEl.hidden = true;
+          personTagEl.hidden = true;
+        } else if (this._screeningState !== 'APPROVED') {
           commentEl.hidden = true;
           personTagEl.hidden = true;
         } else if ((commentEl.hidden || personTagEl.hidden) && Boolean(commentEl) && Boolean(personTagEl) ) {
