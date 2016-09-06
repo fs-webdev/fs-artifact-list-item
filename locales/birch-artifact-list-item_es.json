@@ -8,5 +8,6 @@
   "processing": "Procesando",
   "processing_fail": "No se pudo procesar. Eliminar y volver a cargar o contacta a Soporte",
   "restricted": "Restringido",
-  "screening": "Verificando"
+  "screening": "Verificando",
+  "uploading": "Cargando"
 }
