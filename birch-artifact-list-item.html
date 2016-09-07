@@ -114,13 +114,13 @@ Example:
       <div class='col col-4'>
         <div class='comment-note' hidden='[[_displayMessage]]'>
           <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
-            <i class='comment-icon' hidden='[[!data.commentCount]]' href$='[[_href]][[_calcParams(view)]]'>[[data.commentCount]]</i>
+            <i class='comment-icon' hidden='[[_hideComments(data.commentCount, _displayMessage)]]' href$='[[_href]][[_calcParams(view)]]'>[[data.commentCount]]</i>
           </a>
         </div>
         <div class='tag-note' hidden='[[_displayMessage]]'>
           <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>  
             <wc-i18n key='birch-artifact-list-item.not_tagged' provider value='{{_notTaggedText}}'></wc-i18n>
-            <i class='not-tagged-icon' hidden='[[!_is(data.photoTagCount, 0)]]' title='[[_notTaggedText]]'></i>
+            <i class='not-tagged-icon' hidden='[[_hideTag(data.photoTagCount, _displayMessage)]]' title='[[_notTaggedText]]'></i>
           </a>
         </div>
         <!--Messages-->
@@ -243,7 +243,7 @@ Example:
       },
       observers: [
         '_displayFourthColumn(mobile, selectMode)',
-        '_setScreeningState(data.*)'
+        '_setScreeningState(data.*, showMessages)'
       ],
       listeners: {
         'container.tap': '_goToArtifact'
@@ -274,6 +274,14 @@ Example:
         if (!this.showContributed) return true;
         return (this.view != 'my-favorites' && !Number(this.view))
       },
+      _hideComments: function(count, displayMessage) {
+        if (displayMessage) return true;
+        return count === 0;
+      },
+      _hideTag: function(count, displayMessage) {
+        if (displayMessage) return true;
+        return count > 0;
+      },
       _goToArtifact: function(e) {
         if (this.selectMode) return;
         e.preventDefault();
@@ -298,7 +306,8 @@ Example:
       _is: function(a, b) {
         return a == b;
       },
-      _setScreeningState: function(data) {
+      _setScreeningState: function(data, showMessages) {
+        if (!showMessages) return;
         // Reset these states
         this.uploading = false;
         this.processing = false;
@@ -326,7 +335,7 @@ Example:
       },
       _showMobileMessage: function(display, mobile) {
         // Hide the date/place parts to make room for error message
-        if (this.processingFailed) return true;
+        if (this.processingFailed && this.showMessages) return true;
 
         return (display && mobile);
       },
