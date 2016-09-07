@@ -243,7 +243,7 @@ Example:
       },
       observers: [
         '_displayFourthColumn(mobile, selectMode)',
-        '_setScreeningState(data.*, showMessages)'
+        '_checkState(data.*, showMessages)'
       ],
       listeners: {
         'container.tap': '_goToArtifact'
@@ -306,7 +306,7 @@ Example:
       _is: function(a, b) {
         return a == b;
       },
-      _setScreeningState: function(data, showMessages) {
+      _checkState: function(data, showMessages) {
         if (!showMessages) return;
         // Reset these states
         this.uploading = false;
