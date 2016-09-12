@@ -352,7 +352,7 @@ Example:
         if (mobile && selectMode && Boolean(commentEl) && Boolean(personTagEl)) {
           commentEl.hidden = true;
           personTagEl.hidden = true;
-        } else if (this._screeningState !== 'APPROVED') {
+        } else if (this.showMessages && this._screeningState !== 'APPROVED') {
           commentEl.hidden = true;
           personTagEl.hidden = true;
         } else if ((commentEl.hidden || personTagEl.hidden) && Boolean(commentEl) && Boolean(personTagEl) ) {
