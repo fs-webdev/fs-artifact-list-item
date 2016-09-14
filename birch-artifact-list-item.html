@@ -123,40 +123,34 @@ Example:
             <i class='not-tagged-icon' hidden='[[_hideTag(data.photoTagCount, _displayMessage)]]' title='[[_notTaggedText]]'></i>
           </a>
         </div>
-        <!--Messages-->
-        <!--Restricted-->
-        <template is='dom-if' if='[[showMessages]]'>
-          <div class="restricted layout vertical center-justified" hidden="[[!restricted]]">
-                <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
-          </div>
-
-          <!--Uploading-->
-          <div class="screening layout vertical center-justified" hidden="[[!uploading]]">
-            <div class='processing'>
-                <wc-i18n class='fs-h5' key='birch-artifact-list-item.uploading'></wc-i18n>
-            </div>
-          </div>
-
-          <!--Processing-->
-          <div class="screening layout vertical center-justified" hidden="[[!processing]]">
-            <div class='processing'>
-                <wc-i18n class='fs-h5' key='birch-artifact-list-item.processing'></wc-i18n>
-            </div>
-          </div>
-
-          <!--Error Processing-->
-          <div class="" hidden="[[!processingFailed]]">
-            <div class="error-text">
-                <wc-i18n key='birch-artifact-list-item.processing_fail'></wc-i18n>
-            </div>
-          </div>
-
-          <!--Screening-->
-          <div class="screening layout vertical center-justified" hidden="[[!screening]]">
-              <wc-i18n class='fs-h5' key='birch-artifact-list-item.screening'></wc-i18n>
-          </div>
-        </template>
       </div>
+      <!--Messages-->
+      <!--Restricted-->
+      <template is='dom-if' if='[[showMessages]]'>
+        <div class="restricted layout vertical center-justified" hidden="[[!restricted]]">
+              <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
+        </div>
+
+        <!--Uploading-->
+        <div class="screening layout vertical center-justified" hidden="[[!uploading]]">
+            <wc-i18n class='fs-h5' key='birch-artifact-list-item.uploading'></wc-i18n>
+        </div>
+
+        <!--Processing-->
+        <div class="screening layout vertical center-justified" hidden="[[!processing]]">
+            <wc-i18n class='fs-h5' key='birch-artifact-list-item.processing'></wc-i18n>
+        </div>
+
+        <!--Error Processing-->
+          <div class="error-text" hidden="[[!processingFailed]]">
+              <wc-i18n key='birch-artifact-list-item.processing_fail'></wc-i18n>
+          </div>
+
+        <!--Screening-->
+        <div class="screening layout vertical center-justified" hidden="[[!screening]]">
+            <wc-i18n class='fs-h5' key='birch-artifact-list-item.screening'></wc-i18n>
+        </div>
+      </template>
     </div>
   </template>
 
@@ -315,6 +309,9 @@ Example:
         this.screening = false;
         this.restricted = false;
         this._displayMessage = false;
+        // If just uploaded without refresh
+        // don't check for the state
+        if (this.data.recentlyUploaded) return;
 
         // Check upload state first and if it is not UPLOADED, display either UPLOADING or FAILED message as appropriate
         // Check processing state next.  If not PROCESSED, display appropriate state message
@@ -355,7 +352,7 @@ Example:
         if (mobile && selectMode && Boolean(commentEl) && Boolean(personTagEl)) {
           commentEl.hidden = true;
           personTagEl.hidden = true;
-        } else if (this._screeningState !== 'APPROVED') {
+        } else if (this.showMessages && this._screeningState !== 'APPROVED') {
           commentEl.hidden = true;
           personTagEl.hidden = true;
         } else if ((commentEl.hidden || personTagEl.hidden) && Boolean(commentEl) && Boolean(personTagEl) ) {
