@@ -1,12 +1,12 @@
 {
-  "_LRM_PKTAG367": "birch-artifact-list-item_3_157 - CHANGES-ONLY",
+  "_LRM_PKTAG303": "birch-artifact-list-item_4_157 - CHANGES-ONLY",
   "add_date": "Datum des Ereignisses hinzufügen",
   "add_place": "Ort des Ereignisses hinzufügen",
   "add_title": "Titel hinzufügen",
   "contributed_by": "Von: {0}",
   "not_tagged": "Diese Erinnerung enthält keine Markierungen.",
   "processing": "Wird verarbeitet",
-  "processing_fail": "Verarbeitung fehlgeschlagen. Versuchen Sie es bitte später noch einmal oder setzen Sie sich mit dem Support in Verbindung.",
+  "processing_fail": "Verarbeitung fehlgeschlagen. Bitte löschen und erneut hochladen oder den Support kontaktieren.",
   "restricted": "Nicht freigegeben",
   "screening": "Überprüfung läuft",
   "uploading": "Wird hochgeladen"
