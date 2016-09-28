@@ -1,8 +1,10 @@
 {
-  "_LRM_PKTAG864": "birch-artifact-list-item_2_152 - FULL-FILE",
+  "_LRM_PKTAG462": "birch-artifact-list-item_5_152 - CHANGES-ONLY",
   "duplicate": "このファイルは以前にアップロードされています",
+  "fail_continues": "アップロードできませんでした。エラーが続く場合，別のファイル形式を使用してみてください。",
   "failure": "アップロードできませんでした",
   "restricted": "制限されています",
   "size": "ファイルが15MBを超えています",
+  "try_again": "アップロードできませんでした。再試行してください。",
   "unsupported": "サポートしていないファイルの種類"
 }
