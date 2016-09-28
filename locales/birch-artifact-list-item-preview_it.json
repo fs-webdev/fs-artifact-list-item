@@ -1,8 +1,10 @@
 {
-  "_LRM_PKTAG319": "birch-artifact-list-item_2_151 - FULL-FILE",
+  "_LRM_PKTAG981": "birch-artifact-list-item_5_151 - CHANGES-ONLY",
   "duplicate": "File caricato precedentemente",
+  "fail_continues": "Caricamento non riuscito. Se continua a fallire, prova a usare un altro formato di file.",
   "failure": "Caricamento non riuscito",
   "restricted": "Accesso limitato",
   "size": "File superiore a 15 MB",
+  "try_again": "Caricamento non riuscito. Riprova.",
   "unsupported": "Tipo di file non supportato"
 }
