@@ -1,8 +1,10 @@
 {
-  "_LRM_PKTAG18": "birch-artifact-list-item_2_150 - FULL-FILE",
+  "_LRM_PKTAG953": "birch-artifact-list-item_5_150 - CHANGES-ONLY",
   "duplicate": "Fichier déjà téléversé",
+  "fail_continues": "Échec du téléversement. Si l’erreur persiste, essayez d’utiliser un format de fichier différent.",
   "failure": "Échec du téléversement",
   "restricted": "Accès restreint",
   "size": "Fichier de plus de 15 Mo.",
+  "try_again": "Échec du téléversement. Veuillez réessayer.",
   "unsupported": "Type de fichier non compatible"
 }
