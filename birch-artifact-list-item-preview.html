@@ -43,7 +43,11 @@
             <wc-i18n key='birch-artifact-list-item-preview.unsupported'></wc-i18n>
           </span>
         </div>
-      </div>
+        <div class="error-text" hidden="[[!data.mp3Error]]">
+          <span>
+            <wc-i18n key='birch-artifact-list-item-preview.fail_continues'></wc-i18n>
+          </span>
+        </div>
       </div>
     </div>
   </template>
@@ -150,7 +154,7 @@
         case 409:   this.set('data.duplicate', true);     break;
         case 413:   this.set('data.tooBig', true);        break;
         case 415:   this.set('data.unsupported', true);   break;
-        case 422:   this.set('data.unsupported', true);   break;
+        case 422:   this.set('data.mp3Error', true);      break;
         default:    this.set('data.failure', true);       break;
       }
       this.loading = false;
