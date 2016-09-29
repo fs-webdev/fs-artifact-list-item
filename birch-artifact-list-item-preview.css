@@ -96,6 +96,12 @@
   color: #A51F1F;
   padding: 5px 5px 5px 25px;
   border-radius: 4px;
+  line-height: 1;
+  position: absolute;
+  min-height: 30px;
+  max-width: 600px;
+  right: 2%;
+  top: 5px;
 }
 
 .story-icon {
