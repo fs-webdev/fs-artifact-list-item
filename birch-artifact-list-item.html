@@ -14,6 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../oak-i18n-behavior/oak-i18n-behavior.html">
 <link rel="import" href="audio-item/audio-item.html">
 <link rel="import" href="../fs-styles/fs-styles.html">
+<link rel="import" href="../oak-ajax-behavior/oak-ajax-behavior.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
 
 <!--
 An element that renders any artifact in the gallery list format
@@ -32,6 +34,12 @@ Example:
   <style include='fs-styles'></style>
   <link rel="import" type="css" href="birch-artifact-list-item.css">
   <template>
+    <iron-ajax id="postTitle"
+      url="[[ajaxBase]]/artifactmanagerr/artifacts/[[data.id]]"
+      headers='[[authHeaders]]'
+      method="POST"
+      on-response="_handlePostTitleResponse"
+      on-error="_handlePostTitleError"></iron-ajax>
     <wc-i18n-src locale='[[lang]]' locale-dir='[[localeDir()]]' domain='birch-artifact-list-item'></wc-i18n-src>
     <div id='container'>
       <div class='col col-1'>
@@ -49,11 +57,13 @@ Example:
 
         <template is='dom-if' if='[[_hideContributorName(view, showContributed)]]'>
           <div class='title'>
-            <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
+            <i class="exclamation-icon" hidden="[[!_titleError]]"></i>
+            <a class$="[[_calculateTitleClass(_titleError)]]" href$='[[_href]]' on-tap='_titleLinkOverride' hidden='[[_hideTitle(data.title, _titleInputActive)]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
             <template is='dom-if' if='[[data.editableByCaller]]'>
-              <a href$='[[_href]]?focus=title' class='add-styles' hidden='[[data.title]]' on-tap='_stopProp'>
-                <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
+              <a href$='[[_href]]?focus=title' on-tap="_toggleAddTitleInput" class='add-styles' hidden='[[_hideAddTitle(data.title, _titleInputActive)]]'>
+                <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n><wc-i18n key='birch-artifact-grid-item.add_title' value={{_addTitle}}></wc-i18n>
               </a>
+              <input class="title-input" type="text" maxlength='140' hidden="[[!_titleInputActive]]" on-keydown="_handleEnterExitBlur" on-blur="_handleEnterExitBlur" on-tap="_stopProp" placeholder$="[[_addTitle]]" />
             </template>
           </div>
         </template>
@@ -62,10 +72,11 @@ Example:
         <wc-i18n key='birch-artifact-list-item.contributed_by' provider value='{{_contributedBy}}'></wc-i18n>
         <template is='dom-if' if='[[!_hideContributorName(view, showContributed)]]'>
           <div class='title'>
-          <div class='contributed-title-text'>
-            <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>  
+          <div class='contributed-title-text' hidden='[[_hideTitle(data.title, _titleInputActive)]]'>
+            <i class="exclamation-icon" hidden="[[!_titleError]]"></i>
+            <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]' on-tap='_titleLinkOverride' title='[[data.title]]'><strong>[[data.title]]</strong></a>  
             <template is='dom-if' if='[[data.editableByCaller]]'>
-              <a href$='[[_href]]?focus=title' class='add-styles' hidden='[[data.title]]' on-tap='_stopProp'>
+              <a href$='[[_href]]?focus=title' on-tap="_toggleAddTitleInput" class='add-styles' hidden='[[_hideAddTitle(data.title, _titleInputActive)]]' on-tap='_stopProp'>
                 <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
               </a>
             </template>
@@ -158,6 +169,7 @@ Example:
     Polymer({
       is: 'birch-artifact-list-item',
       behaviors: [
+        OakAJAXBehavior,
         WCI18nBehavior,
         OakI18nBehavior,
       ],
@@ -166,13 +178,18 @@ Example:
           type: Object,
           value: function() { return {}; },
         },
+        inlineAddingEnabled: {
+          type: Boolean,
+          value: false
+        },
         _href: {
           type: String,
           computed: '_computeHref(data.id)'
         },
         view: {
           type: String,
-          value: null
+          value: null,
+          observer: '_resetInputs'
         },
         owner: {
           type: String,
@@ -233,14 +250,37 @@ Example:
         readOnly: {
           type: Boolean,
           value: false
+        },
+        alertInputActive: {
+          computed: '_computeIsActive(_titleInputActive)',
+          notify: true
+        },
+        _titleInputActive: {
+          type: Boolean,
+          value: false
+        },
+        _titleError: {
+          type: Boolean,
+          value: false
         }
       },
       observers: [
         '_displayFourthColumn(mobile, selectMode)',
-        '_checkState(data.*, showMessages)'
+        '_modifyState(data.*, showMessages)'
       ],
       listeners: {
         'container.tap': '_goToArtifact'
+      },
+      _titleLinkOverride: function(e) {
+        if (this._titleError) {
+          e.preventDefault();
+          e.stopPropagation();
+          this._titleError = false;
+          this._toggleAddTitleInput();
+        }
+      },
+      _calculateTitleClass: function(_titleError) {
+        return (_titleError) ? 'title-text error-styling' : 'title-text';
       },
       _calcParams: function(view) {
         if (this.view === 'my-memories' || this.view === 'my-archive' || this.view === 'my-favorites') {
@@ -251,22 +291,53 @@ Example:
           return "?a=none";
         }
       },
+      _computeIsActive: function(titleInputActive) {
+        if (titleInputActive) return true;
+      },
       _computeHref: function(id) {
         var origin = window.location.origin;
         var path = (origin === 'http://localhost:5000') ? '' : '/photos';
         return origin + path + '/artifacts/' + id;
       },
+      _handleEnterExitBlur: function(e) {
+        this._stopProp(e);
+        if ((e.keyCode == 13 || e.key == "Enter" || e.type == "blur") && e.currentTarget.value.length > 0) {
+          this._saveTitle(e.currentTarget.value);
+        } else if ((e.keyCode == 13 || e.key == "Enter" || e.type == "blur") && e.currentTarget.value.length == 0) { 
+          this._titleInputActive = false;
+        } else if (e.keyCode === 27) {
+          // Handle exit key
+          e.currentTarget.value = "";
+          this.set('data.title', "");
+          this._titleInputActive = false;
+          this.blur();
+        }
+      },
       _getPlace: function(datesPlaces) {
         if (!datesPlaces) return;
         return datesPlaces.placeNormalizedText ? datesPlaces.placeNormalizedText : datesPlaces.placeOriginalText;
+      },
+      _handlePostTitleResponse: function(e) {
+        if (e.detail.status < 400) this.fire('artifact-item-title-updated')
+      },
+      _handlePostTitleError: function(e) {
+        this._titleError = true;
+        this.fire('artifact-item-title-update-failed', e.detail.error);
+      },
+      _hideAddTitle: function(title, titleInputActive) {
+        if (title || titleInputActive) return true;
+        return false;
+      },
+      _hideTitle: function (title, titleInputActive) {
+        return (!title || titleInputActive);
       },
       _hidePlaceElements: function(datesPlaces) {
         if (datesPlaces) return datesPlaces.placeNormalizedText || datesPlaces.placeOriginalText;
         return false;
       },
-      _hideContributorName: function() {
-        if (!this.showContributed) return true;
-        return (this.view != 'my-favorites' && !Number(this.view))
+      _hideContributorName: function(view, showContributed, titleInputActive) {
+        if (!showContributed || titleInputActive) return true;
+        return (view != 'my-favorites' && !Number(view))
       },
       _hideComments: function(count, displayMessage) {
         if (displayMessage) return true;
@@ -300,7 +371,7 @@ Example:
       _is: function(a, b) {
         return a == b;
       },
-      _checkState: function(data, showMessages) {
+      _modifyState: function(data, showMessages) {
         if (!showMessages) return;
         // Reset these states
         this.uploading = false;
@@ -357,8 +428,32 @@ Example:
           personTagEl.hidden = false;
         }
       },
+      _resetInputs: function() {
+        if (this._titleError) this._titleError = false;
+        if (this.$$('.title-input')) this.$$('.title-input').value = "";
+      },
+      _saveTitle: function(titleText) {
+        this.$.postTitle.body = {
+          title: titleText
+        };
+        this.$.postTitle.generateRequest();
+        this._titleInputActive = false;
+        this.set('data.title', titleText);
+      },
       _stopProp: function(e) {
         if (!this.selectMode) e.stopPropagation();
+      },
+      _toggleAddTitleInput: function(e) {
+        if (this.inlineAddingEnabled) {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          this._titleInputActive = true;
+          // Flush dom so nothing takes the focus after the title input is focus.
+          Polymer.dom.flush();
+          this.$$('.title .title-input').focus();
+        }
       },
       _translateContributor: function(val) {
         return (val) ? val.replace('{0}', '') : '';
