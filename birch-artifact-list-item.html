@@ -326,11 +326,7 @@ Example:
         this.fire('artifact-item-title-update-failed', e.detail.error);
       },
       _hideAddTitle: function(title, titleInputActive) {
-        if (title || titleInputActive) {
-          console.log('Title hide: true - ' + 'title: ' + title + ' titleInputActive: ' +  titleInputActive);
-          return true;
-        }
-        console.log('Title hide: false')
+        if (title || titleInputActive) return true;
         return false;
       },
       _hideTitle: function (title, titleInputActive) {
