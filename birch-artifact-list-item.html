@@ -61,8 +61,9 @@ Example:
             <a class$="[[_calculateTitleClass(_titleError)]]" href$='[[_href]]' on-tap='_titleLinkOverride' hidden='[[_hideTitle(data.title, _titleInputActive)]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
             <template is='dom-if' if='[[data.editableByCaller]]'>
               <a href$='[[_href]]?focus=title' on-tap="_toggleAddTitleInput" class='add-styles' hidden='[[_hideAddTitle(data.title, _titleInputActive)]]'>
-                <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n><wc-i18n key='birch-artifact-grid-item.add_title' value={{_addTitle}}></wc-i18n>
+                <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
               </a>
+              <wc-i18n key='birch-artifact-grid-item.add_title' value={{_addTitle}} provider></wc-i18n>
               <input class="title-input" type="text" maxlength='140' hidden="[[!_titleInputActive]]" on-keydown="_handleEnterExitBlur" on-blur="_handleEnterExitBlur" on-tap="_stopProp" placeholder$="[[_addTitle]]" />
             </template>
           </div>
