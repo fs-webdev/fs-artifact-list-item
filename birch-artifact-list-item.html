@@ -55,7 +55,7 @@ Example:
           </template>
         </div>
 
-        <template is='dom-if' if='[[_hideContributorName(view, showContributed)]]'>
+        <template is='dom-if' if='[[_hideContributorName(view, showContributed, _titleInputActive)]]'>
           <div class='title'>
             <i class="exclamation-icon" hidden="[[!_titleError]]"></i>
             <a class$="[[_calculateTitleClass(_titleError)]]" href$='[[_href]]' on-tap='_titleLinkOverride' hidden='[[_hideTitle(data.title, _titleInputActive)]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
@@ -70,19 +70,20 @@ Example:
 
         <!--Contributed By-->
         <wc-i18n key='birch-artifact-list-item.contributed_by' provider value='{{_contributedBy}}'></wc-i18n>
-        <template is='dom-if' if='[[!_hideContributorName(view, showContributed)]]'>
+        <template is='dom-if' if='[[!_hideContributorName(view, showContributed, _titleInputActive)]]'>
           <div class='title'>
-          <div class='contributed-title-text' hidden='[[_hideTitle(data.title, _titleInputActive)]]'>
-            <i class="exclamation-icon" hidden="[[!_titleError]]"></i>
-            <a class='title-text' href$='[[_href]]' hidden='[[!data.title]]' on-tap='_titleLinkOverride' title='[[data.title]]'><strong>[[data.title]]</strong></a>  
-            <template is='dom-if' if='[[data.editableByCaller]]'>
-              <a href$='[[_href]]?focus=title' on-tap="_toggleAddTitleInput" class='add-styles' hidden='[[_hideAddTitle(data.title, _titleInputActive)]]' on-tap='_stopProp'>
-                <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
-              </a>
-            </template>
-          </div>
-          <div class="contributor" title='[[data.ftUserInfo.contactName]]'>
-            <span></span>[[_translateContributor(_contributedBy)]] <span class='contributor-name' on-tap='_openContactCard'>[[data.ftUserInfo.contactName]]</span>
+            <div class='contributed-title-text'>
+              <i class="exclamation-icon" hidden="[[!_titleError]]"></i>
+              <a class$="[[_calculateTitleClass(_titleError)]]" href$='[[_href]]' hidden='[[_hideTitle(data.title, _titleInputActive)]]' on-tap='_titleLinkOverride' title='[[data.title]]'><strong>[[data.title]]</strong></a>  
+              <template is='dom-if' if='[[data.editableByCaller]]'>
+                <a href$='[[_href]]?focus=title' on-tap="_toggleAddTitleInput" class='add-styles' hidden='[[_hideAddTitle(data.title, _titleInputActive)]]' on-tap='_stopProp'>
+                  <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
+                </a>
+              </template>
+            </div>
+            <div class="contributor" title='[[data.ftUserInfo.contactName]]'>
+              <span></span>[[_translateContributor(_contributedBy)]] <span class='contributor-name' on-tap='_openContactCard'>[[data.ftUserInfo.contactName]]</span>
+            </div>
           </div>
         </div>
         </template>
