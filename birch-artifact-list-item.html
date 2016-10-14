@@ -351,6 +351,9 @@ Example:
         if (displayMessage) return true;
         return count > 0;
       },
+      /* 
+        * Takes focus away from input, so keyboard closes on mobile devices.
+      */
       _focusTitle: function() {
         document.activeElement.blur();
         this.$$('.title-text').focus();
