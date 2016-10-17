@@ -180,6 +180,9 @@ Example:
           type: Object,
           value: function() { return {}; },
         },
+        /**
+         * If set, enables the user to add a title inline.
+        */
         inlineAddingEnabled: {
           type: Boolean,
           value: false
@@ -253,6 +256,9 @@ Example:
           type: Boolean,
           value: false
         },
+        /**
+         * Notifier for if the add title input is active.
+        */
         alertInputActive: {
           computed: '_computeIsActive(_titleInputActive)',
           notify: true
