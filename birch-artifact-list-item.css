@@ -258,6 +258,9 @@
         position: relative;
         top: 6px;
       }
+      .title .title-input {
+        font-size: 16px;
+      }
     }
 
     @media all and (max-width: 767px) {
