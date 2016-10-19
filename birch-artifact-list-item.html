@@ -56,9 +56,9 @@ Example:
         </div>
 
         <template is='dom-if' if='[[_hideContributorName(view, showContributed, _titleInputActive)]]'>
-          <div class='title'>
+          <div class$='[[_calculateTitleClass(_titleError)]]'>
             <i class="exclamation-icon" hidden="[[!_titleError]]"></i>
-            <a class$="[[_calculateTitleClass(_titleError)]]" href$='[[_href]]' on-tap='_titleLinkOverride' hidden='[[_hideTitle(data.title, _titleInputActive)]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
+            <a class="title-text" href$='[[_href]]' on-tap='_titleLinkOverride' hidden='[[_hideTitle(data.title, _titleInputActive)]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
             <template is='dom-if' if='[[data.editableByCaller]]'>
               <a href$='[[_href]]?focus=title' on-tap="_toggleAddTitleInput" class='add-styles' hidden='[[_hideAddTitle(data.title, _titleInputActive)]]'>
                 <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
@@ -72,10 +72,10 @@ Example:
         <!--Contributed By-->
         <wc-i18n key='birch-artifact-list-item.contributed_by' provider value='{{_contributedBy}}'></wc-i18n>
         <template is='dom-if' if='[[!_hideContributorName(view, showContributed, _titleInputActive)]]'>
-          <div class='title'>
+          <div class$='[[_calculateTitleClass(_titleError)]]'>
             <div class='contributed-title-text'>
               <i class="exclamation-icon" hidden="[[!_titleError]]"></i>
-              <a class$="[[_calculateTitleClass(_titleError)]]" href$='[[_href]]' hidden='[[_hideTitle(data.title, _titleInputActive)]]' on-tap='_titleLinkOverride' title='[[data.title]]'><strong>[[data.title]]</strong></a>  
+              <a class="title-text" href$='[[_href]]' hidden='[[_hideTitle(data.title, _titleInputActive)]]' on-tap='_titleLinkOverride' title='[[data.title]]'><strong>[[data.title]]</strong></a>  
               <template is='dom-if' if='[[data.editableByCaller]]'>
                 <a href$='[[_href]]?focus=title' on-tap="_toggleAddTitleInput" class='add-styles' hidden='[[_hideAddTitle(data.title, _titleInputActive)]]' on-tap='_stopProp'>
                   <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
@@ -288,7 +288,7 @@ Example:
         }
       },
       _calculateTitleClass: function(_titleError) {
-        return (_titleError) ? 'title-text error-styling' : 'title-text';
+        return (_titleError) ? 'title error-styling' : 'title';
       },
       _calcParams: function(view) {
         if (this.view === 'my-memories' || this.view === 'my-archive' || this.view === 'my-favorites') {
