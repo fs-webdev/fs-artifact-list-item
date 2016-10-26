@@ -45,13 +45,13 @@ Example:
       <div class='col col-1'>
         <div class='list-preview'>
           <template is='dom-if' if="[[_displayThumbnail(data.thumbUrl, data.category)]]">
-          <iron-image sizing="cover" position="center 15%" class="thumbnail" src="[[data.thumbUrl]]"></iron-image>
+            <iron-image id="thumb" sizing="cover" position="center 15%" class="thumbnail preview" src="[[data.thumbUrl]]"></iron-image>
           </template>
           <template is='dom-if' if='{{_isAudio(data.category)}}'>
-              <audio-item audio-url='[[data.url]]'></audio-item>
+              <audio-item class="preview" audio-url='[[data.url]]'></audio-item>
           </template>
-          <template is='dom-if' if='{{_isStory(data.category)}}'>
-            <i class='story-icon'></i>
+          <template is='dom-if' if='{{_showStoryIcon(data.category, data.thumbUrl)}}'>
+            <i class='story-icon preview'></i>
           </template>
         </div>
 
@@ -279,6 +279,20 @@ Example:
       listeners: {
         'container.tap': '_goToArtifact'
       },
+      ready: function(){
+        Polymer.dom.flush();
+        console.log('ready! ' + Boolean(this.$$('.preview')));
+        if (this.$$('.preview')) {
+          this.listen(this.$$('.preview'), 'mouseover', '_triggerHoverEvent');
+          this.listen(this.$$('.preview'), 'mouseout', '_triggerMouseOut');
+        }
+      },
+      _triggerHoverEvent: function(e){
+        this.fire('list-item-hover', {positionTarget: this.$$('.list-preview'), data: this.data})
+      },
+      _triggerMouseOut: function(e){
+        this.fire('list-item-mouseout');
+      },
       _titleLinkOverride: function(e) {
         if (this._titleError) {
           e.preventDefault();
@@ -434,11 +448,12 @@ Example:
       _isAudio: function(category) {
         return category && category == "AUDIO";
       },
-      _isStory: function(category){
+      _showStoryIcon: function(category, thumbUrl){
+        if (thumbUrl) return false;
         return category && category == "TEXT";
       },
       _displayThumbnail: function(thumbUrl, category) {
-        return thumbUrl && category !== 'TEXT';
+        return thumbUrl;
       },
       _displayFourthColumn: function(mobile, selectMode) {
         if (!mobile && !selectMode) return;
