@@ -281,7 +281,6 @@ Example:
       },
       ready: function(){
         Polymer.dom.flush();
-        console.log('ready! ' + Boolean(this.$$('.preview')));
         if (this.$$('.preview')) {
           this.listen(this.$$('.preview'), 'mouseover', '_triggerHoverEvent');
           this.listen(this.$$('.preview'), 'mouseout', '_triggerMouseOut');
