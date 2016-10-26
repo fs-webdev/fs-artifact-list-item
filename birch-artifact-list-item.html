@@ -141,28 +141,31 @@ Example:
       <!--Restricted-->
       <template is='dom-if' if='[[showMessages]]'>
         <div class="restricted layout vertical center-justified" hidden="[[!restricted]]">
-              <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
+          <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
+          <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted_info' provider value='{{restrictedInfo}}'></wc-i18n>
+          <wc-i18n class='fs-h5' key='birch-artifact-list-item.check_email' provider value='{{checkEmail}}'></wc-i18n>
+          <span class="info-icon" on-tap='_openInfoDialog' hidden='[[!showRestrictedInfo]]' </span>
         </div>
 
         <!--Uploading-->
         <div class="screening layout vertical center-justified" hidden="[[!uploading]]">
-            <wc-i18n class='fs-h5' key='birch-artifact-list-item.uploading'></wc-i18n>
+          <wc-i18n class='fs-h5' key='birch-artifact-list-item.uploading'></wc-i18n>
         </div>
 
         <!--Processing-->
         <div class="screening layout vertical center-justified" hidden="[[!processing]]">
-            <wc-i18n class='fs-h5' key='birch-artifact-list-item.processing'></wc-i18n>
+          <wc-i18n class='fs-h5' key='birch-artifact-list-item.processing'></wc-i18n>
         </div>
 
         <!--Error Processing-->
           <div class="error-text" hidden="[[!processingFailed]]">
-              <wc-i18n key='birch-artifact-list-item.processing_fail'></wc-i18n>
+            <wc-i18n key='birch-artifact-list-item.processing_fail'></wc-i18n>
           </div>
 
         <!--Screening-->
         <div class="screening layout vertical center-justified" hidden="[[!screening]]">
-            <wc-i18n class='fs-h5' key='birch-artifact-list-item.screening'></wc-i18n>
-        </div>
+          <wc-i18n class='fs-h5' key='birch-artifact-list-item.screening'></wc-i18n>
+      </div>
       </template>
     </div>
   </template>
@@ -221,6 +224,14 @@ Example:
          * be shown
          */
         showMessages: {
+          type: Boolean,
+          value: false
+        },
+        /**
+        * A flag for showing the restricted
+        * info dialog
+        */
+        showRestrictedInfo: {
           type: Boolean,
           value: false
         },
@@ -501,6 +512,15 @@ Example:
         this.fire('gallery-close-contact-card',{});
         var contactData = {'event': e, 'data': this.data.ftUserInfo }
         this.fire('gallery-open-contact-card', contactData);
+      },
+       _openInfoDialog: function(e) {
+        e.stopPropagation();
+        var data = {};
+        data.translations = {};
+        data.translations.restrictedInfo = this.restrictedInfo;
+        data.translations.checkEmail = this.checkEmail;
+        data.click = e;
+        this.fire('open-restricted-info', data);
       }
     });
   </script>
