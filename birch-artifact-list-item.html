@@ -44,13 +44,13 @@ Example:
     <div id='container'>
       <div class='col col-1'>
         <div class='list-preview'>
-          <template is='dom-if' if="[[_displayThumbnail(data.thumbUrl, data.category)]]">
+          <template is='dom-if' if="[[_displayThumbnail(data.thumbUrl, data.category)]]" restamp>
             <iron-image id="thumb" sizing="cover" position="center 15%" class="thumbnail preview" src="[[data.thumbUrl]]"></iron-image>
           </template>
-          <template is='dom-if' if='{{_isAudio(data.category)}}'>
+          <template is='dom-if' if='{{_isAudio(data.category)}}' restamp>
               <audio-item class="preview" audio-url='[[data.url]]'></audio-item>
           </template>
-          <template is='dom-if' if='{{_showStoryIcon(data.category, data.thumbUrl)}}'>
+          <template is='dom-if' if='{{_showStoryIcon(data.category, data.thumbUrl)}}' restamp>
             <i class='story-icon preview'></i>
           </template>
         </div>
@@ -274,17 +274,11 @@ Example:
       },
       observers: [
         '_displayFourthColumn(mobile, selectMode)',
-        '_modifyState(data.*, showMessages)'
+        '_modifyState(data.*, showMessages)',
+        '_updatePreviewListeners(data.category)'
       ],
       listeners: {
-        'container.tap': '_goToArtifact'
-      },
-      ready: function(){
-        Polymer.dom.flush();
-        if (this.$$('.preview')) {
-          this.listen(this.$$('.preview'), 'mouseover', '_triggerHoverEvent');
-          this.listen(this.$$('.preview'), 'mouseout', '_triggerMouseOut');
-        }
+        'container.tap': '_goToArtifact',
       },
       _triggerHoverEvent: function(e){
         this.fire('list-item-hover', {positionTarget: this.$$('.list-preview'), data: this.data})
@@ -495,6 +489,14 @@ Example:
       },
       _translateContributor: function(val) {
         return (val) ? val.replace('{0}', '') : '';
+      },
+      _updatePreviewListeners: function(category) {
+        if (category == "AUDIO") return;
+        Polymer.dom.flush();
+        if (this.$$('.preview')) {
+          this.listen(this.$$('.preview'), 'mouseover', '_triggerHoverEvent');
+          this.listen(this.$$('.preview'), 'mouseout', '_triggerMouseOut');
+        }
       },
       _openContactCard: function(e) {
         e.stopPropagation();
