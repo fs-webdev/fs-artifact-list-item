@@ -519,8 +519,7 @@ Example:
         data.translations = {};
         data.translations.restrictedInfo = this.restrictedInfo;
         data.translations.checkEmail = this.checkEmail;
-        data.click = {};
-        data.click.currentTarget = this.$$('.info-icon');
+        data.target = this.$$('.info-icon');
         this.fire('open-restricted-info', data);
       }
     });
