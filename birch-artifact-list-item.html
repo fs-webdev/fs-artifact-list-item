@@ -140,11 +140,11 @@ Example:
       <!--Messages-->
       <!--Restricted-->
       <template is='dom-if' if='[[showMessages]]'>
-        <div class="restricted layout vertical center-justified" hidden="[[!restricted]]">
+        <div class="restricted layout vertical center-justified" hidden="[[!restricted]]" on-tap='_openInfoDialog'>
           <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
           <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted_info' provider value='{{restrictedInfo}}'></wc-i18n>
           <wc-i18n class='fs-h5' key='birch-artifact-list-item.check_email' provider value='{{checkEmail}}'></wc-i18n>
-          <span class="info-icon" on-tap='_openInfoDialog' hidden='[[!showRestrictedInfo]]' </span>
+          <span class="info-icon" hidden='[[!showRestrictedInfo]]' </span>
         </div>
 
         <!--Uploading-->
@@ -519,7 +519,8 @@ Example:
         data.translations = {};
         data.translations.restrictedInfo = this.restrictedInfo;
         data.translations.checkEmail = this.checkEmail;
-        data.click = e;
+        data.click = {};
+        data.click.currentTarget = this.$$('.info-icon');
         this.fire('open-restricted-info', data);
       }
     });
