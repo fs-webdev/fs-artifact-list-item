@@ -201,7 +201,7 @@ Example:
           value: null,
           observer: '_resetInputs'
         },
-        userCisId: {
+        owner: {
           type: String,
           value: ''
         },        
@@ -242,7 +242,7 @@ Example:
         */
         _showRestrictedIcon: {
           type: Boolean,
-          computed: '_isOwner(showRestrictedInfo, userCisId, data.contributorCisUserId, restricted)'
+          computed: '_isOwner(showRestrictedInfo, owner, data.contributorCisUserId, restricted)'
         },
         /**
          * A state message is being displayed
@@ -533,9 +533,9 @@ Example:
         data.target = this.$$('.info-icon');
         this.fire('open-restricted-info', data);
       },
-      _isOwner: function(ex,user,owner, restricted) {
-        if (!restricted || !ex) return false;
-        return (user === owner);
+      _isOwner: function(experiment, user, contributor, restricted) {
+        if (!restricted || !experiment) return false;
+        return (user === contributor);
       }
     });
   </script>
