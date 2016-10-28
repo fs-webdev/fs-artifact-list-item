@@ -90,12 +90,11 @@
       color: white;
       top: 0px;
       bottom: 0px;
-      min-width: 130px;
       right: 20px;
       background: rgba(0,0,0,0.65);
     }
 
-    .restricted > .fs-h5 {
+    .restricted  span > .fs-h5 {
       color: white;
     }
 
