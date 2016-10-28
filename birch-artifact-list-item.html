@@ -140,11 +140,13 @@ Example:
       <!--Messages-->
       <!--Restricted-->
       <template is='dom-if' if='[[showMessages]]'>
-        <div class="restricted layout vertical center-justified" hidden="[[!restricted]]" on-tap='_openInfoDialog'>
-          <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
-          <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted_info' provider value='{{restrictedInfo}}'></wc-i18n>
-          <wc-i18n class='fs-h5' key='birch-artifact-list-item.check_email' provider value='{{checkEmail}}'></wc-i18n>
-          <span class="info-icon" hidden='[[!showRestrictedInfo]]'> </span>
+        <div class="restricted layout vertical center-justified right-text" hidden="[[!restricted]]" on-tap='_openInfoDialog'>
+          <span>
+            <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
+            <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted_info' provider value='{{restrictedInfo}}'></wc-i18n>
+            <wc-i18n class='fs-h5' key='birch-artifact-list-item.check_email' provider value='{{checkEmail}}'></wc-i18n>
+            <span class="info-icon" hidden='[[!showRestrictedInfo]]'> </span>
+          </span>
         </div>
 
         <!--Uploading-->
@@ -153,7 +155,7 @@ Example:
         </div>
 
         <!--Processing-->
-        <div class="screening layout vertical center-justified" hidden="[[!processing]]">
+        <div class="screening layout vertical center-justified right-text" hidden="[[!processing]]">
           <wc-i18n class='fs-h5' key='birch-artifact-list-item.processing'></wc-i18n>
         </div>
 
@@ -163,7 +165,7 @@ Example:
           </div>
 
         <!--Screening-->
-        <div class="screening layout vertical center-justified" hidden="[[!screening]]">
+        <div class="screening layout vertical center-justified right-text" hidden="[[!screening]]">
           <wc-i18n class='fs-h5' key='birch-artifact-list-item.screening'></wc-i18n>
       </div>
       </template>
