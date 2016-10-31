@@ -228,7 +228,8 @@
       width: 18px;
       height: 18px;
       position: relative;
-      top: 3px;
+      top: 4px;
+      margin-left: 5px;
     }
 
     .col-3 .place {
@@ -290,6 +291,10 @@
       .col .title {
         height: 44px;
         -webkit-line-clamp: 3;
+      }
+
+      .restricted {
+        line-height: 22.75px;
       }
       .error-text {
         max-width: 300px;
