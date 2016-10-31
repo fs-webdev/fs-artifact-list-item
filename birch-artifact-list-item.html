@@ -454,7 +454,7 @@ Example:
       },
       _showMobileMessage: function(display, mobile) {
         // Hide the date/place parts to make room for error message
-        if (this.processingFailed && this.showMessages) return true;
+        if ((this.processingFailed || this.restricted) && this.showMessages) return true;
 
         return (display && mobile);
       },
