@@ -140,29 +140,34 @@ Example:
       <!--Messages-->
       <!--Restricted-->
       <template is='dom-if' if='[[showMessages]]'>
-        <div class="restricted layout vertical center-justified" hidden="[[!restricted]]">
-              <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
+        <div class="restricted layout vertical center-justified right-text" hidden="[[!restricted]]" on-tap='_openInfoDialog'>
+          <span>
+            <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
+            <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted_info' provider value='{{restrictedInfo}}'></wc-i18n>
+            <wc-i18n class='fs-h5' key='birch-artifact-list-item.check_email' provider value='{{checkEmail}}'></wc-i18n>
+            <span class="info-icon" hidden='[[!_showRestrictedIcon]]'></span>
+          </span>
         </div>
 
         <!--Uploading-->
         <div class="screening layout vertical center-justified" hidden="[[!uploading]]">
-            <wc-i18n class='fs-h5' key='birch-artifact-list-item.uploading'></wc-i18n>
+          <wc-i18n class='fs-h5' key='birch-artifact-list-item.uploading'></wc-i18n>
         </div>
 
         <!--Processing-->
-        <div class="screening layout vertical center-justified" hidden="[[!processing]]">
-            <wc-i18n class='fs-h5' key='birch-artifact-list-item.processing'></wc-i18n>
+        <div class="screening layout vertical center-justified right-text" hidden="[[!processing]]">
+          <wc-i18n class='fs-h5' key='birch-artifact-list-item.processing'></wc-i18n>
         </div>
 
         <!--Error Processing-->
           <div class="error-text" hidden="[[!processingFailed]]">
-              <wc-i18n key='birch-artifact-list-item.processing_fail'></wc-i18n>
+            <wc-i18n key='birch-artifact-list-item.processing_fail'></wc-i18n>
           </div>
 
         <!--Screening-->
-        <div class="screening layout vertical center-justified" hidden="[[!screening]]">
-            <wc-i18n class='fs-h5' key='birch-artifact-list-item.screening'></wc-i18n>
-        </div>
+        <div class="screening layout vertical center-justified right-text" hidden="[[!screening]]">
+          <wc-i18n class='fs-h5' key='birch-artifact-list-item.screening'></wc-i18n>
+      </div>
       </template>
     </div>
   </template>
@@ -223,6 +228,21 @@ Example:
         showMessages: {
           type: Boolean,
           value: false
+        },
+        /**
+        * A flag for showing the restricted
+        * info dialog
+        */
+        showRestrictedInfo: {
+          type: Boolean,
+          value: false
+        },
+        /**
+        * Flag for showing the restricted icon
+        */
+        _showRestrictedIcon: {
+          type: Boolean,
+          computed: '_isOwner(showRestrictedInfo, owner, data.contributorCisUserId, restricted)'
         },
         /**
          * A state message is being displayed
@@ -430,11 +450,11 @@ Example:
           this.restricted = true;
         }
 
-        if (this.uploading || this.processing || this.screening || this.processingFailed) this._displayMessage = true;
+        if (this.uploading || this.processing || this.screening || this.processingFailed || this.restricted) this._displayMessage = true;
       },
       _showMobileMessage: function(display, mobile) {
         // Hide the date/place parts to make room for error message
-        if (this.processingFailed && this.showMessages) return true;
+        if ((this.processingFailed || this.restricted) && this.showMessages) return true;
 
         return (display && mobile);
       },
@@ -503,6 +523,20 @@ Example:
         this.fire('gallery-close-contact-card',{});
         var contactData = {'event': e, 'data': this.data.ftUserInfo }
         this.fire('gallery-open-contact-card', contactData);
+      },
+       _openInfoDialog: function(e) {
+        e.stopPropagation();
+        if (!this.showRestrictedInfo || this.owner !== this.data.contributorCisUserId) return;
+        var data = {};
+        data.translations = {};
+        data.translations.restrictedInfo = this.restrictedInfo;
+        data.translations.checkEmail = this.checkEmail;
+        data.target = this.$$('.info-icon');
+        this.fire('open-restricted-info', data);
+      },
+      _isOwner: function(experiment, user, contributor, restricted) {
+        if (!restricted || !experiment) return false;
+        return (user === contributor);
       }
     });
   </script>
