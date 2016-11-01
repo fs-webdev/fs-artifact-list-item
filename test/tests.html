@@ -186,7 +186,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           restrictedItem.imageProcessingState = 'PROCESSED';
           el.data = restrictedItem;
           expect(el.restricted).to.be.true;
-          expect(el._displayMessage).to.be.false;
+          expect(el._displayMessage).to.be.true;
         });
 
         test('Save title works, success event fired', function(done){
@@ -333,6 +333,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           expect(mouseOver.calledOnce).to.be.true;
           expect(mouseOut.calledOnce).to.be.true;
+        });
+
+        test('open info dialog', function(done) {
+          var translations = {
+            "restricted_info": "This Memory has been restricted due to content (see <a target='blank' href=\"https://familysearch.org/photos/uploadguidelines\">Upload Guidlines</a>) and will be removed from the site within 30 days.",
+            "check_email": "Check your email linked to your FamilySearch account for instructions."
+          }
+
+          // Check that the event fired has the right values
+          document.addEventListener('open-restricted-info', function(e) {
+            expect(e.detail.target).to.equal(Polymer.dom(el.root).querySelector('.info-icon'));
+            expect(e.detail.translations.restrictedInfo).to.equal(translations.restricted_info);
+            expect(e.detail.translations.checkEmail).to.equal(translations.check_email);
+            done();
+          });
+          // Stubs
+          el.restricted = true;
+          el.showMessages = true;
+          el.owner = '1234';
+          el.data = {};
+          el.data.contributorCisUserId = '1234';
+          el.showRestrictedInfo = true;
+          Polymer.dom(el.root).querySelector('.restricted').click();
         });
 
       });
