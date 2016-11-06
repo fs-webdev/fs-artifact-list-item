@@ -1,5 +1,5 @@
 {
-  "_LRM_PKTAG621": "birch-artifact-list-item_6_156 - CHANGES-ONLY",
+  "_LRM_PKTAG347": "birch-artifact-list-item_7_156 - CHANGES-ONLY",
   "add_date": "加入事項日期",
   "add_place": "加入事項地點",
   "add_title": "加入標題",
@@ -9,7 +9,7 @@
   "processing": "處理中",
   "processing_fail": "處理失敗。刪除且重新上傳或聯絡支援。",
   "restricted": "受限",
-  "restricted_info": "此回憶由於內容的關係已受到限制（見<a target='blank' href=\"https://familysearch.org/photos/uploadguidelines\">上傳準則</a>），將於30天內從網站中移除。",
+  "restricted_info": "此回憶由於內容的關係已受到限制（見<a target='blank' href=\"https://familysearch.org/photos/uploadguidelines\">上傳準則及政策</a>），將於30天內從網站中移除。",
   "screening": "檢測中",
   "uploading": "上傳中"
 }
