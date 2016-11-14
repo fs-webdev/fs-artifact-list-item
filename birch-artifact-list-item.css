@@ -59,7 +59,7 @@
     .col .title {
       display: -webkit-box;
       margin: 0px;
-      line-height: 1.41em;
+      line-height: 1.44em;
       height: 3em;
       overflow: hidden;
       -webkit-line-clamp: 2;
@@ -250,7 +250,15 @@
       position: relative;
       top: 10px;
       left: 5px;
-    } 
+    }
+
+    @media all and (min-width: 768px) {
+      .title-text:focus, .add-styles:focus {
+        position: relative;
+        top: 4px;
+        left: 4px;
+      }
+    }
 
     @media all and (max-width: 979px) {
       #container {
