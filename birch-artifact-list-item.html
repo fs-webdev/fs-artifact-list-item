@@ -508,7 +508,7 @@ Example:
         }
       },
       _translateContributor: function(val) {
-        return (val) ? val.replace('{0}', '') : '';
+        return (val && this.owner) ? val.replace('{0}', '') : '';
       },
       _updatePreviewListeners: function(category) {
         if (category == "AUDIO") return;
