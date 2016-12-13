@@ -96,7 +96,7 @@ Example:
             <span>[[data.datesPlaces.0.dateNormalizedText]]</span>
           </a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
-            <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='add-styles' hidden='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopProp'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='add-styles' hidden='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopPropForStandards' data-standard-type='date'>
               <i class='add-icon' ></i><wc-i18n key='birch-artifact-list-item.add_date'></wc-i18n>
             </a>
           </template>
@@ -106,7 +106,7 @@ Example:
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
           </a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
-            <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='place'>
               <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
             </a>
           </template>
@@ -118,7 +118,7 @@ Example:
             <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
           </a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
-            <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='place'>
               <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
             </a>
           </template>
@@ -494,6 +494,16 @@ Example:
       },
       _stopProp: function(e) {
         if (!this.selectMode) e.stopPropagation();
+      },
+      _stopPropForStandards: function(e) {
+        if(!e || !e.currentTarget || !e.currentTarget.getAttribute('data-standard-type')) return;
+        this._stopProp(e);
+        // Firing an event here so that consumemrs can e.preventDefault() if needed
+        this.fire('birch-artifact-list-item:standards-link', {
+          click: e,
+          el: this,
+          standardType: e.currentTarget.getAttribute('data-standard-type')
+        });
       },
       _toggleAddTitleInput: function(e) {
         if (this.inlineAddingEnabled) {
