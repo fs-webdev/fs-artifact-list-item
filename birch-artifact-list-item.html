@@ -82,8 +82,8 @@ Example:
                 </a>
               </template>
             </div>
-            <div class="contributor" title='[[data.ftUserInfo.contactName]]'>
-              <span></span>[[_translateContributor(_contributedBy)]] <span class='contributor-name' on-tap='_openContactCard'>[[data.ftUserInfo.contactName]]</span>
+            <div class="contributor" title='[[_getContactName(data)]]'>
+              <span></span>[[_translateContributor(_contributedBy)]] <span class='contributor-name' on-tap='_openContactCard'>[[_getContactName(data)]]</span>
             </div>
           </div>
         </div>
@@ -531,7 +531,7 @@ Example:
       _openContactCard: function(e) {
         e.stopPropagation();
         this.fire('gallery-close-contact-card',{});
-        var contactData = {'event': e, 'data': this.data.ftUserInfo }
+        var contactData = {'event': e, 'cisId': this.data.contributorCisUserId  }
         this.fire('gallery-open-contact-card', contactData);
       },
        _openInfoDialog: function(e) {
@@ -548,7 +548,10 @@ Example:
       _isOwner: function(experiment, user, contributor, restricted) {
         if (!restricted || !experiment) return false;
         return (user === contributor);
-      }
+      },
+      _getContactName: function(data) {
+        return data.contributorContactName || data.ftUserInfo.contactName
+     }
     });
   </script>
 </dom-module>
