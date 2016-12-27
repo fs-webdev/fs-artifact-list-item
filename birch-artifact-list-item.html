@@ -82,8 +82,8 @@ Example:
                 </a>
               </template>
             </div>
-            <div class="contributor" title='[[_getContactName(data)]]'>
-              <span></span>[[_translateContributor(_contributedBy)]] <span class='contributor-name' on-tap='_openContactCard'>[[_getContactName(data)]]</span>
+            <div class="contributor" title='[[data.ftUserInfo.contactName]]'>
+              <span></span>[[_translateContributor(_contributedBy)]] <span class='contributor-name' on-tap='_openContactCard'>[[data.ftUserInfo.contactName]]</span>
             </div>
           </div>
         </div>
@@ -92,11 +92,11 @@ Example:
       </div>
       <div class='col col-2' hidden='[[_showMobileMessage(_displayMessage, mobile)]]'>
         <div class='date'>
-          <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='date-text' title='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopProp' hidden='[[!data.datesPlaces.0.dateNormalizedText]]'>
-            <span>[[data.datesPlaces.0.dateNormalizedText]]</span>
+          <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='date-text' title='[[_getDate(data.datesPlaces.0)]]' on-tap='_stopProp' hidden='[[!_hideDateElements(data.datesPlaces.0)]]'>
+            <span>[[_getDate(data.datesPlaces.0)]]</span>
           </a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
-            <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='add-styles' hidden='[[data.datesPlaces.0.dateNormalizedText]]' on-tap='_stopPropForStandards' data-standard-type='date'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='add-styles' hidden='[[_hideDateElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='date'>
               <i class='add-icon' ></i><wc-i18n key='birch-artifact-list-item.add_date'></wc-i18n>
             </a>
           </template>
@@ -359,7 +359,15 @@ Example:
       },
       _getPlace: function(datesPlaces) {
         if (!datesPlaces) return;
-        return datesPlaces.placeNormalizedText ? datesPlaces.placeNormalizedText : datesPlaces.placeOriginalText;
+        return datesPlaces.placeNonStandardizedText
+          ? datesPlaces.placeNonStandardizedText
+          : datesPlaces.placeNormalizedText;
+      },
+      _getDate: function(datesPlaces) {
+        if (!datesPlaces) return;
+        return datesPlaces.dateNonStandardizedText
+          ? datesPlaces.dateNonStandardizedText
+          : datesPlaces.dateNormalizedText;
       },
       _handlePostTitleResponse: function(e) {
         if (e.detail.status < 400) this.fire('artifact-item-title-updated')
@@ -376,7 +384,11 @@ Example:
         return (!title || titleInputActive);
       },
       _hidePlaceElements: function(datesPlaces) {
-        if (datesPlaces) return datesPlaces.placeNormalizedText || datesPlaces.placeOriginalText;
+        if (datesPlaces) return datesPlaces.placeNonStandardizedText || datesPlaces.placeNormalizedText;
+        return false;
+      },
+      _hideDateElements: function(datesPlaces) {
+        if (datesPlaces) return datesPlaces.dateNonStandardizedText || datesPlaces.dateNormalizedText;
         return false;
       },
       _hideContributorName: function(view, showContributed, titleInputActive) {
@@ -531,7 +543,7 @@ Example:
       _openContactCard: function(e) {
         e.stopPropagation();
         this.fire('gallery-close-contact-card',{});
-        var contactData = {'event': e, 'cisId': this.data.contributorCisUserId  }
+        var contactData = {'event': e, 'data': this.data.ftUserInfo }
         this.fire('gallery-open-contact-card', contactData);
       },
        _openInfoDialog: function(e) {
@@ -548,10 +560,7 @@ Example:
       _isOwner: function(experiment, user, contributor, restricted) {
         if (!restricted || !experiment) return false;
         return (user === contributor);
-      },
-      _getContactName: function(data) {
-        return data.contributorContactName || data.ftUserInfo.contactName
-     }
+      }
     });
   </script>
 </dom-module>
