@@ -82,8 +82,8 @@ Example:
                 </a>
               </template>
             </div>
-            <div class="contributor" title='[[data.ftUserInfo.contactName]]'>
-              <span></span>[[_translateContributor(_contributedBy)]] <span class='contributor-name' on-tap='_openContactCard'>[[data.ftUserInfo.contactName]]</span>
+            <div class="contributor" title='[[_getContributorName(data.*)]]'>
+              <span>[[_translateContributor(_contributedBy)]]</span><span class='contributor-name' on-tap='_openContactCard'>[[_getContributorName(data.*)]]</span>
             </div>
           </div>
         </div>
@@ -560,6 +560,9 @@ Example:
       _isOwner: function(experiment, user, contributor, restricted) {
         if (!restricted || !experiment) return false;
         return (user === contributor);
+      },
+      _getContributorName: function(data) {
+        return (data.value.ftUserInfo) ? data.value.ftUserInfo.contactName : data.value.contributorContactName;
       }
     });
   </script>
