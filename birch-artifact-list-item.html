@@ -75,14 +75,14 @@ Example:
           <div class$='[[_calculateTitleClass(_titleError)]]'>
             <div class='contributed-title-text'>
               <i class="exclamation-icon" hidden="[[!_titleError]]"></i>
-              <a class="title-text" href$='[[_href]]' hidden='[[_hideTitle(data.title, _titleInputActive)]]' on-tap='_titleLinkOverride' title='[[data.title]]'><strong>[[data.title]]</strong></a>  
+              <a class="title-text" href$='[[_href]]' hidden='[[_hideTitle(data.title, _titleInputActive)]]' on-tap='_titleLinkOverride' title='[[data.title]]'><strong>[[data.title]]</strong></a>
               <template is='dom-if' if='[[data.editableByCaller]]'>
                 <a href$='[[_href]]?focus=title' on-tap="_toggleAddTitleInput" class='add-styles' hidden='[[_hideAddTitle(data.title, _titleInputActive)]]' on-tap='_stopProp'>
                   <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
                 </a>
               </template>
             </div>
-            <div class="contributor" title='[[_getContributorName(data.*)]]'>
+            <div class="contributor" title='[[_getContributorName(data.*)]]' hidden='[[!_getContributorName(data.*)]]'>
               <span>[[_translateContributor(_contributedBy)]]</span><span class='contributor-name' on-tap='_openContactCard'>[[_getContributorName(data.*)]]</span>
             </div>
           </div>
@@ -131,7 +131,7 @@ Example:
           </a>
         </div>
         <div class='tag-note'>
-          <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>  
+          <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
             <wc-i18n key='birch-artifact-list-item.not_tagged' provider value='{{_notTaggedText}}'></wc-i18n>
             <i class='not-tagged-icon' hidden='[[_hideTag(data.photoTagCount, _displayMessage)]]' title='[[_notTaggedText]]'></i>
           </a>
@@ -204,7 +204,7 @@ Example:
         owner: {
           type: String,
           value: ''
-        },        
+        },
         mobile: {
           type: Boolean,
           value: false
@@ -339,7 +339,7 @@ Example:
         if (e.keyCode == 13 || e.key == "Enter" || e.type == "blur") {
           e.preventDefault();
           if (e.currentTarget.value.length > 0) {
-            this._saveTitle(e.currentTarget.value); 
+            this._saveTitle(e.currentTarget.value);
           } else {
             this._titleInputActive = false;
           }
@@ -403,7 +403,7 @@ Example:
         if (displayMessage) return true;
         return count > 0;
       },
-      /* 
+      /*
         * Takes focus away from input, so keyboard closes on mobile devices.
       */
       _focusTitle: function() {
@@ -419,7 +419,7 @@ Example:
         var newTab = false;
         if (e && e.detail && e.detail.sourceEvent) {
           newTab = e.detail.sourceEvent.ctrlKey || e.detail.sourceEvent.metaKey
-        } 
+        }
         if (this.view === 'my-memories' || this.view === 'my-archive' || this.view === 'my-favorites') {
           url = url + "?c="+this.view;
         } else if(parseInt(this.view)) {
