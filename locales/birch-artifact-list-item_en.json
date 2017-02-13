@@ -5,10 +5,12 @@
   "add_place": "Add Event Place",
   "restricted": "Restricted",
   "contributed_by": "By: {0}",
+  "contributed_by_link": "By: <span class='contributor-name' on-tap='_openContactCard'>{0}</span>",
   "processing": "Processing",
   "processing_fail": "Processing Failed. Delete and re-upload or contact support.",
   "screening": "Screening",
   "uploading": "Uploading",
   "restricted_info": "This Memory has been restricted due to content (see <a target='blank' href=\"https://familysearch.org/photos/uploadguidelines\">Upload Guidelines and Policies</a>) and will be removed from the site within 30 days.",
-  "check_email": "Check your email linked to your FamilySearch account for instructions."
+  "check_email": "Check your email linked to your FamilySearch account for instructions.",
+  "comments": "Comments associated with this memory."
 }
