@@ -5,5 +5,6 @@
   "size":"File Over 15MB",
   "unsupported":"Unsupported File Type",
   "try_again": "Upload Failed. Please try again.",
-  "fail_continues": "Upload failed. If it continues to fail, try using a different file format."
+  "fail_continues": "Upload failed. If it continues to fail, try using a different file format.",
+  "uploading": "Uploading"
 }
