@@ -1,10 +1,12 @@
 {
-  "_LRM_PKTAG667": "birch-artifact-list-item_7_154 - CHANGES-ONLY",
+  "_LRM_PKTAG355": "birch-artifact-list-item_8_154 - CHANGES-ONLY",
   "add_date": "Acrescentar a Data do Evento",
   "add_place": "Acrescentar o Local do Evento",
   "add_title": "Acrescentar um Título",
   "check_email": "Verifique o e-mail cadastrado em sua conta do FamilySearch para obter mais instruções.",
+  "comments": "Comentários relacionados a esta recordação.",
   "contributed_by": "Por: {0}",
+  "contributed_by_link": "Por: <span class='contributor-name' on-tap='_openContactCard'>{0}</span>",
   "not_tagged": "Esta recordação não está marcada.",
   "processing": "Processando",
   "processing_fail": "Falha no Processamento Remova e reenvie o artefato ou entre em contato com o suporte.",

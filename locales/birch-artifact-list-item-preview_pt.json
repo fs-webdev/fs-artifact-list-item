@@ -1,10 +1,11 @@
 {
-  "_LRM_PKTAG861": "birch-artifact-list-item_5_154 - CHANGES-ONLY",
+  "_LRM_PKTAG355": "birch-artifact-list-item_8_154 - CHANGES-ONLY",
   "duplicate": "Arquivo enviado anteriormente",
   "fail_continues": "Falha no envio. Se o problema persistir, tente usar um outro formato de arquivo.",
   "failure": "Ocorreu uma falha durante o envio.",
   "restricted": "Material restrito",
   "size": "Arquivo acima de 15MB",
   "try_again": "Falha no Envio. Tente novamente.",
-  "unsupported": "Arquivo incompatível"
+  "unsupported": "Arquivo incompatível",
+  "uploading": "Enviando"
 }
