@@ -1,10 +1,11 @@
 {
-  "_LRM_PKTAG868": "birch-artifact-list-item_5_149 - CHANGES-ONLY",
+  "_LRM_PKTAG125": "birch-artifact-list-item_8_149 - CHANGES-ONLY",
   "duplicate": "Archivo cargado anteriormente",
   "fail_continues": "No se pudo cargar el archivo. Si el error continúa, prueba otro formato de archivo.",
   "failure": "No se pudo cargar el archivo",
   "restricted": "Restringido",
   "size": "El archivo excede los 15MB",
   "try_again": "No se pudo cargar el archivo. Por favor, inténtalo otra vez.",
-  "unsupported": "Tipo de archivo no compatible"
+  "unsupported": "Tipo de archivo no compatible",
+  "uploading": "Cargando"
 }
