@@ -1,10 +1,11 @@
 {
-  "_LRM_PKTAG269": "birch-artifact-list-item_5_153 - CHANGES-ONLY",
+  "_LRM_PKTAG609": "birch-artifact-list-item_8_153 - CHANGES-ONLY",
   "duplicate": "이전에 업로드된 파일",
   "fail_continues": "업로드 실패 계속 실패한다면, 다른 파일 형식을 사용해 보십시오.",
   "failure": "업로드 실패",
   "restricted": "제한됨",
   "size": "15MB 초과 파일",
   "try_again": "업로드 실패 다시 시도해 보십시오.",
-  "unsupported": "지원되지 않는 파일 유형"
+  "unsupported": "지원되지 않는 파일 유형",
+  "uploading": "업로드 중"
 }
