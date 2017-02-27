@@ -340,6 +340,7 @@ Example:
           e.preventDefault();
           if (e.currentTarget.value.length > 0) {
             this._saveTitle(e.currentTarget.value);
+            e.currentTarget.value = '';
           } else {
             this._titleInputActive = false;
           }
