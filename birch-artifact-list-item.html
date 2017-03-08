@@ -40,7 +40,6 @@ Example:
       method="POST"
       on-response="_handlePostTitleResponse"
       on-error="_handlePostTitleError"></iron-ajax>
-    <wc-i18n-src locale='[[lang]]' locale-dir='[[localeDir()]]' domain='birch-artifact-list-item'></wc-i18n-src>
     <div id='container'>
       <div class='col col-1'>
         <div class='list-preview'>
@@ -61,16 +60,14 @@ Example:
             <a class="title-text" href$='[[_href]]' on-tap='_titleLinkOverride' hidden='[[_hideTitle(data.title, _titleInputActive)]]' title='[[data.title]]'><strong>[[data.title]]</strong></a>
             <template is='dom-if' if='[[data.editableByCaller]]'>
               <a href$='[[_href]]?focus=title' on-tap="_toggleAddTitleInput" class='add-styles' hidden='[[_hideAddTitle(data.title, _titleInputActive)]]'>
-                <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
+                <i class='add-icon'></i>[[i18n('add_title')]]
               </a>
-              <wc-i18n key='birch-artifact-grid-item.add_title' value={{_addTitle}} provider></wc-i18n>
-              <input class="title-input" type="text" maxlength='140' hidden="[[!_titleInputActive]]" on-keydown="_handleEnterExitBlur" on-blur="_handleEnterExitBlur" on-tap="_stopProp" placeholder$="[[_addTitle]]" />
+              <input class="title-input" type="text" maxlength='140' hidden="[[!_titleInputActive]]" on-keydown="_handleEnterExitBlur" on-blur="_handleEnterExitBlur" on-tap="_stopProp" placeholder$="[[i18n('add_title')]]" />
             </template>
           </div>
         </template>
 
         <!--Contributed By-->
-        <wc-i18n key='birch-artifact-list-item.contributed_by' provider value='{{_contributedBy}}'></wc-i18n>
         <template is='dom-if' if='[[!_hideContributorName(view, showContributed, _titleInputActive)]]'>
           <div class$='[[_calculateTitleClass(_titleError)]]'>
             <div class='contributed-title-text'>
@@ -78,12 +75,12 @@ Example:
               <a class="title-text" href$='[[_href]]' hidden='[[_hideTitle(data.title, _titleInputActive)]]' on-tap='_titleLinkOverride' title='[[data.title]]'><strong>[[data.title]]</strong></a>
               <template is='dom-if' if='[[data.editableByCaller]]'>
                 <a href$='[[_href]]?focus=title' on-tap="_toggleAddTitleInput" class='add-styles' hidden='[[_hideAddTitle(data.title, _titleInputActive)]]' on-tap='_stopProp'>
-                  <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_title'></wc-i18n>
+                  <i class='add-icon'></i>[[i18n('add_title')]]
                 </a>
               </template>
             </div>
             <div class="contributor" title='[[_getContributorName(data.*)]]' hidden='[[!_getContributorName(data.*)]]'>
-              <span>[[_translateContributor(_contributedBy)]]</span><span class='contributor-name' on-tap='_openContactCard'>[[_getContributorName(data.*)]]</span>
+              <span id='contributor-link' on-tap='_openContactCard'></span>
             </div>
           </div>
         </div>
@@ -97,17 +94,17 @@ Example:
           </a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
             <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='add-styles' hidden='[[_hideDateElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='date'>
-              <i class='add-icon' ></i><wc-i18n key='birch-artifact-list-item.add_date'></wc-i18n>
+              <i class='add-icon' ></i>[[i18n('add_date')]]
             </a>
           </template>
         </div>
         <div class='place'>
           <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' title='[[_getPlace(data.datesPlaces.0)]]' on-tap='_stopProp'>
-            <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
+            <span> [[_getPlace(data.datesPlaces.0)]]</span>
           </a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
             <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='place'>
-              <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
+              <i class='add-icon'></i>[[i18n('add_place')]]
             </a>
           </template>
         </div>
@@ -115,11 +112,11 @@ Example:
       <div class='col col-3' hidden='[[_showMobileMessage(_displayMessage, mobile)]]'>
         <div class='place'>
           <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' title='[[_getPlace(data.datesPlaces.0)]]' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
-            <span><wc-i18n key='birch-artifact-list-item.in'></wc-i18n> [[_getPlace(data.datesPlaces.0)]]</span>
+            <span> [[_getPlace(data.datesPlaces.0)]]</span>
           </a>
           <template is='dom-if' if='[[data.editableByCaller]]'>
             <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='place'>
-              <i class='add-icon'></i><wc-i18n key='birch-artifact-list-item.add_place'></wc-i18n>
+              <i class='add-icon'></i>[[i18n('add_place')]]
             </a>
           </template>
         </div>
@@ -127,13 +124,12 @@ Example:
       <div class='col col-4'>
         <div class='comment-note'>
           <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
-            <i class='comment-icon' hidden='[[_hideComments(data.commentCount, _displayMessage)]]' href$='[[_href]][[_calcParams(view)]]'>[[data.commentCount]]</i>
+            <i class='comment-icon' hidden='[[_hideComments(data.commentCount, _displayMessage)]]' title='[[i18n("comments")]]' href$='[[_href]][[_calcParams(view)]]'>[[data.commentCount]]</i>
           </a>
         </div>
         <div class='tag-note'>
           <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
-            <wc-i18n key='birch-artifact-list-item.not_tagged' provider value='{{_notTaggedText}}'></wc-i18n>
-            <i class='not-tagged-icon' hidden='[[_hideTag(data.photoTagCount, _displayMessage)]]' title='[[_notTaggedText]]'></i>
+            <i class='not-tagged-icon' hidden='[[_hideTag(data.photoTagCount, _displayMessage)]]' title='[[i18n("not_tagged")]]'></i>
           </a>
         </div>
       </div>
@@ -142,31 +138,29 @@ Example:
       <template is='dom-if' if='[[showMessages]]'>
         <div class="restricted layout vertical center-justified right-text" hidden="[[!restricted]]" on-tap='_openInfoDialog'>
           <span>
-            <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted'></wc-i18n>
-            <wc-i18n class='fs-h5' key='birch-artifact-list-item.restricted_info' provider value='{{restrictedInfo}}'></wc-i18n>
-            <wc-i18n class='fs-h5' key='birch-artifact-list-item.check_email' provider value='{{checkEmail}}'></wc-i18n>
+            [[i18n('restricted')]]
             <span class="info-icon" hidden='[[!_showRestrictedIcon]]'></span>
           </span>
         </div>
 
         <!--Uploading-->
         <div class="screening layout vertical center-justified" hidden="[[!uploading]]">
-          <wc-i18n class='fs-h5' key='birch-artifact-list-item.uploading'></wc-i18n>
+          [[i18n('uploading')]]
         </div>
 
         <!--Processing-->
         <div class="screening layout vertical center-justified right-text" hidden="[[!processing]]">
-          <wc-i18n class='fs-h5' key='birch-artifact-list-item.processing'></wc-i18n>
+          [[i18n('processing')]]
         </div>
 
         <!--Error Processing-->
           <div class="error-text" hidden="[[!processingFailed]]">
-            <wc-i18n key='birch-artifact-list-item.processing_fail'></wc-i18n>
+            [[i18n('processing_fail')]]
           </div>
 
         <!--Screening-->
         <div class="screening layout vertical center-justified right-text" hidden="[[!screening]]">
-          <wc-i18n class='fs-h5' key='birch-artifact-list-item.screening'></wc-i18n>
+          [[i18n('screening')]]
       </div>
       </template>
     </div>
@@ -177,7 +171,7 @@ Example:
       is: 'birch-artifact-list-item',
       behaviors: [
         OakAJAXBehavior,
-        WCI18nBehavior,
+        WCI18n(),
         OakI18nBehavior,
       ],
       properties: {
@@ -295,7 +289,8 @@ Example:
       observers: [
         '_displayFourthColumn(mobile, selectMode)',
         '_modifyState(data.*, showMessages)',
-        '_updatePreviewListeners(data.category)'
+        '_updatePreviewListeners(data.category)',
+        '_translateContributor(i18n, data.*)'
       ],
       listeners: {
         'container.tap': '_goToArtifact',
@@ -525,8 +520,11 @@ Example:
           this.$$('.title .title-input').focus();
         }
       },
-      _translateContributor: function(val) {
-        return (val && this.owner) ? val.replace('{0}', '') : '';
+      _translateContributor: function(i18n, data) {
+        if (!this.showContributed || !data || !data.value || !i18n || !i18n('contributed_by_link')) return;
+        var name = (data.value.ftUserInfo) ? data.value.ftUserInfo.contactName : data.value.contributorContactName;
+        var contributor = this.$$('#contributor-link');
+        if (contributor) contributor.innerHTML = i18n('contributed_by_link').replace('{0}', name);
       },
       _updatePreviewListeners: function(category) {
         if (category == "AUDIO") return;
@@ -548,8 +546,8 @@ Example:
         if (!this.showRestrictedInfo || this.owner !== this.data.contributorCisUserId) return;
         var data = {};
         data.translations = {};
-        data.translations.restrictedInfo = this.restrictedInfo;
-        data.translations.checkEmail = this.checkEmail;
+        data.translations.restrictedInfo = this.i18n('restricted_info');
+        data.translations.checkEmail = this.i18n('check_email');
         data.target = this.$$('.info-icon');
         this.fire('open-restricted-info', data);
       },

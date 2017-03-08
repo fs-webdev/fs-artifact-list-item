@@ -98,12 +98,13 @@
       color: white;
     }
 
-    .contributor .contributor-name {
+    #contributor-link .contributor-name {
       color: blue;
     }
 
     .contributor-name:hover {
       text-decoration: underline;
+      cursor: pointer;
     }
 
     .col .contributed-title-text {

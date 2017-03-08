@@ -10,7 +10,6 @@
   <link rel="import" type="css" href="birch-artifact-list-item-preview.css">
   <template>
    <style include='fs-styles'></style>
-   <wc-i18n-src locale='[[lang]]' locale-dir='[[localeDir()]]' domain='birch-artifact-list-item-preview'></wc-i18n-src>
     <div id='container' on-tap='_goToArtifact'>
       <div class='col col-1'>
         <div class='list-preview'>
@@ -26,26 +25,26 @@
       </div>
       <div class='col col-2'>
         <div hidden="[[!loading]]">
-          <span>Uploading</span> <i class="spinner"></i>
+          <span>[[i18n('uploading')]]</span> <i class="spinner"></i>
         </div>
         <div class="error-text" hidden="[[!data.duplicate]]">
           <span>
-            <wc-i18n key='birch-artifact-list-item-preview.duplicate'></wc-i18n>
+            [[i18n('duplicate')]]
           </span>
         </div>
         <div class="error-text" hidden="[[!data.tooBig]]">
           <span>
-            <wc-i18n key='birch-artifact-list-item-preview.size'></wc-i18n>
+            [[i18n('size')]]
           </span>
         </div>
         <div class="error-text" hidden="[[!data.unsupported]]">
           <span>
-            <wc-i18n key='birch-artifact-list-item-preview.unsupported'></wc-i18n>
+            [[i18n('unsupported')]]
           </span>
         </div>
         <div class="error-text" hidden="[[!data.tryAgain]]">
           <span>
-            <wc-i18n key='birch-artifact-list-item-preview.fail_continues'></wc-i18n>
+            [[i18n('fail_continues')]]
           </span>
         </div>
       </div>
@@ -75,7 +74,7 @@
   Polymer({
     is: 'birch-artifact-list-item-preview',
     behaviors: [
-      WCI18nBehavior,
+      WCI18n(),
       OakI18nBehavior
     ],
     properties: {
