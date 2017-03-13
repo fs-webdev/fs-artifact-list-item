@@ -89,20 +89,30 @@ Example:
       </div>
       <div class='col col-2' hidden='[[_showMobileMessage(_displayMessage, mobile)]]'>
         <div class='date'>
-          <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='date-text' title='[[_getDate(data.datesPlaces.0)]]' on-tap='_stopProp' hidden='[[!_hideDateElements(data.datesPlaces.0)]]'>
-            <span>[[_getDate(data.datesPlaces.0)]]</span>
-          </a>
+          <template is='dom-if' if='[[!data.editableByCaller]]'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='date-text' title='[[_getDate(data.datesPlaces.0)]]' on-tap='_stopProp' hidden='[[!_hideDateElements(data.datesPlaces.0)]]'>
+              <span>[[_getDate(data.datesPlaces.0)]]</span>
+            </a>
+          </template>
           <template is='dom-if' if='[[data.editableByCaller]]'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='date-text' hidden='[[!_hideDateElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='date'>
+              <span>[[_getDate(data.datesPlaces.0)]]</span>
+            </a>
             <a href$='[[_href]][[_calcParams(view)]]&focus=date' class='add-styles' hidden='[[_hideDateElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='date'>
               <i class='add-icon' ></i>[[i18n('add_date')]]
             </a>
           </template>
         </div>
         <div class='place'>
-          <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' title='[[_getPlace(data.datesPlaces.0)]]' on-tap='_stopProp'>
-            <span> [[_getPlace(data.datesPlaces.0)]]</span>
-          </a>
+          <template is='dom-if' if='[[!data.editableByCaller]]'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' title='[[_getPlace(data.datesPlaces.0)]]' on-tap='_stopProp'>
+              <span> [[_getPlace(data.datesPlaces.0)]]</span>
+            </a>
+          </template>
           <template is='dom-if' if='[[data.editableByCaller]]'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='place'>
+              <span> [[_getPlace(data.datesPlaces.0)]]</span>
+            </a>
             <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='place'>
               <i class='add-icon'></i>[[i18n('add_place')]]
             </a>
@@ -111,10 +121,15 @@ Example:
       </div>
       <div class='col col-3' hidden='[[_showMobileMessage(_displayMessage, mobile)]]'>
         <div class='place'>
-          <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' title='[[_getPlace(data.datesPlaces.0)]]' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
-            <span> [[_getPlace(data.datesPlaces.0)]]</span>
-          </a>
+          <template is='dom-if' if='[[!data.editableByCaller]]'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' title='[[_getPlace(data.datesPlaces.0)]]' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopProp'>
+              <span> [[_getPlace(data.datesPlaces.0)]]</span>
+            </a>
+          </template>
           <template is='dom-if' if='[[data.editableByCaller]]'>
+            <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='place-text' hidden='[[!_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='place'>
+              <span> [[_getPlace(data.datesPlaces.0)]]</span>
+            </a>
             <a href$='[[_href]][[_calcParams(view)]]&focus=place' class='add-styles' hidden='[[_hidePlaceElements(data.datesPlaces.0)]]' on-tap='_stopPropForStandards' data-standard-type='place'>
               <i class='add-icon'></i>[[i18n('add_place')]]
             </a>
