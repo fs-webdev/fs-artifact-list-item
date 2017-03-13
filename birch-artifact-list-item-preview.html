@@ -27,6 +27,11 @@
         <div hidden="[[!loading]]">
           <span>[[i18n('uploading')]]</span> <i class="spinner"></i>
         </div>
+        <div class="error-text" hidden="[[!data.failure]]">
+          <span>
+            [[i18n('try_again')]]
+          </span>
+        </div>
         <div class="error-text" hidden="[[!data.duplicate]]">
           <span>
             [[i18n('duplicate')]]
