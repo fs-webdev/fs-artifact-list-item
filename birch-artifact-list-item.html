@@ -366,14 +366,14 @@ Example:
       _getPlace: function(datesPlaces) {
         if (!datesPlaces) return;
         return datesPlaces.placeNonStandardizedText
-          ? datesPlaces.placeNonStandardizedText
-          : datesPlaces.placeNormalizedText;
+          || datesPlaces.placeLocalizedText
+          || datesPlaces.placeNormalizedText;
       },
       _getDate: function(datesPlaces) {
         if (!datesPlaces) return;
         return datesPlaces.dateNonStandardizedText
-          ? datesPlaces.dateNonStandardizedText
-          : datesPlaces.dateNormalizedText;
+          || datesPlaces.dateLocalizedText
+          || datesPlaces.dateNormalizedText;
       },
       _handlePostTitleResponse: function(e) {
         if (e.detail.status < 400) this.fire('artifact-item-title-updated')
@@ -390,12 +390,10 @@ Example:
         return (!title || titleInputActive);
       },
       _hidePlaceElements: function(datesPlaces) {
-        if (datesPlaces) return datesPlaces.placeNonStandardizedText || datesPlaces.placeNormalizedText;
-        return false;
+        return !!this._getPlace(datesPlaces);
       },
       _hideDateElements: function(datesPlaces) {
-        if (datesPlaces) return datesPlaces.dateNonStandardizedText || datesPlaces.dateNormalizedText;
-        return false;
+        return !!this._getDate(datesPlaces);
       },
       _hideContributorName: function(view, showContributed, titleInputActive) {
         if (!showContributed || titleInputActive) return true;
