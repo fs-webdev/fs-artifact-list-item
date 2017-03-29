@@ -163,15 +163,20 @@ Example:
           [[i18n('uploading')]]
         </div>
 
+        <!-- Upload Failed -->
+        <div class="error-text" hidden="[[!uploadFailed]]">
+          [[i18n('upload_failed')]]
+        </div>
+
         <!--Processing-->
         <div class="screening layout vertical center-justified right-text" hidden="[[!processing]]">
           [[i18n('processing')]]
         </div>
 
         <!--Error Processing-->
-          <div class="error-text" hidden="[[!processingFailed]]">
-            [[i18n('processing_fail')]]
-          </div>
+        <div class="error-text" hidden="[[!processingFailed]]">
+          [[i18n('processing_fail')]]
+        </div>
 
         <!--Screening-->
         <div class="screening layout vertical center-justified right-text" hidden="[[!screening]]">
@@ -278,6 +283,10 @@ Example:
           value: false
         },
         uploading: {
+          type: Boolean,
+          value: false
+        },
+        uploadFailed: {
           type: Boolean,
           value: false
         },
@@ -442,6 +451,7 @@ Example:
         if (!showMessages) return;
         // Reset these states
         this.uploading = false;
+        this.uploadFailed = false;
         this.processing = false;
         this.processingFailed = false;
         this.screening = false;
@@ -456,17 +466,22 @@ Example:
         // Check screening state. If not APPROVED, display RESTRICTED or SCREENING message as appropriate
         if (this.data.uploadState == 'UPLOADING') {
           this.uploading = true;
+          this._displayMessage = true;
+        } else if(this.data.uploadState == 'FAILED') {
+          this.uploadFailed = true;
+          this._displayMessage = true;
         } else if (this.data.category !== 'AUDIO' && this.data.imageProcessingState !== 'PROCESSED' && this.data.imageProcessingState !== 'FAILED') {
           this.processing = true;
+          this._displayMessage = true;
         } else if (this.data.imageProcessingState === 'FAILED') {
           this.processingFailed = true;
+          this._displayMessage = true;
         } else if (this.data.screeningState !== 'APPROVED' && this.data.screeningState !== 'ESCALATE' && this.data.screeningState !== 'RESTRICTED') {
           this.screening = true;
+          this._displayMessage = true;
         } else if (this.data.screeningState === 'RESTRICTED') {
           this.restricted = true;
         }
-
-        if (this.uploading || this.processing || this.screening || this.processingFailed || this.restricted) this._displayMessage = true;
       },
       _showMobileMessage: function(display, mobile) {
         // Hide the date/place parts to make room for error message
