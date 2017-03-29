@@ -1,5 +1,5 @@
 {
-  "_LRM_PKTAG813": "birch-artifact-list-item_9_155 - CHANGES-ONLY",
+  "_LRM_PKTAG917": "birch-artifact-list-item_10_155 - CHANGES-ONLY",
   "add_date": "Добавить дату события",
   "add_place": "Добавить местоположение события",
   "add_title": "Добавить заголовок",
@@ -13,5 +13,6 @@
   "restricted": "Просмотр ограничен",
   "restricted_info": "Содержание этого воспоминания не соответствует требованиям сайта (см. <a target='blank' href=\"https://familysearch.org/photos/uploadguidelines\">Правила по загрузке</a>), и оно будет удалено с сайта в течение 30 дней.",
   "screening": "Проверка",
+  "upload_failed": "Загрузка не выполнена. Удалить и загрузить снова.",
   "uploading": "Загрузка"
 }
