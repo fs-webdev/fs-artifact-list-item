@@ -1,5 +1,5 @@
 {
-  "_LRM_PKTAG705": "birch-artifact-list-item_10_154 - CHANGES-ONLY",
+  "_LRM_PKTAG604": "birch-artifact-list-item_11_154 - CHANGES-ONLY",
   "add_date": "Acrescentar a Data do Evento",
   "add_place": "Acrescentar o Local do Evento",
   "add_title": "Acrescentar um Título",
@@ -11,7 +11,7 @@
   "processing": "Processando",
   "processing_fail": "Falha no Processamento Remova e reenvie o artefato ou entre em contato com o suporte.",
   "restricted": "Material Restrito",
-  "restricted_info": "Esta recordação foi restrita por causa do conteúdo (ver as <a target='blank' href=\"https://familysearch.org/photos/uploadguidelines\">Normas e Diretrizes para o Envio</a>) e será removida em até 30 dias.",
+  "restricted_info": "Esta recordação foi restrita por causa do conteúdo (ver as <a target='blank' href=\"https://www.lds.org/legal/familysearch-upload-guidelines-and-policies\">Normas e Diretrizes para o Envio</a>) e será removida em até 30 dias.",
   "screening": "Avaliando",
   "upload_failed": "Falha no envio. Exclua e reenvie a recordação.",
   "uploading": "Enviando"
