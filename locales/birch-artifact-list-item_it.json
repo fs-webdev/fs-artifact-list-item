@@ -1,5 +1,5 @@
 {
-  "_LRM_PKTAG224": "birch-artifact-list-item_10_151 - CHANGES-ONLY",
+  "_LRM_PKTAG827": "birch-artifact-list-item_11_151 - CHANGES-ONLY",
   "add_date": "Aggiungi data dell’evento",
   "add_place": "Aggiungi luogo dell’evento",
   "add_title": "Aggiungi titolo",
@@ -11,7 +11,7 @@
   "processing": "In elaborazione",
   "processing_fail": "Elaborazione non riuscita. Cancella e ricarica oppure contatta l’assistenza.",
   "restricted": "Accesso limitato",
-  "restricted_info": "Questo ricordo è stato sottoposto a restrizioni a causa del contenuto (vedi <a target='blank' href=\"https://familysearch.org/photos/uploadguidelines\">Linee guida e direttive per il caricamento</a>) e sarà rimosso dal sito entro 30 giorni.",
+  "restricted_info": "Questo ricordo è stato sottoposto a restrizioni a causa del contenuto (vedi <a target='blank' href=\"https://www.lds.org/legal/familysearch-upload-guidelines-and-policies\">Linee guida e direttive per il caricamento</a>) e sarà rimosso dal sito entro 30 giorni.",
   "screening": "Controllo in corso",
   "upload_failed": "Caricamento non riuscito. Cancella e carica di nuovo.",
   "uploading": "Caricamento in corso"
