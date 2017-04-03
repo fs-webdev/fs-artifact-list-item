@@ -1,5 +1,5 @@
 {
-  "_LRM_PKTAG960": "birch-artifact-list-item_9_149 - CHANGES-ONLY",
+  "_LRM_PKTAG72": "birch-artifact-list-item_10_149 - CHANGES-ONLY",
   "add_date": "Agregar fecha del acontecimiento",
   "add_place": "Agregar lugar del acontecimiento",
   "add_title": "Agregar título",
@@ -13,5 +13,6 @@
   "restricted": "Restringido",
   "restricted_info": "Este Recuerdo ha sido restringido debido al contenido (ver <a target='blank' href=\"https://familysearch.org/photos/uploadguidelines\">Normas y Pautas de carga</a>) y se quitará del sitio dentro de 30 días.",
   "screening": "Verificando",
+  "upload_failed": "No se pudo cargar el archivo. Eliminar y cargar otra vez.",
   "uploading": "Cargando"
 }
