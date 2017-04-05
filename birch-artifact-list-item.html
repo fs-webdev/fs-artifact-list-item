@@ -87,6 +87,17 @@ Example:
         </template>
 
       </div>
+
+      <template is="dom-if" if="[[data.tombstoned]]">
+        <div class='col col-2'>
+          <div class="date">
+            <div class="badge-wrapper">
+              <small class='badge'>[[_getRemainingDaysCount(i18n, data)]]</small>
+            </div>
+          </div>
+        </div>
+      </template>
+
       <template is="dom-if" if="[[!data.tombstoned]]">
         <div class='col col-2' hidden='[[_showMobileMessage(_displayMessage, mobile)]]'>
           <div class='date'>
@@ -320,6 +331,10 @@ Example:
       ],
       listeners: {
         'container.tap': '_goToArtifact',
+      },
+      _getRemainingDaysCount: function(i18n, data) {
+        if(!i18n || !i18n('remaining_days_count') || !data) return '';
+        return i18n('remaining_days_count').replace('{0}', data.daysUntilDelete);
       },
       _triggerHoverEvent: function(e){
         this.fire('list-item-hover', {positionTarget: this.$$('.list-preview'), data: this.data})

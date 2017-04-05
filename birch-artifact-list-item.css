@@ -33,6 +33,31 @@
       object-fit: cover;
       object-position: center 15%;
     }
+    .badge-wrapper {
+      position: absolute;
+      width: 100%;
+      margin: auto;
+      top: 15px;
+    }
+    .badge {
+      background-position: 6px center;
+      background-repeat: no-repeat;
+      background-size: 15px 15px;
+      background-color: #4d4d4a;
+      border-radius: 9px;
+      bottom: 5px;
+      box-sizing: border-box;
+      color: #fff;
+      display: inline-block;
+      font-weight: normal;
+      line-height: 1;
+      min-width: 21px;
+      padding: 2px 8px;
+      position: relative;
+      text-shadow: none;
+      border: 1px solid #FFFFFF;
+      font-style: normal;
+    }
     .col {
       height: 100%;
       display: inline-block;
