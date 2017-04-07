@@ -1,5 +1,5 @@
 {
-  "_LRM_PKTAG491": "birch-artifact-list-item_11_150 - CHANGES-ONLY",
+  "_LRM_PKTAG609": "birch-artifact-list-item_12_150 - CHANGES-ONLY",
   "add_date": "Ajouter la date de l’événement",
   "add_place": "Ajouter le lieu de l’événement",
   "add_title": "Ajouter le titre",
@@ -10,6 +10,7 @@
   "not_tagged": "Ce souvenir n’a pas de signet.",
   "processing": "Traitement en cours",
   "processing_fail": "Échec du traitement. Supprimez et téléversez de nouveau le fichier, ou prenez contact avec l’assistance.",
+  "remaining_days_count": "{0} jours",
   "restricted": "Accès restreint",
   "restricted_info": "Du fait de son contenu, l’affichage de ce souvenir est interdit et sera supprimé du site dans les trente jours (voir les <a target='blank' href=\"https://www.lds.org/legal/familysearch-upload-guidelines-and-policies\">règles et directives de téléversement</a>).",
   "screening": "Vérification",
