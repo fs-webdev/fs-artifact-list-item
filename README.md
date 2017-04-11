@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/FamilySearchElements/birch-artifact-list-item.svg?branch=master)](https://travis-ci.org/FamilySearchElements/birch-artifact-list-item)
+
 # birch-artifact-list-item
 
 An element providing a starting point for your own reusable Polymer elements.
