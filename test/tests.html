@@ -142,11 +142,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           
         });
 
-        test('Contributed translations are correct', function() {
-          expect(el._contributedBy).to.equal('By: {0}');
-          expect(el._translateContributor('By: {0}')).to.equal('By: ')
-        });
-
         test('Check State for error messages', function() {
           el.showMessages = true;
           // Processing
@@ -155,21 +150,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           el.data = unprocessedItem;
           expect(el.processing).to.be.true;
           expect(el._displayMessage).to.be.true;
+        });
 
+        test('Processing Failed', function() {
+          el.showMessages = true;
           // Processing Failed
           var failedItem = {}; 
           failedItem.imageProcessingState = 'FAILED';
           el.data = failedItem;
           expect(el.processingFailed).to.be.true;
           expect(el._displayMessage).to.be.true;
+        });
 
+        test('Uploading state', function() {
+          el.showMessages = true;
           // Uploading
           var uploadingItem = {};
           uploadingItem.uploadState = 'UPLOADING';
           el.data = uploadingItem;
           expect(el.uploading).to.be.true;
           expect(el._displayMessage).to.be.true;
+        });
 
+        test('Screening state', function() {
+          el.showMessages = true;
           // Screening
           var screeningItem = {};
           screeningItem.screeningState = 'SCREENING';
@@ -178,7 +182,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           el.data = screeningItem;
           expect(el.screening).to.be.true;
           expect(el._displayMessage).to.be.true;
+        });
 
+        test('Restricted', function() {
+          el.showMessages = true;
           // Restricted
           var restrictedItem = {};
           restrictedItem.screeningState = 'RESTRICTED';
@@ -186,7 +193,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           restrictedItem.imageProcessingState = 'PROCESSED';
           el.data = restrictedItem;
           expect(el.restricted).to.be.true;
-          expect(el._displayMessage).to.be.true;
         });
 
         test('Save title works, success event fired', function(done){
@@ -336,16 +342,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
         test('open info dialog', function(done) {
-          var translations = {
-            "restricted_info": "This Memory has been restricted due to content (see <a target='blank' href=\"https://familysearch.org/photos/uploadguidelines\">Upload Guidlines</a>) and will be removed from the site within 30 days.",
-            "check_email": "Check your email linked to your FamilySearch account for instructions."
-          }
-
           // Check that the event fired has the right values
           document.addEventListener('open-restricted-info', function(e) {
             expect(e.detail.target).to.equal(Polymer.dom(el.root).querySelector('.info-icon'));
-            expect(e.detail.translations.restrictedInfo).to.equal(translations.restricted_info);
-            expect(e.detail.translations.checkEmail).to.equal(translations.check_email);
             done();
           });
           // Stubs
@@ -357,9 +356,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           el.showRestrictedInfo = true;
           Polymer.dom(el.root).querySelector('.restricted').click();
         });
-
       });
     </script>
-
   </body>
 </html>
