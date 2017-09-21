@@ -22,17 +22,17 @@ An element that renders any artifact in the gallery list format
 
 Example:
 
-    <birch-artifact-list-item></birch-artifact-list-item>
+    <fs-artifact-list-item></fs-artifact-list-item>
 
 @group Seed Elements
-@element birch-artifact-list-item
+@element fs-artifact-list-item
 @demo demo/index.html
 @hero hero.svg
 -->
 
-<dom-module id="birch-artifact-list-item">
+<dom-module id="fs-artifact-list-item">
   <style include='fs-styles'></style>
-  <link rel="import" type="css" href="birch-artifact-list-item.css">
+  <link rel="import" type="css" href="fs-artifact-list-item.css">
   <template>
     <iron-ajax id="postTitle"
       url="[[ajaxBase]]/artifactmanager/artifacts/[[data.id]]"
@@ -201,7 +201,7 @@ Example:
 
   <script>
     Polymer({
-      is: 'birch-artifact-list-item',
+      is: 'fs-artifact-list-item',
       behaviors: [
         OakAJAXBehavior,
         WCI18n(),
@@ -551,7 +551,7 @@ Example:
         if(!e || !e.currentTarget || !e.currentTarget.getAttribute('data-standard-type')) return;
         this._stopProp(e);
         // Firing an event here so that consumemrs can e.preventDefault() if needed
-        this.fire('birch-artifact-list-item:standards-link', {
+        this.fire('fs-artifact-list-item:standards-link', {
           click: e,
           el: this,
           standardType: e.currentTarget.getAttribute('data-standard-type')

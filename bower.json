@@ -1,5 +1,5 @@
 {
-  "name": "birch-artifact-list-item",
+  "name": "fs-artifact-list-item",
   "version": "2.4.1",
   "authors": [
     "Matthew Liechty <matthew@liechty.org>"
@@ -9,7 +9,7 @@
     "button",
     "styleguide"
   ],
-  "main": "birch-artifact-list-item.html",
+  "main": "fs-artifact-list-item.html",
   "license": "MIT",
   "homepage": "",
   "ignore": [

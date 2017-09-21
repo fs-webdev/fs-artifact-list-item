@@ -6,7 +6,7 @@
   "check_email": "Vous trouverez des instructions dans un courriel envoyé à l’adresse indiquée dans votre compte FamilySearch",
   "comments": "Les commentaires associés avec ce souvenir.",
   "contributed_by": "Par : {0}",
-  "contributed_by_link": "Par : <span class='style-scope birch-artifact-list-item contributor-name' on-tap='_openContactCard'>{0}</span>",
+  "contributed_by_link": "Par : <span class='style-scope fs-artifact-list-item contributor-name' on-tap='_openContactCard'>{0}</span>",
   "not_tagged": "Ce souvenir n’a pas de signet.",
   "processing": "Traitement en cours",
   "processing_fail": "Échec du traitement. Supprimez et téléversez de nouveau le fichier, ou prenez contact avec l’assistance.",

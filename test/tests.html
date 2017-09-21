@@ -17,15 +17,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../web-component-tester/browser.js"></script>
 
     <!-- Step 1: import the element to test -->
-    <link rel="import" href="../birch-artifact-list-item.html">
+    <link rel="import" href="../fs-artifact-list-item.html">
   </head>
   <body>
 
     <!-- You can use the document as a place to set up your fixtures. -->
-    <test-fixture id="birch-artifact-list-item-fixture">
+    <test-fixture id="fs-artifact-list-item-fixture">
       <template>
-        <birch-artifact-list-item>
-        </birch-artifact-list-item>
+        <fs-artifact-list-item>
+        </fs-artifact-list-item>
       </template>
     </test-fixture>
 
@@ -39,12 +39,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           dataObj.ftUserInfo.contactName = 'Sample Name';
 
 
-      suite('<birch-artifact-list-item>', function() {
+      suite('<fs-artifact-list-item>', function() {
         var rootEl;
         var el;
 
         setup(function() {
-          el = fixture('birch-artifact-list-item-fixture');
+          el = fixture('fs-artifact-list-item-fixture');
         });
 
         test('Audio Element', function(done){
@@ -56,7 +56,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             //Check that audio artifact elements have rendered correctly
             var playButton = audioItem.$$('#actionplay');
-            assert.isTrue(Boolean(playButton), "Play button exists");            
+            assert.isTrue(Boolean(playButton), "Play button exists");
             done();
           });
         });
@@ -66,9 +66,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           rootEl = Polymer.dom(el.root);
           flush(function() {
             var storyIcon = rootEl.querySelector('.story-icon');
-            assert.isTrue(Boolean(storyIcon)); 
+            assert.isTrue(Boolean(storyIcon));
             done()
-          }); 
+          });
         });
 
         test('Go to Item, Href Building', function(){
@@ -77,11 +77,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           el._href = "";
           el.data = dataObj.standardImage;
           rootEl = Polymer.dom(el.root);
-          
+
           var artifact = rootEl.querySelector('#artifact');
 
           var stub = sinon.stub(window, "open", function(url, prop){ return mockElement; });
-          
+
           var mockElement = document.createElement("div");
           var mockEvent = {detail:{"sourceEvent": {ctrlKey: true} }, preventDefault: function(){}, stopPropagation: function(){}};
 
@@ -100,7 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           rootEl = Polymer.dom(el.root);
 
           var spy = sinon.spy();
-          var mockEvent = {stopPropagation:spy} 
+          var mockEvent = {stopPropagation:spy}
 
          el._stopProp(mockEvent);
 
@@ -139,13 +139,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           el.showContributed = true;
           expect(el._hideContributorName(el.view, el.showContributed, el._titleInputActive)).to.be.false;
-          
+
         });
 
         test('Check State for error messages', function() {
           el.showMessages = true;
           // Processing
-          var unprocessedItem = {} 
+          var unprocessedItem = {}
           unprocessedItem.imageProcessingState = 'UNPROCESSED';
           el.data = unprocessedItem;
           expect(el.processing).to.be.true;
@@ -155,7 +155,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         test('Processing Failed', function() {
           el.showMessages = true;
           // Processing Failed
-          var failedItem = {}; 
+          var failedItem = {};
           failedItem.imageProcessingState = 'FAILED';
           el.data = failedItem;
           expect(el.processingFailed).to.be.true;
@@ -199,7 +199,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var server = sinon.fakeServer.create();
           var handleSuccess = sinon.spy(el, '_handlePostTitleResponse');
           el._titleInputActive = true;
-          
+
           server.respondWith(
             'POST',
             /\/artifactmanager\/artifacts\//,
@@ -222,11 +222,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           server.respond()
 
         });
-        
+
         test('Save title fails, error event fired, title error set', function(done){
           var server = sinon.fakeServer.create();
           var handleFailure = sinon.spy(el, '_handlePostTitleError');
-          
+
           server.respondWith(
             'POST',
             /\/artifactmanager\/artifacts\//,
@@ -289,7 +289,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           el.data = dataObj.standardImage;
           var saveTitle = sinon.spy(el, '_saveTitle');
           var focusTitle = sinon.spy(el, '_focusTitle');
-          
+
           var mockE = {
             preventDefault: function(){},
             stopPropagation: function(){},
@@ -304,7 +304,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           el._handleEnterExitBlur(mockE);
 
           expect(saveTitle.calledOnce).to.be.true;
-          expect(focusTitle.calledOnce).to.be.true;  
+          expect(focusTitle.calledOnce).to.be.true;
           expect(el._titleInputActive).to.be.false;
           expect(el.data.title).to.equal("text");
 
