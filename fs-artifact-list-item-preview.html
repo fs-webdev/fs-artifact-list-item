@@ -2,12 +2,12 @@
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../wc-i18n/wc-i18n.html">
 <link rel="import" href="../oak-i18n-behavior/oak-i18n-behavior.html">
-<link rel="import" href="./birch-artifact-list-item.html">
+<link rel="import" href="./fs-artifact-list-item.html">
 <link rel="import" href="../fs-styles/fs-styles.html">
 
-<dom-module id='birch-artifact-list-item-preview'>
+<dom-module id='fs-artifact-list-item-preview'>
   <style include='fs-styles'></style>
-  <link rel="import" type="css" href="birch-artifact-list-item-preview.css">
+  <link rel="import" type="css" href="fs-artifact-list-item-preview.css">
   <template>
    <style include='fs-styles'></style>
     <div id='container' on-tap='_goToArtifact'>
@@ -77,7 +77,7 @@
   }
 
   Polymer({
-    is: 'birch-artifact-list-item-preview',
+    is: 'fs-artifact-list-item-preview',
     behaviors: [
       WCI18n(),
       OakI18nBehavior
@@ -98,7 +98,7 @@
        *
        * Otherwise the promise should resolve with an object
        * containing an `artifact` property. This property will be
-       * used to bootstrap the underlying `birch-artifact-list-item`
+       * used to bootstrap the underlying `fs-artifact-list-item`
        * @type {Object}
        */
       data: {
