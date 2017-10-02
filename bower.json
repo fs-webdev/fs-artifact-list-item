@@ -26,8 +26,8 @@
     "iron-image": "^1.2.3",
     "iron-ajax": "PolymerElements/iron-ajax#~1.0.6",
     "wc-i18n": "jshcrowthe/wc-i18n#^2.1.0",
-    "oak-ajax-behavior": "FamilySearchElements/oak-ajax-behavior",
-    "oak-i18n-behavior": "FamilySearchElements/oak-i18n-behavior#1.x",
+    "oak-ajax-behavior": "fs-webdev/oak-ajax-behavior",
+    "oak-i18n-behavior": "fs-webdev/oak-i18n-behavior#1.x",
     "layout": "fs-webdev/layout#1.0.0",
     "fs-styles": "fs-webdev/fs-styles"
   },
