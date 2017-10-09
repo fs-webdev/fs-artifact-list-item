@@ -107,14 +107,14 @@
         observer: '_attachPromiseHandler',
         notify: true
       },
-      observers: [
-        '_handleImportError(data.importError)'
-      ],
       loading: {
         type: Boolean,
         value: true
       },
     },
+    observers: [
+      '_handleImportError(data.importError)'
+    ],
     listeners: {
       tap: '_stopPropagation',
       contextmenu: '_stopPropagation'
