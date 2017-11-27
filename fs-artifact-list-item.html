@@ -772,8 +772,14 @@ Example:
         if (e.keyCode == 13 || e.key == "Enter" || e.type == "blur") {
           e.preventDefault();
           if (e.currentTarget.value.length > 0) {
-            this._saveTitle(e.currentTarget.value);
-            e.currentTarget.value = '';
+            /* If the user hits the Enter key, a keydown and blur event are both fired.  Using async here
+             * prevents the duplicate call to _saveTitle.  If we don't do this, metrics gets counted twice. */
+            this.async(function() {
+              if (e.currentTarget) {
+                this._saveTitle(e.currentTarget.value);
+                e.currentTarget.value = '';
+              }
+            });
           } else {
             this._titleInputActive = false;
           }
@@ -933,6 +939,7 @@ Example:
         if (this.$$('.title-input')) this.$$('.title-input').value = "";
       },
       _saveTitle: function(titleText) {
+        this.fireMetrics({link_name: 'Artifact: Save Title'});
         this.$.postTitle.body = {
           title: titleText
         };
@@ -942,10 +949,7 @@ Example:
       },
       _stopProp: function(e) {
         if (!this.selectMode) e.stopPropagation();
-
-        if (e.target.hasAttribute('metrics-id')) {
-          this.fireMetrics(e);
-        }
+        this._metrics(e);
       },
       _stopPropForStandards: function(e) {
         if(!e || !e.currentTarget || !e.currentTarget.getAttribute('data-standard-type')) return;
@@ -1008,6 +1012,11 @@ Example:
       _getContributorName: function(data) {
         if (data && data.value) {
           return (data.value.ftUserInfo) ? data.value.ftUserInfo.contactName : data.value.contributorContactName;
+        }
+      },
+      _metrics: function(e) {
+        if (e && e.target && e.target.hasAttribute('metrics-id')) {
+          this.fireMetrics(e);
         }
       }
     });
