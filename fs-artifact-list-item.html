@@ -16,6 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../fs-styles/fs-styles.html">
 <link rel="import" href="../oak-ajax-behavior/oak-ajax-behavior.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../fs-metrics/fs-metrics.html">
 
 <!--
 An element that renders any artifact in the gallery list format
@@ -546,8 +547,8 @@ Example:
             </a>
           </div>
           <div class='tag-note'>
-            <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
-              <i class='not-tagged-icon' hidden='[[_hideTag(data.photoTagCount, _displayMessage)]]' title='[[i18n("not_tagged")]]'></i>
+            <a metrics-id="Artifact: Add Tag Icon" href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
+              <i metrics-id="Artifact: Add Tag Icon" class='not-tagged-icon' hidden='[[_hideTag(data.photoTagCount, _displayMessage)]]' title='[[i18n("not_tagged")]]'></i>
             </a>
           </div>
         </div>
@@ -597,11 +598,12 @@ Example:
         OakAJAXBehavior,
         WCI18n(),
         OakI18nBehavior,
+        FsBehaviors.Metrics
       ],
       properties: {
         data: {
           type: Object,
-          value: function() { return {}; },
+          value: function() { return {}; }
         },
         /**
          * If set, enables the user to add a title inline.
@@ -721,7 +723,7 @@ Example:
         '_translateContributor(i18n, data.*)'
       ],
       listeners: {
-        'container.tap': '_goToArtifact',
+        'container.tap': '_goToArtifact'
       },
       _getRemainingDaysCount: function(i18n, data) {
         if(!i18n || !i18n('remaining_days_count') || !data) return '';
@@ -837,6 +839,9 @@ Example:
       },
       _goToArtifact: function(e) {
         if (this.selectMode || this.data.tombstoned) return;
+
+        this.fireMetrics({link_name: 'Artifact: Click to View'});
+
         e.preventDefault();
         this._stopProp(e);
         var url = this._href;
@@ -937,6 +942,10 @@ Example:
       },
       _stopProp: function(e) {
         if (!this.selectMode) e.stopPropagation();
+
+        if (e.target.hasAttribute('metrics-id')) {
+          this.fireMetrics(e);
+        }
       },
       _stopPropForStandards: function(e) {
         if(!e || !e.currentTarget || !e.currentTarget.getAttribute('data-standard-type')) return;
@@ -980,7 +989,7 @@ Example:
         var contactData = {'event': e, 'cisId': this.data.contributorCisUserId };
         this.fire('gallery-open-contact-card', contactData);
       },
-       _openInfoDialog: function(e) {
+      _openInfoDialog: function(e) {
         e.stopPropagation();
         e.preventDefault();
         if (!this.showRestrictedInfo || this.owner !== this.data.contributorCisUserId) return;
