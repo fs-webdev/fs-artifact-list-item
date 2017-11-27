@@ -985,6 +985,7 @@ Example:
       },
       _openContactCard: function(e) {
         e.stopPropagation();
+        this.fireMetrics({link_name: 'Artifact: Select Contributor Name'});
         this.fire('gallery-close-contact-card',{});
         var contactData = {'event': e, 'cisId': this.data.contributorCisUserId };
         this.fire('gallery-open-contact-card', contactData);
