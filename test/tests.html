@@ -45,6 +45,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         setup(function() {
           el = fixture('fs-artifact-list-item-fixture');
+          fireMetricsStub = sinon.stub(el, "fireMetrics");
+        });
+
+        teardown(function() {
+          fireMetricsStub.restore();
         });
 
         test('Audio Element', function(done){
@@ -255,8 +260,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           var mockE = {
             preventDefault: function(){},
-            stopPropagation: function(){},
-          }
+            stopPropagation: function(){}
+          };
           el._titleLinkOverride(mockE);
 
           expect(toggleAddTitleInput.calledOnce).to.be.true;
@@ -272,8 +277,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           var mockE = {
             preventDefault: function(){},
-            stopPropagation: function(){},
-          }
+            stopPropagation: function(){}
+          };
 
           expect(el._titleInputActive).to.be.false;
 
@@ -281,49 +286,61 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           expect(el._titleInputActive).to.be.true;
           if (!Polymer.Settings.useNativeShadow && !Polymer.Settings.useShadow) {
-            expect(document.activeElement.classList.contains('title-input')).to.be.true;
+            expect(el.root.activeElement.classList.contains('title-input')).to.be.true;
           }
         });
 
-        test('Handle enter exit blur', function(){
+        test('Handle enter exit blur', function(done){
           el.data = dataObj.standardImage;
-          var saveTitle = sinon.spy(el, '_saveTitle');
-          var focusTitle = sinon.spy(el, '_focusTitle');
+          var saveTitleSpy = sinon.spy(el, '_saveTitle');
+          var focusTitleSpy = sinon.spy(el, '_focusTitle');
 
-          var mockE = {
+          var mockE_Async = {
             preventDefault: function(){},
             stopPropagation: function(){},
             type: "blur",
             currentTarget: {
               value: "text"
             }
-          }
+          };
           Polymer.dom.flush();
 
           // Case: Enter or blur with text entered
-          el._handleEnterExitBlur(mockE);
+          el._handleEnterExitBlur(mockE_Async);
 
-          expect(saveTitle.calledOnce).to.be.true;
-          expect(focusTitle.calledOnce).to.be.true;
+          setTimeout(function() {
+            expect(saveTitleSpy.calledOnce).to.be.true;
+            expect(el.data.title).to.equal("text");
+            el._saveTitle.restore();
+            done();
+          });
+
+          expect(focusTitleSpy.calledOnce).to.be.true;
           expect(el._titleInputActive).to.be.false;
-          expect(el.data.title).to.equal("text");
 
           // Case: Enter or blur without any text entered
           el._titleInputActive = true;
-          mockE.currentTarget.value = "";
+          var mockE = {
+            preventDefault: function(){},
+            stopPropagation: function(){},
+            type: "blur",
+            currentTarget: {
+              value: ""
+            }
+          };
           el._handleEnterExitBlur(mockE);
 
-          expect(focusTitle.calledTwice).to.be.true;
+          expect(focusTitleSpy.calledTwice).to.be.true;
           expect(el._titleInputActive).to.be.false;
 
           // Case: exit button pressed
           mockE.keyCode = 27;
-          mockE.currentTarget.value = "text"
+          mockE.currentTarget.value = "text";
           mockE.type = "";
           el._titleInputActive = true;
           el._handleEnterExitBlur(mockE);
 
-          expect(focusTitle.calledThrice).to.be.true;
+          expect(focusTitleSpy.calledThrice).to.be.true;
           expect(el.data.title).to.equal("");
           expect(el._titleInputActive).to.be.false;
         });
