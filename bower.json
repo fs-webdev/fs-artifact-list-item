@@ -21,7 +21,7 @@
     "/demo"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#2",
+    "polymer": "Polymer/polymer#1 - 2",
     "iron-list": "^2.0.0",
     "iron-image": "PolymerElements/iron-image#^2.0.0",
     "iron-ajax": "PolymerElements/iron-ajax#^2.0.0",
