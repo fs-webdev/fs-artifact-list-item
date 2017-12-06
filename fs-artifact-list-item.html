@@ -425,6 +425,21 @@ Example:
           position: relative;
         }
       }
+
+      .layout.vertical {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .layout.center-justified{
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
     </style>
     <iron-ajax id="postTitle"
       url="[[ajaxBase]]/artifactmanager/artifacts/[[data.id]]"
