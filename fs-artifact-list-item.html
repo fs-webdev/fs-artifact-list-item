@@ -447,7 +447,7 @@ Example:
       method="POST"
       on-response="_handlePostTitleResponse"
       on-error="_handlePostTitleError"></iron-ajax>
-    <div id='container'>
+    <div id='container' on-tap="_goToArtifact">
       <div class='col col-1'>
         <div class='list-preview'>
           <template is='dom-if' if="[[_displayThumbnail(data.thumbUrl, data.category)]]" restamp>
@@ -737,9 +737,6 @@ Example:
         '_updatePreviewListeners(data.category)',
         '_translateContributor(i18n, data.*)'
       ],
-      listeners: {
-        'container.tap': '_goToArtifact'
-      },
       _getRemainingDaysCount: function(i18n, data) {
         if(!i18n || !i18n('remaining_days_count') || !data) return '';
         return i18n('remaining_days_count').replace('{0}', data.daysUntilDelete);
