@@ -758,7 +758,7 @@ Example:
         this.fire('list-item-mouseout');
       },
       _titleLinkOverride: function(e) {
-        if (this.data.tombstoned) {
+        if (this.selectMode || this.data.tombstoned) {
           e.preventDefault();
           return;
         }
