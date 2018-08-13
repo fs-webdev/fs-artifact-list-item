@@ -801,7 +801,7 @@ Example:
                 this._saveTitle(e.currentTarget.value);
                 e.currentTarget.value = '';
               }
-            });
+            }, 10); // this number is needed for non-chrome browsers
           } else {
             this._titleInputActive = false;
           }
