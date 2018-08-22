@@ -794,14 +794,15 @@ Example:
         if (e.keyCode == 13 || e.key == "Enter" || e.type == "blur") {
           e.preventDefault();
           if (e.currentTarget.value.length > 0) {
-            /* If the user hits the Enter key, a keydown and blur event are both fired.  Using async here
-             * prevents the duplicate call to _saveTitle.  If we don't do this, metrics gets counted twice. */
-            this.async(function() {
-              if (e.currentTarget) {
-                this._saveTitle(e.currentTarget.value);
-                e.currentTarget.value = '';
-              }
-            }, 10); // this number is needed for non-chrome browsers
+          /* If the user hits the Enter key, a keydown and blur event are both fired.  Using async here
+           * prevents the duplicate call to _saveTitle.  If we don't do this, metrics gets counted twice. */
+          this.async(function() {
+            // Repeat this check to prevent blur event from saving empty title
+            if (e.currentTarget && e.currentTarget.value.length > 0) {
+              this._saveTitle(e.currentTarget.value);
+              e.currentTarget.value = '';
+            }
+          });
           } else {
             this._titleInputActive = false;
           }
