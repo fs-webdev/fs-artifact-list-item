@@ -348,6 +348,10 @@ Example:
           white-space: nowrap;
           text-overflow: ellipsis;
         }
+        #container .place-text {
+          /* Required for non-chrome browsers to actually show ellipsis */
+          display: inline;
+        }
         .col-1 {
           width: 38%;
         }
