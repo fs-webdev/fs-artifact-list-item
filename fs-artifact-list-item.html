@@ -984,7 +984,6 @@ Example:
       _displayFourthColumn: function(mobile, selectMode) {
         if ((!mobile && !selectMode) || this.data.tombstoned) return;
         var commentEl = this.$$('.comment-note');
-        if (!commentEl) return;
         var personTagEl = this.$$('.tag-note');
         if ( !commentEl || !personTagEl ) return;
         if (mobile && selectMode && Boolean(commentEl) && Boolean(personTagEl)) {
