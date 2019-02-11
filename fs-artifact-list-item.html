@@ -1103,6 +1103,9 @@ Example:
               hasAttachedAudio = true;
               // end the looping
               return false;
+            } else {
+              // keep looping
+              return true;
             }
           });
         }
