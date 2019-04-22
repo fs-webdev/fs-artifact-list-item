@@ -327,17 +327,19 @@ Example:
       }
 
       .attached-audio {
-        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5IiBoZWlnaHQ9IjEzIiB2aWV3Qm94PSIwIDAgOSAxMyI+CiAgPGcgZGF0YS1uYW1lPSJMYXllciAyIj4KICAgIDxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDB2MTNoOVYweiIvPgogICAgPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQuNSA4LjlhMi40MSAyLjQxIDAgMCAwIDIuNC0yLjR2LS4yNWEuMTUuMTUgMCAwIDAtLjE1LS4xNWgtNC41YS4xNS4xNSAwIDAgMC0uMTUuMTV2LjI1YTIuNDEgMi40MSAwIDAgMCAyLjQgMi40ek0yLjI1IDQuOWg0LjVhLjE1LjE1IDAgMCAwIC4xNS0uMTVWMi41YTIuNCAyLjQgMCAwIDAtNC44IDB2Mi4yNWEuMTUuMTUgMCAwIDAgLjE1LjE1ek00LjkgMS4xMkEuMjIuMjIgMCAwIDEgNS4xMi45aC43NmEuMjIuMjIgMCAwIDEgLjIyLjIydi43NmEuMjIuMjIgMCAwIDEtLjIyLjIyaC0uNzZhLjIyLjIyIDAgMCAxLS4yMi0uMjJ6bTAgMmEuMjIuMjIgMCAwIDEgLjIyLS4yMmguNzZhLjIyLjIyIDAgMCAxIC4yMi4yMnYuNzZhLjIyLjIyIDAgMCAxLS4yMi4yMmgtLjc2YS4yMi4yMiAwIDAgMS0uMjItLjIyem0tMi0yQS4yMi4yMiAwIDAgMSAzLjEyLjloLjc2YS4yMi4yMiAwIDAgMSAuMjIuMjJ2Ljc2YS4yMi4yMiAwIDAgMS0uMjIuMjJoLS43NmEuMjIuMjIgMCAwIDEtLjIyLS4yMnptMCAyYS4yMi4yMiAwIDAgMSAuMjItLjIyaC43NmEuMjIuMjIgMCAwIDEgLjIyLjIydi43NmEuMjIuMjIgMCAwIDEtLjIyLjIyaC0uNzZhLjIyLjIyIDAgMCAxLS4yMi0uMjJ6Ii8+CiAgICA8cGF0aCBmaWxsPSIjZmZmIiBkPSJNOSA2LjVhLjQ4LjQ4IDAgMCAwLTEgMCAzLjUyIDMuNTIgMCAwIDEtNyAwQS40OS40OSAwIDAgMCAuNSA2YS40OS40OSAwIDAgMC0uNS41IDQuNDcgNC40NyAwIDAgMCAzLjU0IDQuMzcgMi45MiAyLjkyIDAgMCAwLS4yMS41Ni45My45MyAwIDAgMS0uODUuNjdoLS44OWEuNC40IDAgMSAwIDAgLjhoNS44MmEuNC40IDAgMSAwIDAtLjhINi41YTEgMSAwIDAgMS0uODctLjczIDIuMzQgMi4zNCAwIDAgMC0uMTktLjVBNC40OCA0LjQ4IDAgMCAwIDkgNi41eiIvPgogIDwvZz4KPC9zdmc+);
-        background-repeat: no-repeat;
         width: 17px;
-        background-position: center;
         height: 17px;
-        display: inline-block;
+        display: inline-flex;
+        justify-content: center;
         position: absolute;
         bottom: 0px;
         right: 0px;
         background-color: #88B748;
         border-radius: 8px;
+      }
+
+      .attached-audio-icon {
+        transform: scale(.45);
       }
 
       .date a, .place a {
@@ -498,7 +500,9 @@ Example:
         <div class='list-preview'>
           <template is='dom-if' if="[[_displayThumbnail(data.thumbUrl, data.category)]]" restamp>
             <iron-image id="thumb" sizing="cover" position="center 15%" class="thumbnail preview" src="[[data.thumbUrl]]"></iron-image>
-            <i class="attached-audio" hidden="[[!_hasAttachedAudio(data.associatedArtifacts)]]"></i>
+            <div class="attached-audio" hidden="[[!_hasAttachedAudio(data.associatedArtifacts)]]">
+              <fs-icon class="attached-audio-icon" icon="audio-recording-green-medium" color="var(--fs-color-white)" hidden="[[!_hasAttachedAudio(data.associatedArtifacts)]]"></fs-icon>
+            </div>
           </template>
           <template is='dom-if' if='{{_isAudio(data.category)}}' restamp>
               <audio-item class="preview" audio-url='[[data.url]]'></audio-item>
