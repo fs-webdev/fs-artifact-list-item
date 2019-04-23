@@ -14,5 +14,6 @@
   "check_email": "Check your email linked to your FamilySearch account for instructions.",
   "comments": "Comments associated with this memory.",
   "upload_failed": "Upload failed. Delete, and upload again.",
-  "remaining_days_count": "{0} days"
+  "remaining_days_count": "{0} days",
+  "associated_audio": "Associated Audio"
 }
