@@ -1,7 +1,9 @@
 {
+  "_LRM_PKTAG53": "fs-artifact-list-item_1_146 - CHANGES-ONLY",
   "add_date": "Datum des Ereignisses hinzufügen",
   "add_place": "Ort des Ereignisses hinzufügen",
   "add_title": "Titel hinzufügen",
+  "associated_audio": "Verknüpfte Audioaufnahme",
   "check_email": "In dem E-Mail-Fach, das mit Ihrem FamilySearch-Benutzerkonto verknüpft ist, finden Sie Anweisungen.",
   "comments": "Mit dieser Erinnerung verbundene Kommentare.",
   "contributed_by": "Von: {0}",
