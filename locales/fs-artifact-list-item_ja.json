@@ -1,7 +1,9 @@
 {
+  "_LRM_PKTAG355": "fs-artifact-list-item_1_104 - CHANGES-ONLY",
   "add_date": "出来事の日付を追加する",
   "add_place": "出来事の場所を追加する",
   "add_title": "タイトルを追加する",
+  "associated_audio": "関連付けられている音声",
   "check_email": "指示を読むには，ファミリーサーチアカウントにリンクされている電子メールをチェックしてください。",
   "comments": "この思い出に関連したコメント。",
   "contributed_by": "提供者：{0}",
