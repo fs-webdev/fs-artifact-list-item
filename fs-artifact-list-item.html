@@ -502,7 +502,7 @@ Example:
           <template is='dom-if' if="[[_displayThumbnail(data.thumbUrl, data.category)]]" restamp>
             <iron-image id="thumb" sizing="cover" position="center 15%" class="thumbnail preview" src="[[data.thumbUrl]]"></iron-image>
             <div class="attached-audio" hidden="[[!_hasAttachedAudio(data.associatedArtifacts)]]">
-              <fs-icon class="attached-audio-icon" title="[[i18n('associated_audio')]]" alt="[[i18n('associated_audio')]]" icon="audio-recording-green-medium" color="var(--fs-color-white)" hidden="[[!_hasAttachedAudio(data.associatedArtifacts)]]"></fs-icon>
+              <fs-icon class="attached-audio-icon" title="[[i18n('associated_audio')]]" alt="[[i18n('associated_audio')]]" icon="audio-recording-green-medium" color="var(--fs-color-white)"></fs-icon>
             </div>
           </template>
           <template is='dom-if' if='{{_isAudio(data.category)}}' restamp>
