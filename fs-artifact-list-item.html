@@ -915,6 +915,12 @@ Example:
 
         e.preventDefault();
         this._stopProp(e);
+
+         /* Modal viewer */
+        this.fire('view-artifact', {"artifact": this.data})
+        return;
+        /* end modal viewer */
+        
         var url = this._href;
 
         var newTab = false;
