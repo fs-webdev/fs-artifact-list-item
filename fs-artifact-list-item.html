@@ -916,10 +916,10 @@ Example:
         e.preventDefault();
         this._stopProp(e);
 
-         /* Modal viewer */
-        this.fire('view-artifact', {"artifact": this.data})
-        return;
-        /* end modal viewer */
+        if (FS.showEx('artifactViewerModalEx')) {
+          this.fire('view-artifact', {"artifact": this.data})
+          return;
+        }
         
         var url = this._href;
 
