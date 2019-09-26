@@ -506,7 +506,7 @@ Example:
             </div>
           </template>
           <template is='dom-if' if='{{_isAudio(data.category)}}' restamp>
-              <audio-item class="preview" audio-url='[[data.url]]'></audio-item>
+              <audio-item id="audio" class="preview" audio-url='[[data.url]]' tabindex="0" on-blur="_handleBlur"></audio-item>
           </template>
           <template is='dom-if' if='{{_showStoryIcon(data.category, data.thumbUrl)}}' restamp>
             <i class='story-icon preview'></i>
@@ -1121,7 +1121,13 @@ Example:
           });
         }
         return hasAttachedAudio;
-      }	    
+      },
+      _handleBlur: function(e) {
+        const audioItem = this.$$('#audio');
+        if (audioItem._audioObj.playing) {
+          audioItem.toggleAudio();
+        }   
+      }
     });
   </script>
 </dom-module>
