@@ -1,0 +1,19 @@
+{
+  "add_date": "Tilføj begivenhedsdato",
+  "add_place": "Tilføj begivenhedssted",
+  "add_title": "Tilføj titel",
+  "associated_audio": "Tilknyttet lydfil",
+  "check_email": "Tjek din e-mail tilknyttet din FamilySearch-konto for instruktioner.",
+  "comments": "Kommentarer forbundet med dette minde.",
+  "contributed_by": "Ved: {0}",
+  "contributed_by_link": "Ved: <span class='style-scope fs-artifact-list-item contributor-name' on-tap='_openContactCard'>{0}</span>",
+  "not_tagged": "Dette minde er ikke tagget.",
+  "processing": "Behandler",
+  "processing_fail": "Behandlingen mislykkedes. Slet og upload igen, eller kontakt support.",
+  "remaining_days_count": "{0} dage",
+  "restricted": "Begrænset adgang",
+  "restricted_info": "Dette minde er begrænset på grund af indhold (se <a target='blank' href=\"https://www.lds.org/legal/familysearch-upload-guidelines-and-policies\">Retningslinjer for at uploade</a>) og vil blive fjernet fra siden indenfor 30 dage.",
+  "screening": "Screening",
+  "upload_failed": "Upload mislykkedes. Slet og upload igen.",
+  "uploading": "Uploader"
+}
