@@ -118,9 +118,15 @@ Example:
         display: none;
       }
       .col-3 {
-        width: 28%;
+        width: 26%;
       }
       .col-4 {
+        width: 3%;
+      }
+      .col-4 span {
+        margin-top: 12px;
+      }
+      .col-5 {
         text-align: center;
       }
       .col .title {
@@ -198,7 +204,6 @@ Example:
       .comment-note, .tag-note {
         display: inline-block;
         vertical-align: middle;
-        width: 53px;
       }
       .error-text {
         background: #FDEEEE;
@@ -427,7 +432,7 @@ Example:
         .col-3 {
           display: none;
         }
-        .col-4 {
+        .col-5 {
           width: 9%;
           text-align: start;
           position: relative;
@@ -608,6 +613,14 @@ Example:
           </div>
         </div>
         <div class='col col-4'>
+          <span 
+            class="fs-tooltip" 
+            hidden="[[isPublic(data.visibility, privateMemoriesEx)]]" 
+            title="[[i18n('private_memory_tooltip')]]">
+            <fs-icon class="private-memory-icon" icon="sign-in-small"></fs-icon>
+          </span>
+        </div>
+        <div class='col col-5'>
           <div class='comment-note'>
             <a href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
               <i class='comment-icon' hidden='[[_hideComments(data.commentCount, _displayMessage)]]' title='[[i18n("comments")]]' href$='[[_href]][[_calcParams(view)]]'>[[data.commentCount]]</i>
@@ -781,6 +794,10 @@ Example:
         _titleError: {
           type: Boolean,
           value: false
+        },
+        privateMemoriesEx: {
+          type: Boolean,
+          value: function () { return FS.showEx('privateMemoriesEx') }
         }
       },
       observers: [
@@ -1127,6 +1144,9 @@ Example:
         if (audioItem._audioObj.playing) {
           audioItem.toggleAudio();
         }
+      },
+      isPublic: function (visibility, privateMemoriesEx) {
+        return privateMemoriesEx ? visibility === "PUBLIC" : true;
       }
     });
   </script>
