@@ -10,6 +10,7 @@
   "not_tagged": "此回忆未加上标签。",
   "processing": "处理中",
   "processing_fail": "处理失败。删除且重新上传或联络支援。",
+  "private_memory_tooltip": "此回忆不公开。只有你可以看见。",
   "remaining_days_count": "{0}天",
   "restricted": "受限制",
   "restricted_info": "此回忆由于内容的关系已受到限制（见<a target='blank' href=\"https://www.lds.org/legal/familysearch-upload-guidelines-and-policies\">上传准则和政策</a>），将于30天内从网站中移除。",
