@@ -1,6 +1,6 @@
 {
-  "not_tagged":"This memory is not tagged.",
-  "add_title":"Add Title",
+  "not_tagged": "This memory is not tagged.",
+  "add_title": "Add Title",
   "add_date": "Add Event Date",
   "add_place": "Add Event Place",
   "restricted": "Restricted",
@@ -15,5 +15,6 @@
   "comments": "Comments associated with this memory.",
   "upload_failed": "Upload failed. Delete, and upload again.",
   "remaining_days_count": "{0} days",
-  "associated_audio": "Associated Audio"
+  "associated_audio": "Associated Audio",
+  "private_memory_tooltip": "This memory is private. Only you can see it."
 }
