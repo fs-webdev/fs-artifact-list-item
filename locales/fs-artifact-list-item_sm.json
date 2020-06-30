@@ -8,6 +8,7 @@
   "contributed_by": "Saunia : {0}",
   "contributed_by_link": "Saunia e: <span class='style-scope fs-artifact-list-item contributor-name' on-tap='_openContactCard'>{0}</span>",
   "not_tagged": "E le o faailogaina le manatuaga lea.",
+  "private_memory_tooltip": "O lenei manatuaga e le faalauaiteleina. Na’o o oe e mafai ona vaai i ai.",
   "processing": "Faagaoioiga",
   "processing_fail": "E Lei Manuia le Faagasologa. Tapeese ma toe-uta i luga pe faafesootai le au lagolago.",
   "remaining_days_count": "{0} aso",

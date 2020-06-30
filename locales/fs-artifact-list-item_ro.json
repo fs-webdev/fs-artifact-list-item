@@ -8,6 +8,7 @@
   "contributed_by": "De: {0}",
   "contributed_by_link": "De: <span class='style-scope fs-artifact-list-item contributor-name' on-tap='_openContactCard'>{0}</span>",
   "not_tagged": "Această amintire nu este etichetată.",
+  "private_memory_tooltip": "Această amintire este privată. Doar tu o poți vedea.",
   "processing": "Se procesează",
   "processing_fail": "Procesare eșuată. Șterge și încarcă din nou sau contactează asistența.",
   "remaining_days_count": "{0} zile",
