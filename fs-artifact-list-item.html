@@ -614,10 +614,10 @@ Example:
           <!--Messages-->
           <!--Restricted-->
           <template is='dom-if' if='[[showMessages]]'>
-            <div class="message-text restricted" hidden="[[!screening]]" on-tap='_openInfoDialog'>
+            <div class="message-text restricted" hidden="[[!restricted]]" on-tap='_openInfoDialog'>
               <span>
                 [[i18n('restricted')]]
-                <span class="info-icon" hidden='[[!screening]]'></span>
+                <span class="info-icon" hidden='[[!restricted]]'></span>
               </span>
             </div>
   
