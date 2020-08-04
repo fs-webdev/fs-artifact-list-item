@@ -896,7 +896,7 @@ Example:
       },
       _hideTag: function(data, displayMessage) {
         if (displayMessage) return true;
-        return (data.photoTagCount - data.softTagCount) > 0;
+        return (data.photoTagCount - data.softTagCount || 0) > 0;
       },
       /*
         * Takes focus away from input, so keyboard closes on mobile devices.
