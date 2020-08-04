@@ -150,20 +150,13 @@ Example:
         font-size: .88rem;
       }
 
-      .screening {
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        right: 20px;
-      }
-
       .restricted {
         position: absolute;
-        padding: 0px 20px;
+        padding: 12px 20px;
         color: white;
         top: 0px;
         bottom: 0px;
-        right: 20px;
+        right: 0;
         background: rgba(0,0,0,0.65);
       }
 
@@ -202,6 +195,10 @@ Example:
         color: #555;
       }
       .comment-note, .tag-note {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .message-text {
         display: inline-block;
         vertical-align: middle;
       }
@@ -387,9 +384,6 @@ Example:
         .title .title-input {
           font-size: 16px;
         }
-        .right-text {
-          right: 50px;
-        }
         .attached-audio {
           bottom: -6px;
           right: -6px;
@@ -464,21 +458,6 @@ Example:
           height: 18px;
           position: relative;
         }
-      }
-
-      .layout.vertical {
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -ms-flex-direction: column;
-        -webkit-flex-direction: column;
-        flex-direction: column;
-      }
-
-      .layout.center-justified{
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
       }
 
       @media all and (max-width: 375px) {
@@ -629,45 +608,45 @@ Example:
           </div>
           <div class='tag-note'>
             <a metrics-id="Artifact: Add Tag Icon" href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
-              <i metrics-id="Artifact: Add Tag Icon" class$='not-tagged-icon [[_getNotTaggedIconClass()]]' hidden='[[_hideTag(data.photoTagCount, _displayMessage)]]' title='[[i18n("not_tagged")]]'></i>
+              <i metrics-id="Artifact: Add Tag Icon" class$='not-tagged-icon [[_getNotTaggedIconClass()]]' hidden='[[_hideTag(data, _displayMessage)]]' title='[[i18n("not_tagged")]]'></i>
             </a>
           </div>
+          <!--Messages-->
+          <!--Restricted-->
+          <template is='dom-if' if='[[showMessages]]'>
+            <div class="message-text restricted" hidden="[[!restricted]]" on-tap='_openInfoDialog'>
+              <span>
+                [[i18n('restricted')]]
+                <span class="info-icon" hidden='[[!restricted]]'></span>
+              </span>
+            </div>
+  
+            <!--Uploading-->
+            <div class="message-text" hidden="[[!uploading]]">
+              [[i18n('uploading')]]
+            </div>
+  
+            <!-- Upload Failed -->
+            <div class="error-text" hidden="[[!uploadFailed]]">
+              [[i18n('upload_failed')]]
+            </div>
+  
+            <!--Processing-->
+            <div class="message-text" hidden="[[!processing]]">
+              [[i18n('processing')]]
+            </div>
+  
+            <!--Error Processing-->
+            <div class="error-text" hidden="[[!processingFailed]]">
+              [[i18n('processing_fail')]]
+            </div>
+  
+            <!--Screening-->
+            <div class="message-text" hidden="[[!screening]]">
+              [[i18n('screening')]]
+            </div>
+          </template>
         </div>
-        <!--Messages-->
-        <!--Restricted-->
-        <template is='dom-if' if='[[showMessages]]'>
-          <div class="restricted layout vertical center-justified right-text" hidden="[[!restricted]]" on-tap='_openInfoDialog'>
-            <span>
-              [[i18n('restricted')]]
-              <span class="info-icon" hidden='[[!_showRestrictedIcon]]'></span>
-            </span>
-          </div>
-
-          <!--Uploading-->
-          <div class="screening layout vertical center-justified" hidden="[[!uploading]]">
-            [[i18n('uploading')]]
-          </div>
-
-          <!-- Upload Failed -->
-          <div class="error-text" hidden="[[!uploadFailed]]">
-            [[i18n('upload_failed')]]
-          </div>
-
-          <!--Processing-->
-          <div class="screening layout vertical center-justified right-text" hidden="[[!processing]]">
-            [[i18n('processing')]]
-          </div>
-
-          <!--Error Processing-->
-          <div class="error-text" hidden="[[!processingFailed]]">
-            [[i18n('processing_fail')]]
-          </div>
-
-          <!--Screening-->
-          <div class="screening layout vertical center-justified right-text" hidden="[[!screening]]">
-            [[i18n('screening')]]
-          </div>
-        </template>
       </template>
     </div>
   </template>
@@ -915,9 +894,9 @@ Example:
         if (displayMessage) return true;
         return count === 0;
       },
-      _hideTag: function(count, displayMessage) {
+      _hideTag: function(data, displayMessage) {
         if (displayMessage) return true;
-        return count > 0;
+        return (data.photoTagCount - data.softTagCount || 0) > 0;
       },
       /*
         * Takes focus away from input, so keyboard closes on mobile devices.
