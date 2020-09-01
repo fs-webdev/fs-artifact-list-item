@@ -452,10 +452,6 @@ Example:
           right: -2px;
           background-size: 14px;
         }
-        .tag-note {
-          top: -23px;
-          right: 5px;
-        }
         .comment-note {
           top: 20px;
           height: 18px;
@@ -463,6 +459,16 @@ Example:
         }
       }
 
+      @media all and (max-width: 766px) {
+        .col-5 .comment-note {
+          display: none;
+        }
+      }
+      @media all and (max-width: 475px) {
+        .col-5 .tag-note {
+          display: none;
+        }
+      }
       @media all and (max-width: 375px) {
         #container .place,
         #container .place-text,
