@@ -887,7 +887,9 @@ Example:
       },
       _hideTag: function(data, displayMessage) {
         if (displayMessage) return true;
-        return (data.photoTagCount - data.softTagCount || 0) > 0;
+        // Soft tag count only matters if it's an IMAGE
+        const tagCount = data.category === 'IMAGE' ? data.photoTagCount - data.softTagCount || 0 : data.photoTagCount;
+        return tagCount > 0;
       },
       /*
         * Takes focus away from input, so keyboard closes on mobile devices.
