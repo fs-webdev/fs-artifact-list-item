@@ -18,6 +18,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../fs-metrics/fs-metrics.html">
 <link rel="import" href="../fs-icon/fs-icon.html">
+<link rel="import" href="../fs-dialog/fs-anchored-dialog.html">
+<link rel="import" href="../fs-inner-html/fs-inner-html.html">
 
 <!--
 An element that renders any artifact in the gallery list format
@@ -350,6 +352,10 @@ Example:
         padding: 5px;
       }
 
+      fs-anchored-dialog#restrictedInfo {
+        min-width: 300px;
+      }
+
       @media all and (min-width: 768px) {
         .title-text:focus, .add-styles:focus {
           position: relative;
@@ -470,6 +476,9 @@ Example:
         }
       }
       @media all and (max-width: 375px) {
+        fs-anchored-dialog#restrictedInfo {
+          padding-top: 30px;
+        }
         #container .place,
         #container .place-text,
         #container .add-styles,
@@ -648,6 +657,12 @@ Example:
         </div>
       </template>
     </div>
+    <fs-anchored-dialog id="restrictedInfo" no-close-button>
+      <div class="fs-dialog__body">
+        <p><fs-inner-html value="[[i18n('restricted_info')]]"></fs-inner-html></p>
+        <p>[[i18n('check_email')]]</p>
+      </div>
+    </fs-anchored-dialog>
   </template>
 
   <script>
@@ -1040,12 +1055,10 @@ Example:
         e.stopPropagation();
         e.preventDefault();
         if (!this.showRestrictedInfo || this.owner !== this.data.contributorCisUserId) return;
-        var data = {};
-        data.translations = {};
-        data.translations.restrictedInfo = this.i18n('restricted_info');
-        data.translations.checkEmail = this.i18n('check_email');
-        data.target = this.$$('.info-icon');
-        this.fire('open-restricted-info', data);
+        this.$.restrictedInfo.open({ 
+          focusBackElement: this.$$('.info-icon'),
+          attachToElement: this.$$('.info-icon') 
+        });
       },
       _isOwner: function(experiment, user, contributor, restricted) {
         if (!restricted || !experiment) return false;
