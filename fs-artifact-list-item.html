@@ -626,7 +626,7 @@ Example:
           </div>
           <div class='tag-note'>
             <a metrics-id="Artifact: Add Tag Icon" href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
-              <i metrics-id="Artifact: Add Tag Icon" class$='not-tagged-icon [[_getNotTaggedIconClass()]]' hidden='[[_hideTag(data, _displayMessage)]]' title='[[i18n("not_tagged")]]'></i>
+              <i metrics-id="Artifact: Add Tag Icon" class$='not-tagged-icon [[_getNotTaggedIconClass()]]' hidden='[[_hideTagIcon(data, _displayMessage)]]' title='[[i18n("not_tagged")]]'></i>
             </a>
           </div>
           <!--Messages-->
@@ -900,11 +900,8 @@ Example:
         if (displayMessage) return true;
         return count === 0;
       },
-      _hideTag: function(data, displayMessage) {
-        if (displayMessage) return true;
-        // Soft tag count only matters if it's an IMAGE
-        const tagCount = data.category === 'IMAGE' ? data.photoTagCount - data.softTagCount || 0 : data.photoTagCount;
-        return tagCount > 0;
+      _hideTagIcon: function(data, displayMessage) {
+        return displayMessage || data.photoTagCount > 0;
       },
       /*
         * Takes focus away from input, so keyboard closes on mobile devices.
