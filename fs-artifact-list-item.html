@@ -613,7 +613,7 @@ Example:
           <span
             class="fs-tooltip"
             data-test="listPrivateMemory"
-            hidden="[[isPublic(data.visibility, privateMemoriesEx)]]"
+            hidden="[[isPublic(data.visibility)]]"
             title="[[i18n('private_memory_tooltip')]]">
             <fs-icon class="private-memory-icon" icon="sign-in-small"></fs-icon>
           </span>
@@ -780,10 +780,6 @@ Example:
         _titleError: {
           type: Boolean,
           value: false
-        },
-        privateMemoriesEx: {
-          type: Boolean,
-          value: function () { return FS.showEx('privateMemoriesEx') }
         }
       },
       observers: [
@@ -1105,8 +1101,8 @@ Example:
           audioItem.toggleAudio();
         }
       },
-      isPublic: function (visibility, privateMemoriesEx) {
-        return privateMemoriesEx ? visibility === "PUBLIC" : true;
+      isPublic: function (visibility) {
+        return visibility === "PUBLIC";
       },
       getImageUrl: function (imageUrl) {
         return FS.URL.appendParams(imageUrl, {session: FS.User.sessionId || ''})
