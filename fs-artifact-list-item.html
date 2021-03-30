@@ -625,8 +625,8 @@ Example:
             </a>
           </div>
           <div class='tag-note'>
-            <a metrics-id="Artifact: Add Tag Icon" href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
-              <i metrics-id="Artifact: Add Tag Icon" class$='not-tagged-icon [[_getNotTaggedIconClass()]]' hidden='[[_hideTagIcon(data, _displayMessage)]]' title='[[i18n("not_tagged")]]'></i>
+            <a metrics-id="[[_getArtifactType(data)]]: Add Tag Icon" href$='[[_href]][[_calcParams(view)]]' on-tap='_stopProp'>
+              <i metrics-id="[[_getArtifactType(data)]]: Add Tag Icon" class$='not-tagged-icon [[_getNotTaggedIconClass()]]' hidden='[[_hideTagIcon(data, _displayMessage)]]' title='[[i18n("not_tagged")]]'></i>
             </a>
           </div>
           <!--Messages-->
@@ -909,7 +909,7 @@ Example:
       _goToArtifact: function(e) {
         if (this.selectMode || this.data.tombstoned) return;
 
-        this.fireMetrics({link_name: 'Artifact: Click to View'});
+        this.fireMetrics({link_name: this._getArtifactType(this.data) + ': Click to View'});
 
         e.preventDefault();
         this._stopProp(e);
@@ -1100,6 +1100,37 @@ Example:
         if (audioItem._audioObj.playing) {
           audioItem.toggleAudio();
         }
+      },
+      _getArtifactType: function(artifact) {
+        var type = artifact.category;
+        if (type === 'IMAGE') {
+          if (this._imageContentCategory === 'PHOTO') {
+            type = 'IMAGE-PHOTO';
+          } else if (this._imageContentCategory === 'DOCUMENT') {
+            type = 'IMAGE-DOC';
+          }
+        } else if (type === 'TEXT') {
+          type = 'STORY'
+        }
+        return this._toProperCase(type);
+      },
+      _toProperCase: function(str) {
+        if (str) {
+          return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+            if (/\s+/.test(match)) {
+              return "";
+            }
+
+            if (index == 0 || (index > 0 && str[index - 1] === '-')) {
+              return match.toUpperCase();
+            }
+
+            return match.toLowerCase();
+          });
+        }
+      },
+      _getLinkName: function(artifact) {
+
       },
       isPublic: function (visibility) {
         return visibility === "PUBLIC";
